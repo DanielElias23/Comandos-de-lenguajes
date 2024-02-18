@@ -1,31 +1,86 @@
-git init                    "inicia git en esa carpeta"
+----------------------------------------COMANDOS GENERALES-------------------------------------------------------
 
-code .                      "abre visual studio code en esa carpeta"
+git init                               "inicia git en esa carpeta"
 
-git status  (-s)            "Ve el estado de los archivos si tienen cambios pendientes y en que estado estan
-                            -No reconocidos
-                            -En peticion (rojo)
-                            -En Stage (verde)
-                            -Commiteado ya se hizo efectivo el cambios
+code .                                 "abre visual studio code en esa carpeta"
 
-git log                     "Indica todos los cambios realizados a los archivos"
+git status  (-s)                       "Ve el estado de los archivos si tienen cambios pendientes y en que estado estan
+                                       -No reconocidos
+                                       -En peticion (rojo)
+                                       -En Stage (verde)
+                                       -Commiteado ya se hizo efectivo el cambios
 
-mkdir nombre_carpeta        "Crea una carpeta con ese nombre"
+git log  (-oneline)                    "Indica todos los cambios realizados a los archivos"
 
-ls (-a)                     "Muestra todos los archivos en esa carpeta"
+mkdir nombre_carpeta                   "Crea una carpeta con ese nombre"
 
-cd nombre_carpeta           "Ingresa a esa carpeta"
+ls (-a)                                "Muestra todos los archivos en esa carpeta"
 
-cd..                        "Se devuelve a la carpeta anterior"
+cd nombre_carpeta                      "Ingresa a esa carpeta"
 
-pwd                         "Muestra la ruta en la cual nos encontramos"
+cd..                                   "Se devuelve a la carpeta anterior"
+
+pwd                                    "Muestra la ruta en la cual nos encontramos"
+
+rm nombre_archivo                      "Borra el archivo, pero solo pasa a peticion"
+
+mv nombre_archivo nombre_archivo_nuevo "Cambia de nombre a un archivo pasa a peticion"
+
 
 ----------------------------------------AÑADIR CAMBIOS-----------------------------------------------------------
 
-PRIMERO GUARDAR EN VISUAL STUDIO CODE ---> SAVE ARCHIVO
+PRIMERO GUARDAR EN VISUAL STUDIO CODE ---> SAVE ARCHIVO  ---> PASAN A PETICION
 
-git add nombre_archivo      "Ingresa los cambios realizados de ese archivo a peticion"
+git add nombre_archivo                 "Ingresa los cambios realizados de ese archivo para pasarlo a STAGE"
 
-git add .py                 "Ingresa los cambios realizados solo de los archivos que terminen en .py"
+git add .py                            "Ingresa los cambios realizados solo de los archivos que terminen en .py para STAGE"
 
-git add .                   "Ingresa todos los cambios de todos los archivos a peticion"
+git add .                              "Ingresa todos los cambios de todos los archivos a STAGE"
+
+git commit -m "Resumen del cambio"     "Pasa los archivos que estan a STAGE a COMMIT"
+
+git diff                               "Para ver todos los cambios que estan en peticion explicitamente"
+
+git diff --staged                      "Para ver todos los cambios que esten en STAGE explicitamente
+"
+
+--------------------------------------DESHACER CAMBIOS-----------------------------------------------------------
+
+git restore nombre_archivo             "Anula cambios de archivos que esten en peticion"
+
+git restore --staged nombre_archivo    "Anula cambios de archivos que esten en STAGE"
+
+
+--------------------------------------IGNORAR ARCHIVOS-----------------------------------------------------------
+
+CREAR ARCHIVOS .gitignore EN LA CARPETA ----> DENTOR EN CADA LINEA ESCRIBIR EL NOMBRE DEL ARCHIVO
+OCULTARA EL ARCHIVO Y PARA COMANDOS GENERALES NO LO TOMARA EN CUENTA
+
+.gitignore --> SAVE --> STAGE --> COMMIT
+
+
+--------------------------------------COMANDO RAMAS--------------------------------------------------------------
+
+POR DEFECTO ESTARAS EN LA RAMA MAESTRA
+
+git branch -M nombre_rama              "CREA NUEVA RAMA"
+
+git branch                             "PARA SABER EN QUE RAMA ESTAMOS"
+
+git checkout -b nombre_rama            "CREA LA RAMA Y SE CAMBIARA A ESA NUEVA RAMA"
+
+git checkout nombre_rama               "SOLO SE CAMBIA DE RAMA (NO TRASPASA CAMBIOS)"
+
+git merge nombre_rama_fusionar         "DESDE LA MAESTRA SE OCUPA PARA TRASPASAR LOS CAMBIOS DE ESA RAMA"
+
+
+--------------------------------------GITHUB EN LA NUBE----------------------------------------------------------
+
+git remote add origin/modify "link de GITHUB"      "Es para enlazar, crear o modificar archivos en la nube"
+
+git push -u origin nombre_rama                "Para agregar los cambios solo de esa rama"
+
+git push                               "Para agregar todos los cambios de todas las ramas"
+
+
+
