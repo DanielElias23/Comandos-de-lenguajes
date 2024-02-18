@@ -1,0 +1,31 @@
+git init                    "inicia git en esa carpeta"
+
+code .                      "abre visual studio code en esa carpeta"
+
+git status  (-s)            "Ve el estado de los archivos si tienen cambios pendientes y en que estado estan
+                            -No reconocidos
+                            -En peticion (rojo)
+                            -En Stage (verde)
+                            -Commiteado ya se hizo efectivo el cambios
+
+git log                     "Indica todos los cambios realizados a los archivos"
+
+mkdir nombre_carpeta        "Crea una carpeta con ese nombre"
+
+ls (-a)                     "Muestra todos los archivos en esa carpeta"
+
+cd nombre_carpeta           "Ingresa a esa carpeta"
+
+cd..                        "Se devuelve a la carpeta anterior"
+
+pwd                         "Muestra la ruta en la cual nos encontramos"
+
+----------------------------------------AÑADIR CAMBIOS-----------------------------------------------------------
+
+PRIMERO GUARDAR EN VISUAL STUDIO CODE ---> SAVE ARCHIVO
+
+git add nombre_archivo      "Ingresa los cambios realizados de ese archivo a peticion"
+
+git add .py                 "Ingresa los cambios realizados solo de los archivos que terminen en .py"
+
+git add .                   "Ingresa todos los cambios de todos los archivos a peticion"
