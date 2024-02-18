@@ -41,8 +41,8 @@ git commit -m "Resumen del cambio"     "Pasa los archivos que estan a STAGE a CO
 
 git diff                               "Para ver todos los cambios que estan en peticion explicitamente"
 
-git diff --staged                      "Para ver todos los cambios que esten en STAGE explicitamente
-"
+git diff --staged                      "Para ver todos los cambios que esten en STAGE explicitamente"
+
 
 --------------------------------------DESHACER CAMBIOS-----------------------------------------------------------
 
@@ -76,11 +76,11 @@ git merge nombre_rama_fusionar         "DESDE LA MAESTRA SE OCUPA PARA TRASPASAR
 
 --------------------------------------GITHUB EN LA NUBE----------------------------------------------------------
 
-git remote add origin/modify "link de GITHUB"      "Es para enlazar, crear o modificar archivos en la nube"
+git remote add origin/modify "link de GITHUB"     "Es para enlazar, crear o modificar archivos en la nube"
 
-git push -u origin nombre_rama                "Para agregar los cambios solo de esa rama"
+git push -u origin nombre_rama                    "Para agregar los cambios solo de esa rama"
 
-git push                               "Para agregar todos los cambios de todas las ramas"
+git push                                          "Para agregar todos los cambios de todas las ramas"
 
 
 
