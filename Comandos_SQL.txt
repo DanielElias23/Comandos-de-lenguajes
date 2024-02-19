@@ -1,0 +1,50 @@
+------------------------------------------COMANDOS CREACION BASE DE DATOS-------------------------------------------
+
+CREATE DATABASE nombre_database                             "Crea una base de datos con el nombre nombre_database"
+
+DROP DATABASE nombre_database                               "Elimina completamente la base de datos"
+
+CREATE TABLE nombre_tabla (nombre_columna tipo_dato, ...)   "Crea una tabla con cierta cantidad de columnas con
+                                                             cierto tipo de dato definido"
+
+                                                             "Existen muchos tipos de datos dependen de la
+                                                             plataforma que se este ocupando, SQL server, mySQL, etc"
+
+                                                             "Estos tipos de datos generalmente se subdividen en
+                                                             string, numerico, fecha, hora, otros. La diferencia es
+                                                             el almacenamiento que gastan y permiten mas caracteres"
+
+ALTER TABLE nombre_tabla                                     "Es una declaracion de que se alterara la tabla, pero
+                                                              se debe especificar a contienuacion lo que se le hara"
+
+ALTER TABLE nombre_tabla ADD nombre_columna tipo_dato        "Agrega una columna mas al final de la tabla sin datos"
+
+ALTER TABLE nombre_tabla DROP nombre_columna                 "Elimina la columna nombre_columna"
+
+ALTER TABLE nombre_tabla RENAME COLUMN nombre_columna to nuevonombre_columna  "Cambia el nombre de la columna"
+
+ALTER TABLE nombre_tabla ALTER/MODIFY COLUMN nombre_columna tipo_dato    "Cambia el tipo de dato de la columna
+                                                                          es diferente segun la plataforma"
+
+DROP TABLE nombre_tabla                                      "Elimina la tabla completa"
+
+TRUNCATE TABLE nombre_tabla                                  "Elimina los datos de la tabla, pero no la tabla"
+
+
+-----------------------------------------------MANIPULACION DE DATOS-----------------------------------------------
+
+SELECT nombre_columna, ... FROM nombre_tabla                 "Muestra las columnas especificadas de esa tabla"
+
+INSERT INTO nombre_tabla (nombre_columna, ...)               "Agrega filas a la tabla se agrega al final, cada valor
+VALUES (valor1, valor2, ...)                                  estara asociado a una columna especificada"
+
+UPDATE nombre_tabla SET nombre_columna=valor1,               "Modifica o actualiza datos por los especificados en
+nombre_columna2=valor2, ... WHERE ID=2                        SET, la fila de ubicacion se especifica con WHERE"
+
+DELETE FROM nombre_tabla                                     "Elimina todos los datos de la tabla, excepto tipos y
+                                                              indices"
+
+DELETE FROM nombre_tabla WHERE condicion                     "Elimina solo los datos que cumplan con la condicion"
+
+
+
