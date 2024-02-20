@@ -7,13 +7,11 @@
                    -CREATE DATABASE, TABLE
                    -DROP
                    -ALTER 
-
         2. MANIPULACION DE DATOS                "Orden generales para mostrar, borrar, modificar datos de tablas"
                    -SELECT
                    -INSERT INTO
                    -UPDATE, SET
                    -DELETE
-
         3. CONDICIONANTES                       "Son comandos que se añaden a las ordenes de manipulacion generales
                    -WHERE                        para condicion el contenido que se muestra, borra, modifica, etc"
                    -AND
@@ -22,7 +20,6 @@
                    -IN, NOT IN
                    -BETWEEN
                    -LIKE          
-
         4. OTROS COMANDOS IMPORTANTES           "Son comandos de orden, abreviacion, entre otros que se añaden
                    -Comentarios                  a los comandos generales y a los condicionantes"
                    -AS
