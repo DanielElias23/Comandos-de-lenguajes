@@ -3,7 +3,7 @@
                                |             INDICE               |
                                |__________________________________|
 
-            1. COMANDOS GENERALES        "Son para moverse, crear, renombrar, etc en la terminal"
+            1. COMANDOS GENERALES        "Son para moverse, crear, renombrar, etc archivos en la terminal"
             2. AÑADIR CAMBIOS            "Son para añadir cambios a los archivos paso por paso" 
             3. DESHACER CAMBIOS          "Es para restaurar archivos que han sido cambiados"
             4. IGNORAR ARCHIVOS          "Truco para ocupar comandos generales ignorando archivos"
