@@ -1,0 +1,71 @@
+----------------------------------------------FUNCIONES DE AGREGACION------------------------------------------------
+
+COUNT()                                                       "Permite contar la cantidad de registros de la columna"
+
+SELECT COUNT(nombre_columna) FROM nombre_tabla                "Muestra la cantidad de datos de la columna"
+
+
+SUM()                                                         "Suma todos los valores de la tabla, solo para numeros"
+
+SELECT SUM(nombre_columna) FROM nombre_tabla                  "Muestra la suma de todos los datos de la columna"
+
+
+AVG()                                                         "Promedia todos los valores de toda la columna"
+
+SELECT AVG(nombre_columna) FROM nombre_tabla                  "Muestra el valor promedio de todos los datos de la 
+                                                               columna"
+
+
+ROUND()                                                       "Esta funcion redonde valores decimales a enteros"
+
+SELECT ROUND(nombre_columna) FROM nombre_tabla                "Muestra todos los datos de esa columna redondeados"
+
+SELECT ROUND(AVG(nombre_columna)) FROM nombre_tabla           "Puede ocuparse dos funciones, redondea el promedio"
+
+
+
+MIN()                                                         "Toma el valor solo el valor minimo de una columna"
+
+SELECT MIN(nombre_columna) FROM nombre_tabla                  "Mostrara el valor minimo de la columna"
+
+
+MAX()                                                         "Toma solo el valor maximo de la columna"
+
+SELECT MAX(nombre_columna) FROM nombre_tabla                  "Muestra el valor maximo de la columna"
+
+
+
+-----------------------------------------------------AGRUPADORES-----------------------------------------------------
+
+
+GROUP BY                                                      "El comando entiende que ciertes registros pertencen
+                                                               al mismo tipo, por ello los agrupa y suma en la columna
+                                                               de conteo de los del mismo tipo"
+                                                              "No es facil para programar porque hay que tener en
+                                                               cuenta en base a que se agruparan"
+
+SELECT * FROM nombre_tabla GROUP BY nombre_columna            "Agrupa todos los datos para mostrarse en base a 
+                                                               nombre_columna, la idea es que generalmente la tabla
+                                                               este hecha para esa columna como principal, sea la
+                                                               primary key"
+                                                              "En caso contrario no funcionara y mostrara valores que
+                                                               no se suman, en defecto solo el primer valor"
+ 
+
+SELECT nombre_columna1, AVG(nombre_columna2) FROM nombre_tabla GROUP BY nombre_columna1
+                                                              "Se pueden ocupar funciones que tambien se mostraran
+                                                               para lo que se agrupo, pero deben tener sentido para
+                                                               que se muestren correctamente, en este caso el primedio
+                                                               para la nombre_columna1"
+
+
+
+HAVING                                                        "Es para poner conficiones a GROUP BY, se pone al final,
+                                                               pero el condicionamiento lo toma antes de GROUP BY"
+
+SELECT nombre_columna1, AVG(nombre_columna2) AS promedio FROM nombre_tabla WHERE nombre_columna3 IS NOT NULL GROUP BY 
+nombre_columna1 HAVING promedio > 40
+                                                              "Es complejo de ver, pero el condicionamiento se hace antes
+                                                               de agrupar los valores, se agrupan para nombre_columna1"
+
+                                                                                                                            
