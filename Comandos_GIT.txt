@@ -77,6 +77,8 @@ git merge nombre_rama_fusionar         "DESDE LA MAESTRA SE OCUPA PARA TRASPASAR
 --------------------------------------GITHUB EN LA NUBE----------------------------------------------------------
 
 git remote add origin/modify "link de GITHUB"     "Es para enlazar, crear o modificar archivos en la nube"
+                                                  (Solo se necesita hacer una vez por carpeta, si se quiere subir
+                                                  otro archivo omite este paso)
 
 git push -u origin nombre_rama                    "Para agregar los cambios solo de esa rama"
 
