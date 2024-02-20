@@ -1,3 +1,37 @@
+                                        ___________________________________
+                                        |                                  |
+                                        |             INDICE               |
+                                        |__________________________________|
+
+        1. COMANDOS CREACION BASE DE DATOS      "Comandos de creacion, modificacion de base de datos y tablas"
+                   -CREATE DATABASE, TABLE
+                   -DROP
+                   -ALTER 
+
+        2. MANIPULACION DE DATOS                "Orden generales para mostrar, borrar, modificar datos de tablas"
+                   -SELECT
+                   -INSERT INTO
+                   -UPDATE, SET
+                   -DELETE
+
+        3. CONDICIONANTES                       "Son comandos que se añaden a las ordenes de manipulacion generales
+                   -WHERE                        para condicion el contenido que se muestra, borra, modifica, etc"
+                   -AND
+                   -OR
+                   -NOT
+                   -IN, NOT IN
+                   -BETWEEN
+                   -LIKE          
+
+        4. OTROS COMANDOS IMPORTANTES           "Son comandos de orden, abreviacion, entre otros que se añaden
+                   -Comentarios                  a los comandos generales y a los condicionantes"
+                   -AS
+                   -ORDER BY, ASC, DESC
+                   -RANDOM()
+                   -LIMIT
+                   -IS NULL, IS NOT NULL
+
+
 ------------------------------------------COMANDOS CREACION BASE DE DATOS-------------------------------------------
 
 
@@ -178,7 +212,7 @@ SELECT * FROM nombre_tabla WHERE nombre_columna LIKE "D_n_el"  "Buscara todas la
 
         
 
------------------------------------------------OTRAS COMANDOS IMPORTANTES--------------------------------------------
+-----------------------------------------------OTROS COMANDOS IMPORTANTES--------------------------------------------
                                                                
 --                                                          "Es para realizar COMENTARIOS en el codigo"
 
