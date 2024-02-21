@@ -63,6 +63,20 @@ DROP TABLE nombre_tabla                                      "Elimina la tabla c
 
 TRUNCATE TABLE nombre_tabla                                  "Elimina los datos de la tabla, pero no la tabla"
 
+PRIMARY KEY                                                  "Se ocupara para definir cual sera la clave primaria
+                                                              idealmente se hace al principio porque deben ser unicos
+                                                              se recomienda ocupar auto incremento para no tener errores"
+
+AUTO_INCREMENT (IDENTITY(1,1) depende de la plataforma")     "Se ocupa para que cada vez que se inserte o cree un nuevo,
+                                                              valor este sea unico y incremente automaticamente"
+
+CREATE TABLE Persons (Personid int NOT NULL AUTO_INCREMENT, LastName varchar(255) NOT NULL, FirstName varchar(255),
+Age int, PRIMARY KEY (Personid))              
+                                                             "Importante notar que el AUTO_INCREMENT se poner al lado
+                                                              del nombre de la columna y PRIMARY KEY alfinal se 
+                                                              define"
+
+
 
 
 

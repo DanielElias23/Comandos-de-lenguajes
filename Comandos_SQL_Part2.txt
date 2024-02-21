@@ -1,3 +1,17 @@
+                                        ___________________________________
+                                        |                                  |
+                                        |             INDICE               |
+                                        |__________________________________|
+
+         1. FUNCIONES DE AGREGACION           "Son funciones que hacen diferentes calculos de forma breve"                   
+         2. AGRUPADORES                       "Son comandos que permiten agrupar datos de las tablas"
+         3. JOINS                             "Son comandos que permiten juntar tablas"
+         4. INDICES                           "Los indices se ocupara para reducir tiempo de las consultas"                      
+         5. VISTAS                            "Las vistas son consultas que quedan guardadas"
+         6. TRANSACCIONES                     "Las transaciones son para modificar datos de la base de datos"
+
+
+
 ----------------------------------------------FUNCIONES DE AGREGACION------------------------------------------------
 
 COUNT()                                                       "Permite contar la cantidad de registros de la columna"
@@ -68,4 +82,111 @@ nombre_columna1 HAVING promedio > 40
                                                               "Es complejo de ver, pero el condicionamiento se hace antes
                                                                de agrupar los valores, se agrupan para nombre_columna1"
 
-                                                                                                                            
+
+
+-------------------------------------------------------JOINS---------------------------------------------------------
+
+
+CROSS JOINS                                                   "Multiplica columnas de una tabla con los de la otra
+                                                               tabla"
+
+SELECT * FROM nombre_tabla1 CROSS JOINS nombre_tabla2         "Muestra todas las columnas, pero multiplicadas de ambas
+                                                               tablas 5 x 5 = 25 registros" "El primer registro de la
+                                                               nombre_tabla1 le agrega todas los registrosde la 
+                                                               nombre_tabla2 eso da 5 registros, se hace para segundo
+                                                               registro de nombre_tabla1, creando 5 mas y asi
+                                                               sucesivamente"
+
+
+
+INNER JOINS  (el mas utilizado)                               "Se ocupa para juntar dos tablas en base a la columna
+                                                               que es igual en las dos tablas"
+
+SELECT * FROM nombre_tabla1 INNER JOINS nombre_tabla2 ON nombre_tabla1.nombre_columna2 = nombre_tabla2.nombre_columna4
+                                                              "Reconoce que las dos columnas puestas como iguales
+                                                               de las dos tablas señaladas tienen los mismos datos,
+                                                               los junta en una sola tabla, las columnas que mostrara
+                                                               depende de lo que le especifiquemos al principio"
+
+
+RIGHT JOIN                                                    "Muestra solo los de la tabla de la derecha y las coincidencias"
+
+SELECT * FROM nombre_tabla1 RIGHT JOIN nombre_tabla2 ON nombre_tabla1.nombre_columna2 = nombre_tabla2.nombre_columna4
+                                                              "Es un poco no clara de entender la utilidad pues Muestra
+                                                              en este caso la nombre_tabla2 y las columnas coicidentes,
+                                                              pero eso se puede señalar en SELECT"
+
+ 
+LEFT JOIN                                                    "Muestra solo los de la tabla de la izquierda y las coincidencias"                                                       
+
+SELECT * FROM nombre_tabla1 LEFT JOIN nombre_tabla2 ON nombre_tabla1.nombre_columna2 = nombre_tabla2.nombre_columna4
+                                                             "Es un poco no clara de entender la utilidad pues muestra
+                                                              la tabla de la izquierda completa en este caso la
+                                                              nombre_tabla1 mas las columnas coincidentes"
+
+
+FULL JOIN (FULL OUTER JOIN es lo mismo)                      "Sirve para juntar dos tablas en una por media de
+                                                              coincidencias"
+
+SELECT * FROM nombre_tabla1 FULL JOIN nombre_tabla2 ON nombre_tabla1.nombre_columna1 = nombre_tabla2.nombre_columna4 
+                                                             "Muestra todas las columnas de las dos tablas unidas por
+                                                             su columna en comun unida con el igual arriba"   
+
+
+
+-----------------------------------------------------INDICES---------------------------------------------------------
+
+
+
+Los indices tienen una funcion diferentes, se ocupan para optimizar la informacion, que sea mas rapido hacer consultas,
+pero ocupan mas almacenamiento, solo se hacen una vez y quedan guardados.
+
+CREATE INDEX                                                 "Crea un indice que es una especie de valor unico para
+                                                              cada dato, para evitar valores repetidos se ocupa
+                                                              UNIQUE"
+
+CREATE UNIQUE INDEX nombre_indice ON nombre_tabla1 (nombre_columna1, nombre_columna2, etc)
+                                                             "Crea una valor unico para cada dato, mejora el
+                                                              rendimiento de las consultas"
+
+
+
+------------------------------------------------------VISTAS---------------------------------------------------------
+
+
+
+"Tambien tiene una funcion diferentes a los comandos, se llaman vistas las consultas que quedan guardadas, son algo
+asi como consultas recurrentes, para no volver a hacerlas en la base de datos."
+
+CREATE VIEW nombre_vista SELECT * ...                        "Crea una tabla con esa consulta que queda guardada"
+
+IMPORTANTE!!                                                 "Las vistas se citan igual que las tablas, por lo que
+                                                              hay que tener cuidado con nombrarlas iguales"
+
+DROP VIEW IF EXIST nombre_tabla                              "Verifica si hay una tabla que se llame asi para borrarla"
+DROP VIEW nombre_vista  
+
+
+
+----------------------------------------------------TRANSACCIONES----------------------------------------------------
+
+
+"Para hacer cambios, estos no se traspasan a la base de datos, hay veces que existen bloqueos que no dejan hacer tales
+transacciones, para cambiar o agregar datos se debe hacer una transaccion"
+
+
+BEGIN (TRANSACCION no necesario)                             "Se pone para iniciar una transaccion"
+
+BEGIN;
+
+UPDATE nombre_tabla SET nombre_columna1="Juan"
+
+----------------> En este paso se hace el cambio, pero se puede volver atras
+
+ROLL BACK (solo)                                             "Deshace el cambio"
+
+----------------> Si no se aplico ROLL BACK al cambio, enconces se confirma
+
+COMMIT                                                       "Hace efectivo el cambio y este no se podra deshacer"
+
+
