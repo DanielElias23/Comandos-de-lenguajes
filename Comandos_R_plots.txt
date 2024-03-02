@@ -1,4 +1,4 @@
-#HISTOGRAMAS
+                                                           #HISTOGRAMAS
 
 Con los graficos de base
 
@@ -52,12 +52,14 @@ par()                                      "par es una funcion que permite hacer
 
 par(mfrow=c(1,2))                          "nfrow es una matriz, sirve para configurar varios graficos y ordenarlos a tu
                                             gusto, ejemplo c(2,2) es para 4 graficos, c(1,2) solo para dos graficos, como
-                                            una matriz de graficos"
+                                            una matriz de graficos visuales"
 
 
 
 legend()                                   "Es para poner legenda a histogramas, sobre todo a los que estan juntos,
-                                            en un mismo grafico, los siguientes comandos estan dentro de legend"
+                                            en un mismo grafico, los siguientes comandos estan dentro de legend, 
+                                            los primeros valores son x, y, ubicaciones de la caja, tambien se puede
+                                            poner "topright" o "lowerleft", etc"
 
 title (title="titulo")                     "Es el titulo, pero que solo va dentro de la caja de legenda"
 
@@ -94,6 +96,6 @@ hist(x=diamonds$price, add=TRUE, breaks=60, main="Precio de diamantes", xlab="Pr
      xaxp=c(0,20000,10))
 
 
-legend(12000,12000, title="HISTORGRAMA",title.adj = 0.5, text.font = 2,
+legend(12000,12000, title="HISTORGRAMA", title.adj = 0.5, text.font = 2,
        legend=c("Line 1", "Line 2"),
        fill=c("Blue",rgb(0,1,0)), cex=0.8, horiz=TRUE)
