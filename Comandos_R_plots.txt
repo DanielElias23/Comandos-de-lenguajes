@@ -1,0 +1,99 @@
+#HISTOGRAMAS
+
+Con los graficos de base
+
+hist()                                     "Es la funcion para hacer los histogramas, todos los siguientes comandos
+                                            van dentro de esta funcion"
+
+breaks (breaks=20)                         "Puede ponerse con numeros simple, en simple son la cantidad de barras que
+                                            quieres poner, puede ser 2 o 3, tambien se puede especificar donde empieza
+                                            cada barra con un vector"
+
+main (main="titulo)"                       "Es para poner el titulo del grafico"
+
+xlab (xlab="titulo en x")                  "Es el nombre del eje x, un titulo"
+
+ylab (ylab="titulo en y")                  "Es el nombre del eje y, un titulo"
+
+xlim (xlim=c(0,10000))                     "Es para poner los limites de los ejes y sus datos, en este caso eje x"
+
+ylim (ylim=c(0,10000))                     "Es para poner los limites de los ejes y sus datos, en este caso eje y"
+
+col (col="blue")                           "Elegir un color para el histograma"
+
+density (density=TRUE)                     "Es para que el histograma no este completamente coloreado, sino cierta parte,
+                                            se puede poner completamente (FALSE) o lo contrario, tambien se le puede poner
+                                            un valor numerico como porcentaje"
+
+border (border="red")                      "Es el color del borde de las barras"
+
+xaxp  (xaxp=c(0,10000,10))                 "Es la cantidad de deviciones que tiene el graduado del eje, c(inicio_eje, 
+                                            termino_eje, cantidad_de_diviciones_del_eje), en este caso el eje x"
+
+yaxp  (yaxp=c(0,5000,5))                   "Es la cantidad de deviciones que tiene el graduado del eje, c(inicio_eje, 
+                                            termino_eje, cantidad_de_diviciones_del_eje), en este caso el eje y"
+
+add  (add=TRUE)                            "Es para el segundo grafico, solo se pone en el segundo histograma, es para
+                                            que los dos graficos esten juntos en un mismo grafico"
+
+rgb() (rgb(1,0,0))                         "Es un color que se pone como funcion, indica los 3 colores 1 es todo el color"
+
+alpha (rgb(1,0,0, alpha=0.5))              "alpha va dentro de rgb, es la transparencia del color"
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------
+                   
+                                             "OTRAS CONFIGURACIONES"
+
+
+par()                                      "par es una funcion que permite hacer diferentes configuraciones de graficos"
+
+par(mfrow=c(1,2))                          "nfrow es una matriz, sirve para configurar varios graficos y ordenarlos a tu
+                                            gusto, ejemplo c(2,2) es para 4 graficos, c(1,2) solo para dos graficos, como
+                                            una matriz de graficos"
+
+
+
+legend()                                   "Es para poner legenda a histogramas, sobre todo a los que estan juntos,
+                                            en un mismo grafico, los siguientes comandos estan dentro de legend"
+
+title (title="titulo")                     "Es el titulo, pero que solo va dentro de la caja de legenda"
+
+title.adj (title.adj=0.5)                  "Es la ubicacion del titulo dentro de la caja se puede correr, segun el valor"
+
+title.col (title.col="blue")               "Es el color del titulo de la legenda"
+
+text.font (text.font=2)                    "Es el tipo de letra o si es cursiva o negrita, cada numero entero significa
+                                            un tipo de letra 1,2,3,..."
+
+legend (legend=c("subtitulo", "subtitulo")) "Es para poner cada subtitulo de la legenda por cada grafico"
+
+fill (fill=c("blue","red"))                "Es para el cuadradito o linea que acompaña el subtitulo, es para elegir el color,
+                                            no se hace automatico, la idea es elegir el mismo de los graficos, va de arriba
+                                            hacia abajo el color o de izquierda a derecha, se colocan en ese orden"
+
+cex (cex=0.8)                              "Es el tamaño de la caja de la legenda"
+
+horiz (horiz=TRUE)                         "La caja de la legenda se puede poner horizontal o vertical, en horizontal se
+                                            debe poner TRUE"
+
+
+
+
+Ejemplos:
+hist(x=diamonds$price, breaks=60, main="Precio de diamantes", xlab="Precio",
+     ylab="Frecuencia", ylim=c(0,13000), xlim=c(0,20000),
+     col="blue",
+     border="red", xaxp=c(0,20000,10))
+
+hist(x=diamonds$price, add=TRUE, breaks=60, main="Precio de diamantes", xlab="Precio",
+     ylab="Frecuencia", ylim=c(0,13000), xlim=c(0,20000), 
+     col=rgb(0,1,0, alpha=0.4),
+     xaxp=c(0,20000,10))
+
+
+legend(12000,12000, title="HISTORGRAMA",title.adj = 0.5, text.font = 2,
+       legend=c("Line 1", "Line 2"),
+       fill=c("Blue",rgb(0,1,0)), cex=0.8, horiz=TRUE)
