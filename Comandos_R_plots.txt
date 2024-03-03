@@ -1,3 +1,106 @@
+                     
+                                                        #GRAFICO DE CAJAS
+
+boxplot()  (boxplot(diamonds$columna))     "Es para graficar cajas que para esa columna, solo se puede graficar con un dato
+                                            en especifico, lo que sigue son los comandos que se pueden poner dentro de esta
+                                            funcion"
+
+data  (data=diamonds)                      "Es para especificar el dataframe que se ocupara, con esto se puede poner
+                                            simplemente la columna sin necesida de colocar el dataframe"
+
+main  (main="titulo")                      "Es para el titulo del grafico"
+
+xlab o ylab  (xlab="subtitulo")            "Es para poner un subtitulo a algun eje, OJOOOOO! debe ser solo uno, el eje
+                                            que se esta ocupando para la caja"
+
+xlim o ylim  (xlim=c(0,10000))             "Es para poner el limite al grafico, OJOOOOOO! solo debe ser uno, el eje que
+                                            que se esta ocupando para la caja"
+
+horizontal  (horizontal=TRUE)              "Es para que el grafico de caja cambie de orientacion"
+
+col  (col="blue")                          "Es para darle color a la caja"
+
+border (border="red")                      "Es para darle color al borde de la caja"
+
+lty (lty=1)                                "Es para definir el tipo de linea de la caja, cada numero entero es un tipo
+                                            de linea"
+
+~  (columna_numerica ~ columna_categoria)  "Agrupa categorias y muestra varias cajas con el dato numerico"
+                                           
+
+
+#Personalizacion solo de la caja 
+
+boxwex  (boxwex=1)                         "Es para el ancho de la caja, depende de la orientacion, 1 es 100% por defecto"
+
+boxlty  (boxlty=1)                         "Es para definir el tipo de linea de la caja"
+
+boxlwd (boxlwd=1)                          "Es para definir el grosor de la linea de la caja"
+
+boxcol (boxcol="blue")                     "Es para el color del borde de la caja"
+
+boxfill (boxfill="red")                    "Es para el color de fonde de la caja"
+
+
+#Personalizacion solo de la mediana
+
+medlty  (medlty=2)                         "Tipo de línea de la mediana, cada entero es un tipo de linea diferente"
+
+medlwd  (medlwd=2)                         "Ancho de línea de la mediana"
+
+medpch  (medpch=21)                        "Es para colocarle un simbolo a la mediana, cada numero es un diferente simbolo"
+
+medcex  (medcex=2)                         "Tamaño del símbolo"
+
+medcol  (medcol="blue")                    "Color de la línea de la mediana"
+
+medbg  (medbg=4)                           "Color del simbolo (21 a 25)
+
+
+#Personalizacion de los bigotes
+
+whisklty  (whisklty=2)                     "Tipo línea bigotes"
+
+whisklwd   (whisklwd=2)                    "Grosor de las lineas de los bigotes"
+
+whiskcol   (whiskcol="red")                "Color de las lineas de los bigotes"
+
+staplelty  (staplelty=3)                   "Tipo línea barras"
+
+staplelwd  (staplelwd=2)                   "Ancho línea barras"
+
+staplecol   (staplecol="blue")             "Color barras"
+
+
+#Personalizacion de los outliers"
+
+outlty  (outlty=0)                         "Tipo de línea, 0 es sin linea"
+
+outlwd  (outlwd=1)                         "Ancho de línea"
+
+outpch   (outpch=23)                       "Símbolo para cada valor de los outliers"
+
+outcex   (outcex=2)                        "Tamaño de los simbolos de los outliers"
+
+outcol   (outcol=1)                        "Color del borde de los de los simbolos de outliers"
+
+outbg    (outbg=4)                         "Color de fondo de los simbolos (pch 21 a 25)"
+
+
+
+Ejemplo:
+boxplot(x ~ clarity, data=diamonds, main="Precio de diamantes",  boxwex = 0.2,
+        boxlty = 1,
+        boxlwd = 3, pch=2, ylim=c(0, 13),
+        col=1:8,
+        border="red")
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------
+
+
                                                            #HISTOGRAMAS
 
 Con los graficos de base
@@ -45,6 +148,7 @@ alpha (rgb(1,0,0, alpha=0.5))              "alpha va dentro de rgb, es la transp
 
 ---------------------------------------------------------------------------------------------------------------------------
                    
+
                                              "OTRAS CONFIGURACIONES"
 
 
