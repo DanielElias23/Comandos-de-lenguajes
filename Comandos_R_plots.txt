@@ -46,8 +46,13 @@ cos  (curve(cos))                           "Hace la funcion coseno, solo hay qu
 
 function()  (curve(function(x^3)))          "Hace funciones que son curvas tambien, solo especifica hasta donde llegara"
 
+ejemplo:
+plot(x ~ y, data=diamonds, type = "l",
+     xlim = c(0.5, 5.5),
+     ylim = c(150, 750))
+text(10, 150, "Caida del grafico")
 
-
+las legends y como agregar estan al final
 
 ---------------------------------------------------------------------------------------------------------------------------     
 
