@@ -1,16 +1,38 @@
-                                                         #GRAFICO DE lINEAS
+                               ___________________________________
+                               |                                  |
+                               |             INDICE               |
+                               |__________________________________|
 
-plot()  (plot(x ~ y, data=diamonds))       "Es para graficar lineas deben ser dos cantidades de datos, todos los comandos
-                                            que siguen son para esta funcion"
+            1. GRAFICOS DE LINEAS Y PUNTOS       "Comandos para crear y personalizar graficos de linea, puntos y grid"
+            2. POLIGONOS                         "Funciones para crear poligonos en los graficos" 
+            3. GRAFICO DE CAJAS                  "Funciones para crear y personalizar grafico de cajas"
+            4. HISTOGRAMAS                       "Funciones para crear y personalizar histogramas"
+            5. OTRAS CONFIGURACIONES             "Configuraciones adicionales como labels, textos y multigraficos"
+            6. GRAFICO DE BARRAS                 "Funciones para crear y personalizar grafico de barras"
+            7. GRAFICOS CIRCULARES               "Funciones para crear y personalizar graficos circulares"
 
-type  (type="1")                           "Es para el tipo de grafico de linea estandar, viene de base"
 
-type  (type="s")                           "Es para el tipo de grafico de linea escalera"
+---------------------------------------------------------------------------------------------------------------------------
 
-type  (type="b")                           "Es para el tipo de grafico de segmentos con puntos"
+                                                 #GRAFICO DE lINEAS Y PUNTOS
 
-type  (type="o")                           "Es para el tipo de grafico de segmentos con puntos, pero la linea aparecera
+
+
+plot()  (plot(x ~ y, data=diamonds))        "Es para graficar se deben tener dos cantidades de datos, todos los comandos
+                                             que siguen son para esta funcion, por defecto es un grafico de dispercion con
+                                             pch para definir los simbolos, para lineas se debe poner type="l", EXISTE
+                                             la posibilidad de dibujar solo el margen sin nada con plot(0)"
+
+type  (type="l") (es una ele no 1)          "Es para el tipo de grafico de linea estandar, viene de base"
+
+type  (type="s")                            "Es para el tipo de grafico de linea escalera"
+
+type  (type="b")                            "Es para el tipo de grafico de segmentos con puntos"
+
+type  (type="o")                            "Es para el tipo de grafico de segmentos con puntos, pero la linea aparecera
                                             encima"
+
+type  (type="n")                            "Es para no dibujar nada en el grafico"                                            
 
 main  (main="titulo")                       "Es para el titulo del grafico"
 
@@ -24,7 +46,8 @@ lwd  (lwd=2)                                "Es para el grosor de la linea"
 
 lty  (lty=2)                                "Es para el tipo de linea, entrecortada, etc, cada numero es un tipo de linea"
 
-pch  (pch=21) solo type="o"                 "Es para el tipo de simbolo en tipo de linea"
+pch  (pch=21) solo type="o" o sin type      "Es para el tipo de simbolo en tipo de linea, cada numero es un simbolo,
+                                             tambien se puede poner letras con pch="o" "
 
 bg  (bg="blue")                             "Es el color del simbolo"
 
@@ -36,6 +59,13 @@ text()  (text(x, y, "texto"))               "Para poner un texto en el grafico, 
 
 text   (text(x=c(1,2...), y=c(1,2), c("hola1", "hola2"...), col="blue"))   "Pone texto en cada punto"
 
+lines()                                     "Es para hacer graficos de linea, pero no genera el margen del grafico,
+                                             solo la linea, es para agregar en un grafico ya hecho"
+
+point()                                     "Es para agregar en un grafico ya hecho, agrega puntos encima de otro grafico
+                                             ya hecho, en este caso es bueno condicionar los puntos para cambiarles el color,
+                                             ejemplo: x[x > 10], y[x > 10] con un color y el otro grafico con la condiciona
+                                             opuesta"                                             
 
 
 curve()                                     "Es para hacer graficos con artas curvas, lo que sigue es para esta funcion"
@@ -46,6 +76,26 @@ cos  (curve(cos))                           "Hace la funcion coseno, solo hay qu
 
 function()  (curve(function(x^3)))          "Hace funciones que son curvas tambien, solo especifica hasta donde llegara"
 
+
+plot.new()                                  "Es para que la grid se coloque atras del grafico, se pone antes del grafico
+                                             solo sirve para el grafico PLOT, para otro grafico como HIST, etc debes, poner
+                                             un grafico hist(x), despues grid(), el grafico real con hist(x, add=TRUE)"
+                                                                                                                            
+
+grid()                                      "Hace una grilla en el grafico, se debe colcar despues del grafico"
+
+nx  (grid(nx=NA))                           "Hace desaparecer la linea horizonal de la grilla"
+
+ny  (grid(ny=NA))                           "Hace desaparecer la linea vertical de la grilla"
+
+nx  (grid(nx=3))                            "Hace que el grafico se divida en tres secciones por la grilla horizontal"
+
+ny  (grid(ny=2))                            "Hace que el grafico se divida en dos secciones por la grilla vertical"
+
+lty = 1, col = "gray", lwd = 1              "Sirven para personalizar la linea cumplen las mismas funciones para anteriores
+                                             para la grilla, lty tipo de linea, col color, lwd ancho de la linea"
+
+
 ejemplo:
 plot(x ~ y, data=diamonds, type = "l",
      xlim = c(0.5, 5.5),
@@ -54,8 +104,43 @@ text(10, 150, "Caida del grafico")
 
 las legends y como agregar estan al final
 
+
+
+ejemplo de grilla con color de fondo:
+boxplot(x)
+
+# Color de fondo gris
+rect(par("usr")[1], par("usr")[3],
+     par("usr")[2], par("usr")[4],
+     col = "#ebebeb")
+
+# Grid blanco
+grid(nx = NULL, ny = NULL,
+     col = "white", lwd = 2)
+
+# Box plot
+boxplot(x, col = 4, add = TRUE)
+
 ---------------------------------------------------------------------------------------------------------------------------     
 
+                                                           #POLIGONOS
+
+polygon()  (polygon(xpuntos, ypuntos))     "Para crear figuras con caras, podemos ocupar esta funcion que crea poligonos 
+                                            solamente hay que especificarle los puntos que necesita para el poligono, ejemplo
+                                            para un triangulo poner 3 puntos en el grafico ya creado"
+
+col (col="blue")                           "Es para el color de fondo del poligono"
+
+border  (border="red")                     "Es para el color del borde del poligono"
+
+border = NA                                "Es interesante este caso pues genera un poligono de fondo con un color,
+                                            puede marcarnos una region que contenga otros puntos, debe ser con la funcion
+                                            rgb() para que sea trasparente"
+
+rgb(1,0,0, alpha=0.2)                      "Para el color del poligono con transparencia"
+
+
+---------------------------------------------------------------------------------------------------------------------------
 
                                                         #GRAFICO DE CAJAS
 
@@ -261,3 +346,30 @@ hist(x=diamonds$price, add=TRUE, breaks=60, main="Precio de diamantes", xlab="Pr
 legend(12000,12000, title="HISTORGRAMA", title.adj = 0.5, text.font = 2,
        legend=c("Line 1", "Line 2"),
        fill=c("Blue",rgb(0,1,0)), cex=0.8, horiz=TRUE)
+
+
+---------------------------------------------------------------------------------------------------------------------------
+
+                                                    #GRAFICO DE BARRA
+
+barplot()  barplot(columna_cualitativa)    "Es para crear un grafico de barras similar al histograma, pero que no necesita
+                                            que esten relacionado una barra con la otra, esto se puede hacer con una variable
+                                            cualitativa"
+
+---------------------------------------------------------------------------------------------------------------------------
+
+                                                  "GRAFICO DE CIRCULAR"
+
+
+pie()                                      "Es para hacer un grafico ciruclar, necesita una columna de cualitativa, por
+                                            si solo muestra las probabilidades, pero no muestra los porcentajes
+                                            automaticamente"
+
+
+Ejemplo:                                            
+tabla <- prop.table(table(iris$Species))
+pie(tabla, 
+    main = "Distribución de tipos de lirios",
+    labels = paste(names(tabla), round(tabla*100, 2), "%")                             
+                                                                                                
+
