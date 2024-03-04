@@ -55,17 +55,33 @@ cex  (cex=2)                                "Tamaño de los simbolos"
 
 LETTERS[1:5] (es para pch, depende de la cantidad de puntos)  "Los simbolos seran letras"
 
+
+
+
+
 text()  (text(x, y, "texto"))               "Para poner un texto en el grafico, es una funcion"
 
 text   (text(x=c(1,2...), y=c(1,2), c("hola1", "hola2"...), col="blue"))   "Pone texto en cada punto"
 
+
+
+
+
 lines()                                     "Es para hacer graficos de linea, pero no genera el margen del grafico,
                                              solo la linea, es para agregar en un grafico ya hecho"
+
+
+
+
 
 point()                                     "Es para agregar en un grafico ya hecho, agrega puntos encima de otro grafico
                                              ya hecho, en este caso es bueno condicionar los puntos para cambiarles el color,
                                              ejemplo: x[x > 10], y[x > 10] con un color y el otro grafico con la condiciona
-                                             opuesta"                                             
+                                             opuesta"                         
+
+
+
+
 
 
 curve()                                     "Es para hacer graficos con artas curvas, lo que sigue es para esta funcion"
@@ -75,6 +91,10 @@ sin  (curve(sin))                           "Hace la funcion seno, solo hay que 
 cos  (curve(cos))                           "Hace la funcion coseno, solo hay que espercificar el rango donde llegara"
 
 function()  (curve(function(x^3)))          "Hace funciones que son curvas tambien, solo especifica hasta donde llegara"
+
+
+
+
 
 
 plot.new()                                  "Es para que la grid se coloque atras del grafico, se pone antes del grafico
