@@ -1,0 +1,195 @@
+                               ___________________________________
+                               |                                  |
+                               |             INDICE               |
+                               |__________________________________|
+
+            1. GRAFICO DE DISPERCION CON REGESION   "Funcion para crear un grafico de dispercion con regresiones"
+            2. GRAFICO DE FLECHAS 1 Y 2             "Funcion para crear graficos con flechas" 
+            3. GRAFICO DE CALOR                     "Funcion de calor con contornos"
+            4. GRAFICO 3D tipo 1                    "Funcion para crear un grafico 3D un poco mas simple"
+            5. GRAFICO 3D tipo 2                    "Funcion para crear un grafico 3D avanzado"
+
+
+
+---------------------------------------------------------------------------------------------------------------------------
+
+                                        "GRAFICO DE DISPERCION CON REGRESION"
+
+library(car)
+
+scatterplot(y ~ x, data=diamonds)             "Es un funcion especial que hace un grafico de dispercion con regresion
+                                               de forma automatica, tambien le añade graficos de caja en cada eje"
+
+smooth  (smooth=TRUE o smooth=list())         "Son estimaciones de como de como se comporta la funcion"
+
+regLine  (regLine=TRUE o regLine=list())      "Es un regresion la hace automatica es posible quitarla o cambiarle de color"
+
+boxplots  (boxplots="x")                      "Solo mostrara la caja del eje x"
+
+scatterplot(x~y | colummnas_categorias)       "Muestra por categoria los datos, muy util"
+
+plot(x~y, col=columnas_categorias)            "No va dentro de scatter, le da un color a cada categoria"
+
+
+
+---------------------------------------------------------------------------------------------------------------------------
+
+
+                                              "GRAFICO DE FLECHAS"
+
+"Hace un grafico de lineas con flechas"
+
+arrowsPlot <- function(x, y, lwd = 1, col = 1, angle = 20, length = 0.2) {
+  invisible(sapply(1:length(x),
+    function(i) arrows(x[i], y[i], x[i + 1], y[i + 1], lwd = lwd,
+                       col = col, angle = angle, length = length)))
+}
+
+plot(x3, y3, col = 2, lwd = 3, pch = "")
+arrowsPlot(x3, y3, col = 2, lwd = 3)
+
+lines(x3, y4, col = 3, lwd = 3)
+arrowsPlot(x3, y4, col = 3, lwd = 3)
+
+lines(x3, y5, col = 4 , lwd = 3)
+arrowsPlot(x3, y5, col = 4 , lwd = 3)
+
+
+
+
+                                             "GRAFICO DE FLECHAS 2"
+
+
+"Un grafico de lineas con flechas, que puede retroceder, tambien muestra los años"
+
+     # Datos de ejemplo
+x4 <- ifelse(x3 < 5, x3, rev(x3 / 3))
+y5 <- ifelse(y3 < 5, y3 ^ 3, rev(y3 + 5))
+
+# Creando el gráfico de puntos conectados
+plot(x4, y5, yaxt = "n", xaxt = "n", pch = "",
+     xlab = "Popularidad", ylab = "Ventas", xlim = c(-1, 5.5))
+arrowsPlot(x4, y5, col = 3, lwd = 3)
+
+# Añadiendo los años a cada punto
+text(x4 + 0.3, y5, 1970:1980)                                  
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------
+
+                                              
+                                                "GRAFICO DE CALOR"
+
+smoothScatter(x, y)                     "Crea un grafico de calor automatico"
+
+smoothScatter(x, y, pch = 19,                                                      "Es un poco mas explicito con los puntos"
+              transformation = function(x) x ^ 0.5, # Escala
+              colramp = colorRampPalette(c("#f7f7f7", "aquamarine"))) # Colores
+
+#Hace un grafico de calor con los colores por defecto
+
+smoothScatter(x, y, transformation = function(x) x ^ 0.4,
+              colramp = colorRampPalette(c("#000099", "#00FEFF", "#45FE4F",
+                                           "#FCFF00", "#FF9400", "#FF3100")))
+
+transformation  (transformation=function(x) x*0.35)    "Es para crear una funcion para la densidad de los colores"
+
+colramp  (colrmap=colorRampPalette)             "Es para configurar los colores"
+
+nbin  (nbin=200)                                "Es para la definicion de los contornos de los colores"
+
+bandwidth   (bandwidth=0.6)                     "Es para definir el tamaño de los contornos"
+
+
+
+library(MASS)
+
+kern=kde2d(x, y)                                "necesario para contour(), debe tener los mismos datos que smoothScatter()"
+
+contour  (contour())                            "Es para darle contronos a los calores de los graficos, debe tener los mismos
+                                                 datos que smoothScatter() y kern"
+
+drawlabels  (drawlabels=TRUE)                   "Pone valores a los contornos"
+
+nlevels  (nlevels=6)
+
+col  (col = rev(heat.colors(11)))               "Color que encabeza el el desgrades de los contornos"
+
+add  (add=TRUE)                                 "Se añade un contorno a los colores"
+
+lwd  (lwd=3)                                    "Ancho de los contornos"
+
+
+ejemplo:
+library(MASS)
+kern <- kde2d(x, y)
+
+contour(kern, drawlabels = TRUE, nlevels = 7,
+        col = rev(heat.colors(11)), add = TRUE, lwd = 3)
+
+
+---------------------------------------------------------------------------------------------------------------------------
+
+                                                  #GRAFICOS 3D tipo 1
+
+
+scatterplot3d  (scatterplot3d())                 "Crea un grafico 3D"
+
+pch  (pch=19)                                    "Es el simbolo para crear el grafico 3D"
+
+col  (col="blue")                                "Es el color de los simbolos"
+
+ejemplo:
+library(scatterplot3d)
+
+set.seed(2)
+x <- rnorm(1000)
+y <- rnorm(1000, mean = 100)
+z <- rnorm(1000)
+
+scatterplot3d(x, y, z, pch = 19, color = "blue")
+
+
+
+---------------------------------------------------------------------------------------------------------------------------
+
+                                                   #GRAFICOS 3D tipo 2
+
+#Es muy superior al anterior en visualizacion, permite moverse y ver diferentes angulos con zoom, es una grafico
+avanzado
+
+library(rgl)
+
+plot3d  (plot3d())                                    "Crea un grafico 3d"
+
+type   (type="s")                                     "Tipo del grafico"
+
+radius  (radius=0.1)                                  "Radio de los simbolos"
+
+col  (col="blue")                                     "Color de los simbolos"
+
+xlab  (xlab="titulo de eje x")                        "Para ponerle el titulo al eje x"
+
+ylab  (ylab="titulo de eje y")                        "Para ponerle el titulo al eje y"
+
+zlab  (zlab="titulo de eje z")                        "Para ponerle el titulo al eje z"
+
+
+ejemplo:
+library(scatterplot3d)
+set.seed(2)
+x <- rnorm(1000)
+y <- rnorm(1000, mean = 100)
+z <- rnorm(1000)
+scatterplot3d(x, y, z, pch = 19, color = "blue")
+library(rgl)
+plot3d(x, y, z,      # Datos
+       type = "s",   # Tipo de gráfico
+       radius = 0.1, # Radio de las observaciones
+       col = "lightblue",   # Color de las observaciones
+       xlab ="X axis lab",  # Etiqueta del eje X
+       ylab = "Y axis lab", # Etiqueta del eje Y
+       zlab = "Z axis lab") # Etiqueta del eje Z
+                                       
