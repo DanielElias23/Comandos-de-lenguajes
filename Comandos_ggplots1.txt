@@ -1,0 +1,162 @@
+                                         ___________________________________
+                                         |                                  |
+                                         |             INDICE               |
+                                         |__________________________________|
+
+            1. CONFIGURACIONES GENERALES         "Comandos que se apican dentro de qplot() en su mayoria a todos los graficos"
+            2. GRAFICO DE PUNTOS                 "Como graficar un grafico de puntos y otras configuraciones" 
+            3. GRAFICO DE LINEAS                 "Como graficar un grafico de lineas"
+            4. GRAFICO DE CAJAS                  "Como graficar un grafico de cajas" 
+            5. HISTOGRAMAS                       "Como graficar un histograma"
+            6. GRAFICO DE DENSIDAD               "Como graficar un grafico de densidad"
+            7. GRAFICO DE BARRAS                 "Como graficar un grafico de barras"
+
+
+---------------------------------------------------------------------------------------------------------------------------
+
+                                              "CONFIGURACIONES GENERALES"
+
+library(ggplot)
+
+qplot() (qplot(x=mpg, y=wt, data=mtcars))                "Es para crear todo tipo de graficos en ggplot"
+
+geom  (geom="tipo_de_grafica")                           "Es para especificar el tipo de grafico que se va a hacer"
+
+color (color="black")                                    "Hace que todo en ese grafico sea de ese color"
+      (color=columna_categoria)                          "Esto puede crear colores automaticamente para diferentes
+                                                          categorias, se puede hacer con vector tambien, rellena
+                                                          completamente el color, para categoria por NOMBRES"
+
+fill (fill=columna_categoria)                            "Es muy parecida a color, pero la forma de rellenado de color
+                                                          es diferente"
+
+colour (colour=columna_categoria)                        "Separa por categoria, pero el color de separacion es por
+                                                          desgrades de valores, solo es para categorias numericas"                                                          
+
+factor (color=factor(columna_categoria (numerica)))      "Aplica un color automaticamente tambien a cada categoria, pero
+                                                          la categoria solo debe ser de numeros y tipo FACTOR"
+
+
+         ejemplo de trasnformar valores a FACTOR:
+         library(dplyr)
+         library(magrittr)
+         mtcars=mtcars %>% transform (cyl=as.factor(cyl))
+
+
+shape  (shape=19)                                        "Hace que los datos del grafico tomen forma de ese simbolo,
+                                                          cada numero tiene un simbolo diferentes hasta el 25 me parece"
+shape  (shape=columna_categoria)                         "Hace que los datos del grafico se separen por categoria,
+                                                          automaticamente le dara un simbolo a cada categoria"
+
+size  (size=I(20))                                       "Solo aumenta el tamaño de cada simbolo"
+size  (size=20)                                          "Aumenta el tamaño de los simbolo y le crea un label"
+size  (size=columna_categoria)                           "Divide los datos en categorias, cada categoria la muestra de
+                                                          diferente tamaño, la idea es que sea numerica"
+
+xlab (xlab=c(0,10000))                                   "Le da un limite al eje x con los valores que se le entregen"
+
+ylab  (ylab=c(0,5000))                                   "Le da un limite al eje y con los valores que se le entregen"
+
+facets  (facets="columna_categoria")                     "Hace varios graficos segun categorias, cualquier operacion que
+                                                          hagamos se hara en cada uno de los graficos por separado"
+facets  (facets=columna_categoria1 ~ columna_categoria2) "Hace una matriz de todos los graficos relacionados segun estas
+                                                          categorias se multiplican todas las categorias"                                                          
+
+
+---------------------------------------------------------------------------------------------------------------------------
+
+                                                #GRAFICOS DE PUNTOS
+
+
+Este grafico viene por defecto no se necesita especificar, se le deben entregar 2 columnas con datos, pero tambien
+se puede especificar
+
+qplot(x, y, data=data.frame, geom="point")               "Crea un grafico de puntos o dispercion"
+
+           ideal ordenar, shape, color, size, etc
+
+smooth  (geom=c("point", "smooth"))                      "Añade una linea que es un ajuste que represente a los puntos
+                                                          y ademas un margen que los contenga"
+
+method  (method="loess") (con smooth)                    "Son diferentes metodos de ajustes, pero solo ocupare este"
+
+span  (span=0.1) (con smooth)                            "Es que tal es el ajuste de la linea, 0.1 intentara pasar por
+                                                          todos los puntos, 1 es casi ajuste lineal"
+
+se  (se=FALSE) (con smooth)                              "Es para que se muestre solo la linea sin margenes"
+
+          qplot(x, y, data=data.frame, geom=c("point", "smooth"), method="loess", span=0.5, se=FALSE)    
+
+geom_smooth()  (geom_smooth(method="lm"))                "Hace un ajuste lineal"
+
+          qplot(x, y, data=data.frame, geom=c("point", "smooth")) + geom_smooth(method="lm") 
+
+---------------------------------------------------------------------------------------------------------------------------
+
+                                                #GRAFICA DE LINEAS
+
+Hay 2 tipos                                                
+
+geom  (geom="line")                                       "Hace una grafica de linea con valores, pero la linea no se
+                                                           devuelve en eje x"
+
+           qplot(x, y, data=data.frame, geom="line")
+
+geom  (geom=c("point", "path"))                           "Hace un grafico de linea con los puntos, pero esa linea sigue
+                                                           posiciones y se puede devolver en eje x"
+
+           qplot(x, y, data=data.frame, geom=c("point", "path"))
+
+---------------------------------------------------------------------------------------------------------------------------
+
+                                                 #GRAFICA DE CAJAS
+
+geom  (geom="boxplot")                                    "Hace un grafico de cajas, solo necesita una columna"
+
+           qplot(x , data=data.frame, geom="boxplot")   
+
+La gran gracia de hacer graficos de cajas es dividir por categorias, se lee automaticamente si son categorias texto
+
+           qplot(columna_categoria_texto, x, data=data.frame, geom="boxplot")   "Se hace automaticamente la division por
+                                                                                 categorias, igual se puede añadir color, etc"
+
+---------------------------------------------------------------------------------------------------------------------------
+
+                                                   #HISTOGRAMAS
+
+geom  (geom="histogram")                                  "Hace un histograma, solo necesita una columna de datos"
+
+            qplot(x, data=data.frame, geom="histogram")
+
+bins  (bins=30)                                           "Hace que se ocupen diferentes cantidades de bins para hacer
+                                                           el histograma"
+
+geom_vline()  (geom_vline(xintercept=mean(data.frame$columna), color="blue")) "Hace una linea en el histograma con la media"
+
+
+ejemplo:
+        
+       qplot(x, data=data.frame, geom="histogram", facets=~columna_categoria) + geom_vline(xintercerpt=mean(data.frame$x) ,
+       color="blue")
+
+       "Hace un histograma para cada categoria, cada histograma con una linea que representa la media"
+
+---------------------------------------------------------------------------------------------------------------------------
+
+                                               #GRAFICOS DE DENSIDAD
+
+Sigue el mismo espacio del histograma es otra varianete
+
+geom  (geom="density")                                    "Hace un grafico de densidad, solo necesita una columna de datos"
+
+              qplot(x, data=data.frame, geom="density")
+
+
+---------------------------------------------------------------------------------------------------------------------------
+
+                                                #GRAFICO DE BARRAS
+
+Tambien es muy parecido al histogramas, aunque no se relaciona de la misma forma con el histograma, el ideal es mostrar,
+barras por categorias
+
+geom  (geom="bar")                                        "Hace un grafico de barras, solo necesita una columna de datos"
