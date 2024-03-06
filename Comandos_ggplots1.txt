@@ -160,3 +160,13 @@ Tambien es muy parecido al histogramas, aunque no se relaciona de la misma forma
 barras por categorias
 
 geom  (geom="bar")                                        "Hace un grafico de barras, solo necesita una columna de datos"
+
+
+---------------------------------------------------------------------------------------------------------------------------
+
+Ejemplo:
+
+qplot(x, data=diamonds, facets=~cut, geom="histogram", 
+      fill=cut,bins=50)+geom_vline(xintercept=mean(diamonds$x),
+                                   color="red")+geom_vline(xintercept=median(diamonds$x),
+                                                           color="blue") + theme_bw()
