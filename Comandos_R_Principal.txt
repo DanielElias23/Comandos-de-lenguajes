@@ -5,14 +5,12 @@
 
             1. TIPOS DE DATOS                         "Tipos de datos mas ocupados en r con algunas funciones"
             2. ESTRUCTURAS DE DATOS                   "Estructuras de datos y sus funcioens respectivas"
-
                           2.1 VECTORES
                           2.2 DATAFRAMES 
                           2.3 MATRICES 
                           2.4 LISTAS
 
             3. EXPORTACION Y IMPORTACION DE ARCHIVOS  "Exportar y importar archivos de diferentes formatos"
-
                           3.1 FUNCIONES DE UBICACIONES
                           3.2 EXPORTACION Y IMPORTACION DE ARCHIVOS
 
