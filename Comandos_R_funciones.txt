@@ -1,0 +1,44 @@
+                                         ___________________________________
+                                         |                                  |
+                                         |             INDICE               |
+                                         |__________________________________|
+
+            1. TIPOS DE DATOS                         "Tipos de datos mas ocupados en r con algunas funciones"
+            2. ESTRUCTURAS DE DATOS                   "Estructuras de datos y sus funcioens respectivas"
+                          2.1 VECTORES
+                          2.2 DATAFRAMES 
+                          2.3 MATRICES 
+                          2.4 LISTAS
+
+            3. EXPORTACION Y IMPORTACION DE ARCHIVOS  "Exportar y importar archivos de diferentes formatos"
+                          3.1 FUNCIONES DE UBICACIONES
+                          3.2 EXPORTACION Y IMPORTACION DE ARCHIVOS
+
+---------------------------------------------------------------------------------------------------------------------------
+
+                                                  "CREAR FUNCIONES"
+
+function()  (nombre_funcion = function(){"lo que hace aca"})  "Crea una funcion, puede hacer infinidades de cosas"
+
+                 function(nombre, valor){print("nombre", valor*5)}       "imprime los valores entregados nombre y valor"
+
+                 return(nombre, valor)                        "Cuando se define una variable dentro de la funcion, esta
+                                                               no se puede ocupar fuera de la funcion, para ocuparla
+                                                               fuera de la funcion se debe aplicar return y las variables"
+                 
+                 variable <<- "algo"                          "Es posible tambien definir una variable global con el
+                                                               operador <<-"
+
+
+---------------------------------------------------------------------------------------------------------------------------
+
+                                                    "FUNCIONES"
+
+paste()  paste("Hola", "Mundo")                             "Funcion que une datos tipo character y los concatena, es decir
+                                                             quedan unidos como un elemento, pero separados por un espacio
+                                                             "Hola Mundo""
+
+abs()  abs(-1) abs(vector)                                  "Es el valor absoluto de los datos"                                                                                                           
+
+                                                             
+
