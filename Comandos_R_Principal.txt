@@ -1,0 +1,299 @@
+                                         ___________________________________
+                                         |                                  |
+                                         |             INDICE               |
+                                         |__________________________________|
+
+            1. TIPOS DE DATOS                         "Tipos de datos mas ocupados en r con algunas funciones"
+            2. ESTRUCTURAS DE DATOS                   "Estructuras de datos y sus funcioens respectivas"
+
+                          2.1 VECTORES
+                          2.2 DATAFRAMES 
+                          2.3 MATRICES 
+                          2.4 LISTAS
+
+            3. EXPORTACION Y IMPORTACION DE ARCHIVOS  "Exportar y importar archivos de diferentes formatos"
+
+                          3.1 FUNCIONES DE UBICACIONES
+                          3.2 EXPORTACION Y IMPORTACION DE ARCHIVOS
+
+---------------------------------------------------------------------------------------------------------------------------
+
+                                                   "TIPOS DE DATOS"
+
+numeric                                                    "Es un tipo de dato numerico, contiene solo numeros"
+
+character                                                  "Es un tipo de dato solo de letras"
+
+logic                                                      "Un tipo de dato logico, solo puede ser TRUE o FALSE"
+
+factor                                                     "Un tipo de dato que se entiende como una categoria"
+
+date                                                       "Es un dato tipo fecha"
+
+class (class(x))                                           "Para saber que tipo de dato es una variable, aplicar la funcion
+                                                           class"
+
+is.numeric (is.numeric(x))                                 "Es para preguntar si x es numerico, responde TRUE o FALSE"
+is.character()                                 
+is.logic() 
+is.factor()
+is.date()
+
+as.numeric as.numeric("1")                                 "Es para transformar un tipo de dato a otro, no siempre funciona,
+                                                            "1" es character, pero al aplicar esto pasara a numero, deben
+                                                            tener sentido"
+as.character()
+as.logic()
+as.factor()
+as.date()                                                                                                     
+
+
+---------------------------------------------------------------------------------------------------------------------------
+
+                                                "ESTRUCTURAS DE DATOS"
+
+---------------------------------------------------------------------------------------------------------------------------
+
+                                                      "VECTORES"
+
+Un vector es una columna con cierta cantidad de filas y solo debe tener un tipo de dato, en caso de mezclar tipos de datos
+en al crearlo, seran todos character automaticamente, los NA o NULL no los toma en cuenta como tipo"
+
+class(VECTOR)                                               "Dira que tipo de dato tiene todo el vector"
+
+VECTOR (V = c(1,2,3,4,5))                                   "Para definir un vector, lo reconoce como tipo vector,
+                                                             es una sucesion de datos"
+
+      (c(1,2,V,1:10))                                       "Para AGREGAR valores a un vector se puede hacer de esta
+                                                             forma"
+
+      VECTOR[3]                                             "Toma solo el valor de la posicion 3"
+      VECTOR[3:6]                                           "Toma solo los valores de la posicion 3 a la 6, un mini vector"
+      VECTOR[-3]                                            "Toma todos los valores del vector excepto el de la posicion 3"
+      VECTOR[CONDICION]                                     "Toma todos lo valores que cumplan con la condicion, puede tener
+                                                             dentro de la condicion varias condiciones con "y"=& o "or"=|"
+
+
+lenght  lenght(VECTOR)                                      "Entrega cuantos datos tiene el vector"
+
+mean  mean(VECTOR)                                          "Hace un promedio de todos los datos, deben ser numerico, no
+                                                             pueden haber NA o no hara el calculo, mostrara solo NA"
+
+sd  sd(VECTOR)                                              "Mostrara la desviacion estandar del vector, solo numeros
+                                                             no debe tener NA"
+
+median  median(VECTOR)                                      "Mostrara la mediana del vector, solo numeros, no debe tener
+                                                             NA"
+
+summary  summary(VECTOR)                                    "Entrega la mayoria de los datos estadisticos del vector,
+                                                             deben ser solo numeros sin NA"
+
+is.na  VECTOR[!is.na(VECTOR)]                               "Es para NO TOMAR LOS "NA""
+
+rep  rep(VECTOR, times=10)                                  "Repite los datos del vector 10 VECES con el mismo ordenar,
+                                                             para crear un nuevo vector"
+
+rep  rep(VECTOR, each=10)                                   "Repite cada valor del vector 10 veces, pero va 1 por 1, creando
+                                                             un nuevo vector"
+
+seq  seq(-2, 4, lenght=7)                                   "Crea un vector desde una secuencia, seq(valor_inicio_secuencia,
+                                                             valor_termino_secuencia, cantidad_diviciones)                                                             
+
+seq  seq(-2, 4, by=0.5)                                     "Crea un vector desde una secuencia, seq(valor_inicio_secuencia,
+                                                             valor-termino_secuencia, valor_paso_secuencia)
+
+rev  rev(VECTOR)                                            "Cambia el orden de los valores del vector, el ultimo sera el
+                                                             primero y viceversa, y asi, los pones todos en reversa"
+
+is.element  is.element(VALOR, VECTOR)                       "Pregunta si ese "VALOR" existe dentor del VECTOR, si existe,
+                                                             responde TRUE, si no existe responde FALSE"
+
+---------------------------------------------------------------------------------------------------------------------------
+
+                                                      "DATAFRAME"
+
+
+Un data frame es una estructura de columnas y filas unidas, se pueden crear desde vectores o explicitamente, aunque
+con algunas restricciones, las columnas pueden ser de diferente tipo de dato.
+
+data.frame  data.frame(vector1,  vector2, vector3... )      "Es para crear un data frame, un requisito es que los
+                                                             vectores deben tener LA MISMA CANTIDAD DE DATOS"
+
+              data.frame(nom_col = vector1, nom_col2 = ...) "Esta forma es para crea un nombre a la columna, no cuenta
+                                                             como dato"
+
+              nombre_dataframe[2,3]                         "Toma solo un dato del data frame que se indica en la posicion
+                                                             [FILA, COLUMNA]
+
+              nombre_dataframe[1:10,5:9]                    "Puede hacer una mini tabla desde un dataframe ya creado,
+              nombre_dataframe[,5:9] (todas las filas)       toma desde la fila 1 a la 10 y desde la columna 5 a la 9"
+              nombre_dataframe[c(1,5), c(2,4)]              "Puede especificar cada columna que quiere tomar, para no 
+                                                             tomarlas todas"
+              nombre_dataframe[c("nombre_columna",...),]    "Se puede llamar por el nombre de la columna"       
+
+              nombre_dataframe[CONDICION, CONDICION]        "Muestra solo los datos que cumplan la condicion, puede ser
+                                                             con & y |, se escriben para especificar columnas 
+                                                             nombre_dataframe$nombre_columna == 5 etc"
+
+              nombre_dataframe$nombre_columna               "Toma la columna entera"
+
+
+
+View()  View(dataframe)                                     "Muestra todo el data frame de manera mas agradable como tabla"
+
+?  ?nombre_dataframe                                        "Da informacion del data frame"
+
+colnames()  colnames(dataframe)                             "Mostrara todos los nombres de las columnas, es un vector"
+
+nrow()  nrow(dataframe)                                     "Muestra el numero de filas que tiene el data frame"
+
+ncol()  ncol(dataframe)                                     "Muestra el numero de columnas que tiene el data frame"
+
+porcentaje  nrow(nombre_dataframe[CONDICION, CONDICION])/nrow(dataframe)  "Es un truco para saber el porcentaje de datos
+                                                                           que cumplen con la condicion"
+
+head()  head(dataframe)                                     "Muestra las 6 primeras filas"
+
+tail()  tail(dataframe)                                     "Muestra las 6 ultimas filas"
+
+dim()  dim(dataframe)                                       "Muestra la cantidad de filas y columnas que tiene el dataframe"
+
+cambiar_nombre_columnas  colnames(dataframe)[1] = "nuevo_nombre"  "Cambia el nombre, hay que saber la posicion de la columna"
+
+trasformar la columna de nombres filas a una columna real  
+
+library(tibble)
+
+dataframe = rownames_to_column(dataframe, "nombre_de_la_columna")  "Le da un nombre a la columna que antes no era posible
+                                                                    tomarla, la cual es la que contiene el nombre de las
+                                                                    filas"
+
+
+---------------------------------------------------------------------------------------------------------------------------
+
+                                                        "MATRIZ"
+
+La pricipal gracia de las matricez es que se pueden hacer operaciones de algebra lineal, en comparacion con los dataframe
+
+matrix()  (matrix(vector1, vector2, ...)) (vertical_dis)    "Funcion para crear matrices, se puede crear desde vectores
+                                                             que tengan la misma cantidad de datos"
+          (rbind(vector1, vector2, ...))  (horizontal_dis)  "Crea una matriz con los vectores horizontales"
+
+
+           matrix(1:10, nrow=2) (horizontal_dis)            "Se puede crear de esta forma tambien, es diferente a la forma
+           matrix(1:10, nrow=2, byrow=TRUE)  (vertical_dis)  de dataframe, creara una matriz con valores del 1 al 10, pero
+                                                             que se distribuyan en solo 2 columnas es decir 2 filas y 5
+                                                             columnas en orden"
+  
+           matriz[1,2]                                      "Para tomar un elemento en esa posicion fila, columna"
+
+nrow()  nrow(matriz)                                        "Dice la cantidad de filas que tiene la matriz"
+
+ncol()  ncol(matriz)                                        "Dice la cantdidad de filas que tiene la matriz"
+
+A+B y mas operaciones de algrebra lineal, identidades, etc
+
+---------------------------------------------------------------------------------------------------------------------------
+
+                                                         "LISTAS"
+
+Las listas son como listas del supermercado, hay una seccion para cada valor, tienen una posicion y un vector dentro
+
+list  list(1,2,10) (crea 3 posiciones)                     "Crea una lista con 3 posiciones y cada numero dentro"
+
+            list(vector1, vector2, vector3)                "Crea una lista con 3 posciones y cada una con cada vector dentro"
+            list(nombre1 = vector1, nombre2 = vector2, ...) "Le da nombre a cada posicion"
+
+            list(dataframe, vector, matriz)                "Pueden tener diferentes objetos, hasta dataframes"
+
+            lista[[1]] o lista[1]                          "Toma el elemento de la posicion 1"
+
+            lista[[1]][1,2]                                "En caso de ser una matriz o dataframe el elemento de la posicion
+                                                            1, toma el elemento de la fila 1 y columna 2 de esa posicion"
+
+            lista$"nombre_posicion"[CONDICION, CONDICION]  "Tambien se puede hacer de esta forma"
+
+
+
+lenght  lenght(lista)                                      "Muestra la cantidad de posiciones con elementos"
+
+names  names(lista) = c("nombre1", "nombre2")              "Cambia los nombres de las posiciones cuando ya fue creado,
+                                                            por defecto traen nombres como: [[1]] y [[2]] los
+                                                            cambiara por "nombre1" y "nombre2""
+
+modificar lista[[1]] = c(1,2,3)                            "Cambia el valor de esa posicion por el vector mostrado"
+
+
+---------------------------------------------------------------------------------------------------------------------------
+
+                                               "EXPORTACION E IMPORTACION DE ARCHIVOS"
+
+En r studio se pueden exportar e importar archivos de todo tipo formatos para ellos se ocupan algunas funciones
+
+getwd()  (getwd())                                         "Da la ruta completa de en que carpeta nos encontramos, se
+                                                            puede guardar como variable"
+
+setwd()  (setwd("../../nombre_carpeta/"))                  "Nos permite movernos a otros directorios en donde estamos
+                                                            trabajando, sirve para guardar archivos por defecto, etc"
+                                                            "Con la tecla tab nos podemos mover visualmente"
+
+choose.dir()  choose.dir("elegimos_ruta")                  "Permite buscar una ruta hacia alguna carpeta y guardarla
+                                                            como variable"
+
+choose.files()  choose.files("elegimos_ruta")              "Permite buscar una ruta de un archivo y guardarla como variable"
+
+list.dirs()  list.dirs("elegimos_ruta")                    "Muestra todas las carpetas de alguna ubicacion o por defecto
+                                                            de la ubicacion en la cual estamos"
+
+lsit.files()  list.files("elegimos_ruta")                  "Muestra todos los archivos de alguna ubicacion o por defecto
+                                                            de la ubicacion en la cual estamos"
+
+
+                                        "IMPORTACION Y EXPORTACIONES"
+
+El nombre de salida se debe poner al final de la ubicacion con su respectivo formato por ejemplo:
+"/ubicacion_salida/nombre_archivo.txt"
+
+####  archivo.csv
+
+IMPORTANTE!!
+Los archivos .csv tienen cada dato, separado por algun simbolo, el cual por defecto es "," en caso de ser por ejemplo ";"
+se debe ocupar otras funciones que generalmente son write.csv2() etc, se debe buscar, estos son para ","
+
+variable = read_csv("ubicacion")                           "Importa el archivo csv desde alguna ubicacion para ser ocupado"
+
+write.csv(variable, files="ubicacion_salida")              "Exporta el archivo hacia alguna ubicacion de salida, el nombre
+                                                           "variable" es solo para el codigo"
+
+
+####  archivo.txt 
+
+variable = read_table("ubicacion")                         "Importa el archivo txt desde alguna ubicacion para ser ocupado"
+
+write.table(variable, file="ubicacion_salida")             "Exporta y guarda el archivo hacia alguna ubicacion de salida"
+
+
+####  archivo.xls o archivo.xlsx  (EXCEL)
+
+library(openxlsx)
+
+variable = read.xlsx("ubicacion")                         "Importa un archivo xlsx de excel desde la ubicacion especificada"
+
+write.table(variable, file="ubicacion_salida")            "Exporta un archivo xlsx de excel hacia alguna ubicacion de salida"
+
+
+
+ 
+
+
+
+
+
+
+
+ 
+
+
+
+
+                                                                                                                          
