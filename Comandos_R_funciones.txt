@@ -34,11 +34,44 @@ function()  (nombre_funcion = function(){"lo que hace aca"})  "Crea una funcion,
 
                                                     "FUNCIONES"
 
+PIPE  (|>) con librery(dplyer) (%>%)                        "Es para que se vea mas ordenado el codigo, aplica funciones
+                                                             sin el argumento dentro de la funcion, ejemplo:
+                                                             vector |> abs() |> sort() "
+
 paste()  paste("Hola", "Mundo")                             "Funcion que une datos tipo character y los concatena, es decir
                                                              quedan unidos como un elemento, pero separados por un espacio
                                                              "Hola Mundo""
 
 abs()  abs(-1) abs(vector)                                  "Es el valor absoluto de los datos"                                                                                                           
 
-                                                             
+sort()  sort(vector)                                        "Ordena los valores del vector de menor a mayor"
+
+---------------------------------------------------------------------------------------------------------------------------
+
+                                                "FAMILIA DE FUNCIONES APPLY"
+
+Se ocupan generalmente para dataframe porque hace operaciones para cada columna
+
+apply()  apply(dataframe, MARGIN=2, mean)                   "Le saca el promedio a cada columna del dataframe, MARGIN=2
+         apply(dataframe, MARGIN=1, mean)                    especifica que es para columnas, MARGIN=1 para filas"    
+
+lapply()  lappy(lista, mean)                                "Le saca el promedio a cada posicion de la lista"
+
+sapply()  sapply(lista, mean)                               "Es igual a lapply, pero como resultado da un vector con los
+                                                             valores"
+
+tapply()  tapply(dataframe$columna1, dataframe$columna2, mean)  "Igual a apply, pero en ese se puede especificar las
+                                                                 columnas"
+
+mapply()  mapply(funcion, valores)                          "Le aplica valores a una funcion, no es muy util, porque eso
+                                                             ya se puede hacer con el mismo PIPE"
+
+vapply()  vapply(lista, mean, tipo de dato)                 "Es igual  que sapply, pero se le puede especificar el tipo
+                                                             de dato de salida"
+
+rapply()  rapply(lista, mean, how="unlist")                 "Es igual que lapply, pero se le puede cambiar el tipo de
+                                                             estructura de salida"                                                            
+
+
+
 
