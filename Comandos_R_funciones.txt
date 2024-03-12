@@ -3,16 +3,19 @@
                                          |             INDICE               |
                                          |__________________________________|
 
-            1. TIPOS DE DATOS                         "Tipos de datos mas ocupados en r con algunas funciones"
-            2. ESTRUCTURAS DE DATOS                   "Estructuras de datos y sus funcioens respectivas"
-                          2.1 VECTORES
-                          2.2 DATAFRAMES 
-                          2.3 MATRICES 
-                          2.4 LISTAS
+            1. CREAR FUNCIONES                           "Como crear funciones y su sintaxis"
+            2. FUNCIONES                                 "Funciones muy comunes"
+            3. LOOP                                      "Como hacer un loop como for, while"
+            4. ESTRUCTURAS DE CONTROL                    "Como condicionar los loop con if y else"
+            5. LIBRERIA DPLYR (SQL)                      "La libreria dplyr con tiene muchos de las funciones iguales a las
+                                                          de SQL como select, etc"
+            6. JOIN (SQL)                                "Join es una funcion igual a la de SQL que une tablas"
+            7. FUNCIONES DE TEXTO                        "Funciones para manipuras string y vectores de textos"
+            8. FAMILIA DE FUNCIONES APPLY                "Funciones especiales de la familia apply"
+            9. FUNCIONES PARA FECHAS                     "Hay funciones especificas para datos tipo fechas"
+            10. FUNCIONES PARA ESTADISITCA               "Funciones para datos estadisticos"
+            11. FUNCIONES PARA NUMEROS ALEATORIOS        "Funciones para crear numeros aleatorios"
 
-            3. EXPORTACION Y IMPORTACION DE ARCHIVOS  "Exportar y importar archivos de diferentes formatos"
-                          3.1 FUNCIONES DE UBICACIONES
-                          3.2 EXPORTACION Y IMPORTACION DE ARCHIVOS
 
 ---------------------------------------------------------------------------------------------------------------------------
 
@@ -48,6 +51,285 @@ sort()  sort(vector)                                        "Ordena los valores 
 
 ---------------------------------------------------------------------------------------------------------------------------
 
+                                                      "LOOP"
+
+for  (for (i in 1:100){lo que hara en cada iteracion})     "Este es un ciclo que se cumplira dependiento del rango que se
+                                                            le de, "i" tomara todos los valores del rango 1 por 1, este rango
+                                                            puede ser un vector de numero o tambien se le puede poner un
+                                                            vector de palabras y las recorrera en orden"
+
+doblefor  (for (i in 1:100){for (j in 101:200){lo que hara en las dos iteraciones}})
+
+                                                           "Simplemente son dos for, pero con cada iteracion del primero
+                                                            en este caso "i" se ejecutan con el primer valor, todos los
+                                                            de "j", luego cambia otro valor de "i" y se ejecutan todos los
+                                                            de "j" nuevamente y asi sucesivamente"
+
+while  (while (CONDICION){lo que hace mientras se cumple la condicion}) 
+
+                                                           "Se ejecutara la orden que le demos, a menos que se deje de
+                                                            cumplir la conficion. Este loop puede ser infinito si no se
+                                                            hace correctamente, para ello debemos ocupar las estructuras
+                                                            de control"
+
+        while (TRUE){x = x+1 if (x>100){break}}            "En caso de ocupar if, en la parte de la condicion se debe poner
+                                                            TRUE y ademas en un if se pone "break" para terminar el loop"
+
+
+---------------------------------------------------------------------------------------------------------------------------
+
+                                             "ESTRUCTURAS DE CONTROL"
+
+Para querer que se cumple algun codigo se ejecutan los controladores de estructuras, ideal para loop
+
+&                                                          "Se puede ocupar en cualquier condicion como las del "if"
+                                                            significa "y", es un nexo para que se cumplan dos condiciones
+                                                            SI o SI, x>10 & x<20, se deben cumplir las dos"
+
+|                                                          "Se entiendo como "o" se puede aplicar en cualquier condicion,
+                                                            en este caso es posible aplicarlo en if como: x==10 | x==12, 
+                                                            se debe cumplir almenos una, no necesariamente las dos"
+
+
+if  (if (x==10 {lo que hara si se cumple la condicion}))   "Este condicionantes sirve para poner una condicion que se
+                                                            debe cumplir y hara lo que esta en "{}" si es que se cumple,
+                                                            si no se cumple hara lo que esta en "else""
+
+else  (else (lo que hara si no se cumple el if))           "Solo se ejecuta else si es que "if" no se cumple, importantes
+                                                            es que va a continuacion del if debe estar debajo del if sin
+                                                            coma ni nada"
+
+ifelse   ifelse(numero == 10, "Es un 10", "No es un 10")   "Es una forma abreviada de ocupar "if" y  "else", se entiende
+                                                            como ifelse(condicion, si se cumple la condicion, si no se
+                                                            cumple la condicion)
+
+switch  switch(2, "palabra1", "palabra2")                  "Sirve para traspasarlo a variable o ocuparse en una funcion,
+                                                            tomara el valor que se le especifique, en este caso tomara
+                                                            el valor "2", porque se le especifico, el cual es "palabra2"" 
+                                                           "Se toma como si fuera simplemente "palabra2""
+
+        switch(var, "a"="palabra1", "b"="palabra2")        "Si le decimos var="a", tomara el valor de "palabra1", para
+                                                            hacerlo en vez de decirle la posicion"
+
+        switch(var, "a"="palabra1", "nada")                "En caso de darle un valor a "var" que no sea "a", dara siempre
+                                                            "nada""
+
+        switch(var, "a"= x*25, "b"=y/30)                   "Es posible asociarle operaciones matematicas para funciones"
+
+
+
+---------------------------------------------------------------------------------------------------------------------------
+
+                                                     "LIBRERIA DPLYR (SQL)"
+
+tiene muchas de las funciones de sql
+
+select()  select(dataframe, columna1, ...)                 "Muestra todo el data frame o las columans que le especifiquemos"
+          
+          select(dataframe, 2, 4)                          "Muestra solo las columnas señaladas, los numeros son las
+                                                            posiciones de las columnas"
+
+          select(dataframe, -columna2, -columna3,...)      "Muestra todo el dataframe menos las columnas señaladas"
+
+          select(dataframe, columnas4, everything())       "Muestra desde la columna4 en adelante el dataframe"
+
+          select(dataframe, start_with("c"))               "Muestra todas las columans que empiezen con la letra c"
+
+          select(dataframe, end_with("a"))                 "Muestra todas las columans que terminen con la letra a"
+
+          select(dataframe, contains("hola"))              "Muestra todas las columans que contengan esa sliga, puede
+                                                            ser cualquiera, "or" o "o""
+
+          select(dataframe, is.numeric)                    "Muestra todas las columnas con solo datos numericos"
+
+
+filter()  filter(dataframe, columna1 > 100)                "Sirve para mostrar solo las que cumplan con la condicion, se
+                                                            puede ocupar "&" y "|""
+
+
+grepl()   grepl(pattern="vv", columna1)                    "Se aplica dentro de filter para poner una condicion, busca
+                                                            patrones, en este caso en la columna1 busca todos los datos
+                                                            que tengan "vv" dentro de sus palabras"
+
+         filter(dataframe, grepl(pattern="vv", columna1))
+
+
+rename()  rename(dataframe, nuevo_nombre_columna=nombre_columna, ...)
+
+                                                           "Le cambia el nombre a una columna, se debe guardar en alguna
+                                                            variable"
+
+
+transform()  transform(dataframe, columna1= ifelse (ifelse columna1 > 100, "Muy costoso", "barato"))
+
+                                                           "Cambia valores en una columna por otro, en ese caso lo remplaza
+                                                            si es mayor a 100 por "Muy costoso" y si no por "Barato""
+
+           transform(dataframe, columna1 = case_when(CONDICION & CONDICION ~ "Muy costoso", CONDICION | CONDICION ~ "Barato"))
+           
+                                                           "Es otra forma de agregar condiciones, con la funcion case_when()
+                                                            para no ocupar if, en este caso "~" significa insertar si se
+                                                            cumple la condicion"
+
+           transform(dataframe, columna = as.character(columna))
+
+                                                            "Se ocupa tambien para cambiar el tipo de dato de la columna"
+
+
+glimpse()  glimpse(dataframe)                              "Da un pequeño resumen de lo que contiene el dataframe y que
+                                                            tipo de datos tiene, util para saber el tipo de dato que tiene
+                                                            la columna del dataframe"
+
+
+mutate()  mutate(dataframe, nombre_de_columna=3)           "Crea una nueva columna en el dataframe, se le pone nombre a la
+                                                            columna y toda la columna tendra solo datos con valor 3"
+
+          mutate(dataframe, nombre_de_columna = case_when(CONDICION ~ "Muy costoso", CONDICION ~ "Barato", TRUE ~ "normal")) 
+
+                                                           "Es muy util crear una nueva columna con una nueva categoria
+                                                            segun condiciones de otras columnas, en las condiciones debemos
+                                                            poner que condicion puede cumplir OTRAS columnas, TRUE es para que
+                                                            ponga en caso de que no se cumpla ninguna condicion"
+
+
+separate()  separate(dataframe, columna, c("nueva_columna1", "nueva_columna2"), ",")
+
+                                                           "En base a una columna crea dos nuevas columnas, estas columnas
+                                                            nuevas tendran datos provenientes de la columna antigua,
+                                                            pero como requisito deben tener algun caracter especial que
+                                                            separe algo como ",", entonces el dato original se dividira
+                                                            en dos mitades, lo de la izquierda de "," sera para la primera
+                                                            nueva columna y lo de la derecha de "," para la otra, podemos
+                                                            especificar el caracter que queramos"
+
+
+group_by()                                                 "Cuando un dato se repite mucho, ya sea numero o character,
+                                                            en una columna que es una categoria, podemos agrupar todos
+                                                            los datos que se repiten con gruop_by, pero ademas debemos
+                                                            darle siempre una funcion, para saber que hara con esa agrupacion
+                                                            porque debemos especificar que pasara con los otros datos"
+
+           group_by(dataframe, columna_agrupada) |> sumarise(conteo=n())
+
+                                                           "Contara todos los datos que se repiten y los mostrara como una
+                                                            nueva tabla, con la columna llamada "conteo" con las cantidad
+                                                            de repeticiones"                                                                                                           
+           group_by(dataframee, columna_agrupada) |> sumarise(promedio = mean(otra_columna), minimo = min(otra_columna))
+
+                                                           "Agrupa todos los datos de la columna_agrupada, lo mostrara
+                                                            como tabla, para la otra_columna, mostrara el promedio y el
+                                                            minimo solo de la categoria que esta conformada por la
+                                                            columna_agrupada, se le pueden colocar mas funciones como
+                                                            sd(), median(), var(), sum(), min(), max(), etc"
+
+
+           group_by(dataframe, columna_agrupada) |> tally()
+
+                                                           "Es lo mismo que sumarise(conteo=n())"
+
+           group_by(dataframe, columna_agrupada) |> tally() |> arrange((n))
+
+                                                           "Arrange((n)) ordena los datos de menor a mayor"
+                                                           "Arrange(desc(n)) ordena los datos de mayor a menor"
+
+
+           group_by(dataframe, columna_agrupada > 500) |> ...
+
+                                                           "Agrupa solo los datos que cumplen la condicion, se puede
+                                                            poner cualquier condicion"
+
+
+
+---------------------------------------------------------------------------------------------------------------------------
+
+                                                      "JOIN (SQL)"
+
+De la librery(dplyr) sirven para unir tablas por columnas iguales, lo hace automaticamente si la columna se llama igual
+
+innerjoin()  tabla1 |> innerjoin(tabla2)                    "Junta las tablas por la columna que se llaman igual, 
+                                                             aunque solo los datos que estan en las dos columna"
+
+leftjoin()  tabla1 |> leftjoin(tabla2)                      "Junta las tablas por la columna que se llame igual, aunque
+                                                             solo tomara las columnas que estan en la tabla1, tambien
+                                                             el orden y los datos existentes solo seran de la tabla1,
+                                                             si la tabla 2 no tiene un dato no se mostrara (como ese dato
+                                                             en la segunda no existe, entonces las demas columnas aparecen
+                                                             con NA)"
+
+leftjoin()  tabla1 |> rightjoin(tabla2)                     "Junta las tablas por la columna que se llama igual, es
+                                                             igual al leftjoin(), pero privilegia orden y existencia de dato
+                                                             de la segunda tabla2 en este caso"
+
+full_join()  tabla1 |> full_join(tabla2, by=c("columna_tabla1", "columna_tabla2"))
+
+                                                            "Junta las dos tablas y muestra todas las columnas, en este
+                                                             caso las une por las columnas que le especificamos, la
+                                                             diferencia con innerjoin() es que este mostrara todas las
+                                                             solumnas y datos de las dos tablas, si algo no existe rellena
+                                                             con NA"
+
+anti_join()  tabla1 |>  anti_join(tabla2)                   "Junta las tablas, pero en este caso los datos que esten
+                                                             en las dos tablas no se mostrara, mostrara solo las de la
+                                                             primera tabla1 que no coincidan con la segunda"
+                                                             
+                                                          
+
+---------------------------------------------------------------------------------------------------------------------------
+                                                   "FUNCIONAS PARA TEXTO"
+
+Para las funciones de texto de ocupa library(stringr) y library(tidyverse)
+
+str_lenght()  str_lenght(vector_de_character)               "Entrega la cantidad de letras de las palabra de todo el vector"
+
+str_c()  str_c(vector_character, collapse=",")              "Concaterna todo el vector en un solo string, y separa las palabras
+                                                             con una ",""
+
+str_sub()  str_sub(string=un_string, start=2, end=4)        "Crea un nuevo character desde el string, con la letra desde
+                                                             la posicion 2 a la 4"
+
+str_extract()  str_extract(string=un_string, pattern="CONDICION")  "Hara un vector con cada patron en contrado en el string
+                                                                    gigante o vector, esa CONDICION puede ser muy distrinta"
+
+           str_extract(string=un_string, pattern="[aeiou]") "Tomara cada letra especificada en el corchete, en este caso
+                                                             las vocales, solo tomara la primera de cada palabra y hara
+                                                             un vector con ellas, [123], solo tomara el primero que encuentre"
+              
+           str_extract(string=un_string, pattern="[^abc]")  "Tomara cualquier caracter que no sea ninguno de "a", "b" o "c"
+                                                             (tomara solo el primer que encuentre de cada palabra)"
+
+           str_extract(string=un_string, pattern="[a-d]")   "Tomara el primer caracter que encuentre entre "a", "b", "c", "d""
+
+           str_extract(string=un_string, pattern="(123)")   "Tomara solo los que cumplan con el "123" exactamente con el orden
+                                                             y deben estar todos en la palabra"
+
+           str_extract(string=un_string, pattern="(?:123)") "Tomara todos excepto los que tienen "123", si no los tienen todos
+                                                             y en el mismo orden los tomara"
+
+
+str_subset()  str_subser(string=un_string, pattern="[aeiou]") "A diferencia de str_extract(), este tomara la palbra completa
+                                                               que cumpla con la condicion, se puede poner las mismas
+                                                               condiciones"
+
+str_count()  str_count(string=un_string, pattern="[aeiou]") "Cuenta cuantas letras tiene de las que le hemos especificado,
+                                                             las entrega como vector, cada palabra tienen un numero"
+
+str_detect()  str_detect(string=un_string, pattern="[aeiou]") "Si la palabra tiene almenos una de las letras, muestra
+                                                               TRUE, si no tienen ninguna FALSE por palabra"
+
+str_replace()  str_replace(string=un_string, pattern="[aeiou]", replacement="Hola")
+
+                                                            "Si la palabra tiene alguna de las especificadas, la remplaza
+                                                             por la palabra "Hola", ojo que en este caso solo remplaza la
+                                                             letra por "Hola" en la misma posicion en que estaba la letra
+                                                             no la palabra entera
+                                                             
+str_split()  str_split(string=vector_character, patter=",") "Separa el vector en una lista para todas las palabras que
+                                                             cumplan con el patron"
+
+                                                                                                                    
+
+---------------------------------------------------------------------------------------------------------------------------
+
                                                 "FAMILIA DE FUNCIONES APPLY"
 
 Se ocupan generalmente para dataframe porque hace operaciones para cada columna
@@ -73,5 +355,106 @@ rapply()  rapply(lista, mean, how="unlist")                 "Es igual que lapply
                                                              estructura de salida"                                                            
 
 
+---------------------------------------------------------------------------------------------------------------------------
+
+                                               "FUNCIONES PARA FECHAS"
+
+con la librery(lubridate) podemos usar muchas funciones para fechas, el formato fecha se escribe asi "2018-07-16", pero
+hay que checkear que se tipo fecha porque puede ser un character
+R studio tiene una fecha que como una "base" arbitraria a contar de 1970-01-01 00:00:00 en cual algunas funcionas cuentan
+desde esa fecha
+
+as_datetime()  as_datetime(3600)                            "Esta funcion en ese ejemplo le suma 3600 segundos a la hora
+                                                             "base""
+
+as_date()  as_date(10)                                      "Esta funcion le suma 10 dias a la hora "base""
+
+           as_date("2018-07-01")                            "Es para crear una fecha como tal, si no se hace de esta forma
+                                                             la tomara como character"
+
+           as_date("2020-07-01") - as_date(2018-07-01")     "Es una resta de fecchas, el resultado sera la diferencia de
+                                                             dias entre ellos"
+
+year()  year(fecha)                                         "Toma solo el año de esa fecha"
+
+month()  month(fecha)                                       "Toma solo el mes de esa fecha"
+
+day()  day(fecha)                                           "Toma solo el dia de esa fecha"
+
+semester()  semester(fecha)                                 "Toma el semestre de esa fecha, tomara 1 o 2, se divide en 2"
+
+quarter()  quarter(fecha)                                   "Toma el cuartil de la fecha puede ser del 1 al 4"
+
+wday()  wday(fecha)                                         "Dice el dia de la semana en numeros 1 al 7 empieza de el
+                                                             domingo"
+
+        wday(fecha, label=TRUE)                             "Dice explicitamente el dia de la semana que es"
+
+today()  today()                                            "Lo toma como la fecha de hoy dia"
+
+         today("AMERICA/Santiago")                          "Hay que especificarle la zona horaria"
+
+now()  now()                                                "Dice la fecha y la hora de hoy"
+
+       now("AMERICA/Santiago")                              "Dice la fecha y la hora de hoy con la zona horaria especificada"
+
+OlsonNames()  OlsonNames()                                  "Muestra todas las zonas horarias"
+
+       grep("Mexico", OlsonNames(), value=TRUE)             "Buscara las zonas horarias que esten disponible en mexico"
 
 
+---------------------------------------------------------------------------------------------------------------------------
+
+                                               "FUNCIONES DE ESTADISTICA"
+
+rbinom()  rbinom(n=10, size=1, prob=.5)                     "Crea un vector con 10 valores, los valores son solo de 0 y 1
+                                                             ya que es una distribucion binomial, es en semejanza a cara
+                                                             y cruz ya que cada valor tiene 50% de salir, en prob se
+                                                             especifica la probabilidad de salir favorable, n son los
+                                                             intentos, y size la cantidad de monedas"
+                                                            "La probabilidad favorable se tiene que calcular por separado"
+
+           rbinom(10, size=2, prob=.5)                      "En caso de tener mas monedas el resultado no es 1 o 0, sino 
+                                                             la suma de cada moneda, dos caras = 1 + 1 = 2, se tiran
+                                                             10 veces las dos monedas"
+
+dbinom()  dbinom(x=3, size=10, prob=.5)                     "En este caso nos entrega solo la probabilidad, nos dira 
+                                                             cual es la probabilidad de obtener 3 caras en 10 monedas
+                                                             con probabilidad 50% cada moneda"
+
+pbinom()  pbinom(q=3, size=10, prob=.5)                     "Es la probabilidad acumulativa de que salga x=0, x=1,
+                                                             x=2,x=3, las probabilidades sumadas con 10 monedas"
+
+qbinom()  qbinom(p=0.5, size=1000, prob=.5)                 "Dice cuantos intentos para llegar a cierto porcentaje,
+                                                             lo toma como una especie de intervalo de confianza que empieza
+                                                             la probabilidad del medio de la grafica de la probabilidad"
+
+rnorm()  rnorm(n=100, mean=100, sd=5)                       "Crea un vector con 100 datos con un promedio de 100 y con
+                                                             una desviacion estandar de 5"
+
+         rnorm(n=100)                                       "Si no se especifica promedio y desviacion estandar, ocupara
+                                                             promedio = 0, sd = 1"                                                             
+
+dnorm()  dnorm(n=100)                                       "Muestra la densidad porque le dara una probabilidad a cada
+                                                             uno de los 100 valores, dependiendo del promedio"
+
+         dnorm(c(-1, 0, 1))                                    "Mostrara la densidad de cada unos de los valores especificados"                                                                                            
+
+         intentos_que_necesitamos = densidad * intentos_totales
+
+                                                            "En caso de que necesitemos saber cuantos inentos equivale cada
+                                                             densidad"
+
+
+---------------------------------------------------------------------------------------------------------------------------
+
+                                              "FUNCIONES PARA NUMEROS ALEATORIOS"
+
+sample()  sample(1:30, 10, replace=TRUE)                    "Obtendremos 10 numeros aleatorios ENTEROS aleatorio entre 1  y 
+                                                             30, replace = TRUE significa que si se pueden repetir en caso
+                                                             contrario solo poner FALSE"
+
+librery(stat)
+
+runif()  runif(5, min=3, max=4)                             "Obtendemos 5 numeros DECIMALES entre 3 y 4, no necesario poner
+                                                             min y max"                                                                                                          

@@ -150,6 +150,9 @@ ncol()  ncol(dataframe)                                     "Muestra el numero d
 porcentaje  nrow(nombre_dataframe[CONDICION, CONDICION])/nrow(dataframe)  "Es un truco para saber el porcentaje de datos
                                                                            que cumplen con la condicion"
 
+                 ejemplo:        [mtcars$mpg >= 10,]
+
+
 head()  head(dataframe)                                     "Muestra las 6 primeras filas"
 
 tail()  tail(dataframe)                                     "Muestra las 6 ultimas filas"
