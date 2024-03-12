@@ -1,0 +1,139 @@
+                                         ___________________________________
+                                         |                                  |
+                                         |             INDICE               |
+                                         |__________________________________|
+
+            1. CONFIGURACIONES GENERALES         "Comandos que se apican dentro de qplot() en su mayoria a todos los graficos"
+            2. GRAFICO DE PUNTOS                 "Como graficar un grafico de puntos y otras configuraciones" 
+            3. GRAFICO DE LINEAS                 "Como graficar un grafico de lineas"
+            4. GRAFICO DE CAJAS                  "Como graficar un grafico de cajas" 
+            5. HISTOGRAMAS                       "Como graficar un histograma"
+            6. GRAFICO DE DENSIDAD               "Como graficar un grafico de densidad"
+            7. GRAFICO DE BARRAS                 "Como graficar un grafico de barras"
+
+---------------------------------------------------------------------------------------------------------------------------
+
+                                                    "STRING"
+
+"Hola mundo" * 4                                          "Escribira 4 veces el string"
+
+len("Hola mundo")                                         "Muestra la cantidad de caracteres del string"
+
+var = "Hola mundo"
+var[0]                                                    "Toma la primera letra de el string, el 0 es la posicion"
+var[0:3]                                                  "Toma el de la posicion primera a la cuarta, es decir toma "Hola"
+var[5:]                                                   "Toma automaticamente desde la poscion sexta y todo lo que sigue
+                                                          "mundo""
+var1="Hola"
+var2="Mundo"
+variable= var1 + " " + var2                               "Crea un nuevo string "Hola mundo""
+
+operador_de_concatenacion  variable = f"{var1} {var2}"    "Unira los string anteriores igual que el ejemplo anterior
+                                                          "Hola mundo", ademas este operador permite colocar cualquer cosa
+                                                           y lo transformara a sting"
+
+                                 f""" texto largo fnfenfiww {n1} texto largo """ "En este caso {n1} reconoce una variable
+                                                                                  dentro de un string, muy util"
+
+
+
+string.upper()                                            "Pone todo el string como MAYUSCULA "HOLA MUNDO""
+
+string.lower()                                            "Pone todo el string como MINISCULA "hola mundo"
+
+string.capitalize()                                       "Pone la primera letra en mayuscula y todo lo demas en minuscula,
+                                                           necesita borrar los espacios de izquierda y derecha"
+
+string.title()                                            "Pone la primera letra de cada palabra en mayuscula y las demas
+                                                           minusculas"
+
+string.strip()                                            "Borra los espacios vacios de la izquierda y derecha no los de al
+                                                           medio"
+
+string.strip().capitalize()                               "Se pueden ocupar seguidos las funciones"
+
+string.lstrip()                                           "Borra los espacios vacios de la izquierda"
+
+string.rstrip()                                           "Borra los espacios vacios de la derecha"
+
+string.find("ola")                                        "Nos dice la posicion en la cual esta ese string, si no lo encuentra
+                                                           pone -1"
+
+string.replace("H", "j")                                  "Remplaza el caracter "H" por "j", si no encuentra el caracter
+                                                           no hace nada, puede ser un string largo "Hola" por "nada""
+
+"ola" in string                                           "Dice TRUE si "ola" se encuentra en el string"
+
+"ola" not in string                                       "Dice FALSO porque "ola" si se encuentra en el string"
+
+\" \' \\                                                  "Sirve para ocupa ", ', \ como un string"
+
+str(4)                                                    "Transforma un numero en un string"
+
+int("1")                                                  "Transforma un string en un numero"
+
+float("3.5")                                              "Transforma un strin en un flotante"
+
+
+
+---------------------------------------------------------------------------------------------------------------------------
+
+                                                    "COSAS DE MATEMATICA"
+
+4 // 3                                                    "Divide y no toma los decimales"
+
+3 % 4                                                     "Toma el residuo de la divicion"
+
+variable += 5                                             "Le suma 5 a la variable y la remplaza automaticamente, se puede
+                                                           hacer con todas las operaciones"
+
+round(1.7)                                                "Lo aproxima a 2, en caso de ser 1.3 lo aproxima a 1"
+
+import math
+
+math.ceil(1.1)                                            "Lo redondea hacia arriba si o si, de 1.1 pasa a 2"
+
+math.floor(1.1)                                           "Lo redondea hacia abajo si o si, de 1.1 pasa a 1"
+
+math.trunc(1.1)                                           "Corta el numero tomando solo la parte entera en este caso 1"
+
+math.degrees(angulo_radianes)                             "Transforma un angulo en radianes a grados"
+
+math.radians(angulo_grados)                               "Transforma un angulo en grados a radianes"
+
+math.cos(angulo_radianes)                                 "Funcion coseno"
+
+math.sen(angulo_radianes)                                 "Funcion seno"
+
+math.pi                                                   "Es el numero pi"
+
+math.e                                                    "Es el numero exponencial"
+
+math.tau                                                  "Es el numero tau"
+
+math.inf o -math.inf                                      "Es infinito positivo o negativo"
+
+math.dist(p, q)                                           "Distancia euclidian entre el punto p y q"
+
+
+---------------------------------------------------------------------------------------------------------------------------
+
+                                                  "OPERADORES LOGICOS"
+
+and                                                       "Es para poner dos condiciones CONDICION and CONDICION"
+
+or                                                        "Es para poner dos conficiones, se debe cumplir almenos una"
+
+not                                                       "No se debe cumplir esta condicion"
+
+if condicion and condicion not condicion:
+
+
+
+
+
+
+
+
+
+
