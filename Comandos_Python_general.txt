@@ -3,13 +3,12 @@
                                          |             INDICE               |
                                          |__________________________________|
 
-            1. CONFIGURACIONES GENERALES         "Comandos que se apican dentro de qplot() en su mayoria a todos los graficos"
-            2. GRAFICO DE PUNTOS                 "Como graficar un grafico de puntos y otras configuraciones" 
-            3. GRAFICO DE LINEAS                 "Como graficar un grafico de lineas"
-            4. GRAFICO DE CAJAS                  "Como graficar un grafico de cajas" 
-            5. HISTOGRAMAS                       "Como graficar un histograma"
-            6. GRAFICO DE DENSIDAD               "Como graficar un grafico de densidad"
-            7. GRAFICO DE BARRAS                 "Como graficar un grafico de barras"
+            1. STRING                            "Todo sobre los string y las funcioness aplicables"
+            2. COSAS DE MATEMATICA               "Operaciones y funciones de matemaica como libreria MATH" 
+            3. OPERADORES LOGICOS                "Operadores logicos como and y or"
+            4. COSAS DE SINTAXIS                 "Algunos ejemplos de sintaxis y variables, etc" 
+            5. NUMPY                             "Sobre aplicaciones y funciones de la libreria NUMPY"
+            6. TIPO DE ESTRUCTURA EN PYTHON      "Tipos de estructuras en python"
 
 ---------------------------------------------------------------------------------------------------------------------------
 
@@ -24,6 +23,21 @@ var[0]                                                    "Toma la primera letra
 var[0:3]                                                  "Toma el de la posicion primera a la cuarta, es decir toma "Hola"
 var[5:]                                                   "Toma automaticamente desde la poscion sexta y todo lo que sigue
                                                           "mundo""
+
+vector = ["hola" , "mundo", "global"]
+vector[0]                                                 "En este caso no toma el caracter ya que es un arreglo, sino que
+                                                           toma la primera palabra"
+vector[1:]                                                "Toma desde la segunda palabra hacia adelante"
+vector[-1]                                                "Entrega el ultimo elemento del arreglo, cada negativo adicional
+                                                           lo toma de atras para adelante"
+vector[::2]                                               "Toma todos los elementos que esten en posicion pares o tambien
+                                                           posiciones de 2 en 2, le podemos especificar desde donde 
+                                                           empezar vector[1::2]"
+
+vector2=list(range(1:21))                                                       
+vector[1:2:20]                                             "Solo toma los que van desde 2 en 2, hasta la posicion 20, empieza
+                                                            de la posicion 1"
+
 var1="Hola"
 var2="Mundo"
 variable= var1 + " " + var2                               "Crea un nuevo string "Hola mundo""
@@ -73,6 +87,8 @@ str(4)                                                    "Transforma un numero 
 int("1")                                                  "Transforma un string en un numero"
 
 float("3.5")                                              "Transforma un strin en un flotante"
+
+
 
 
 
@@ -126,7 +142,109 @@ or                                                        "Es para poner dos con
 
 not                                                       "No se debe cumplir esta condicion"
 
-if condicion and condicion not condicion:
+if condicion and condicion not condicion:                 "Ejemplo de varias condiciones con los operadores logicos"
+
+
+---------------------------------------------------------------------------------------------------------------------------
+
+                                                  "COSAS DE SINTAXIS"
+
+lista = [1, 2, 3, 4]
+variable1, variable2, variable3, variable4 = lista       "Se define una variable para cada valor"
+
+variable1, *otros = lista                                "Se define variable1 = 1  y otros = [2, 3, 4] con el asterisco"
+
+variable1, *otros, variable4 = lista                     "Se difine variable = 1, variable4 = 4, esta ultima toma el ultimo
+                                                          valor de la lista y otros = [2, 3]
+
+lista.index(3)                                           "Nos dice el indice o posicion del valor 3 de la lista, aunque
+                                                          si esta repetido mostrara solo la primera posicion"
+
+lista.count(3)                                           "Nos dice cuantas veces esta repetido el valor 3 en la lista"
+
+lista.insert(1, "Hola")                                  "Inserta el string "Hola" en la posicion 1, no borra nada, los que
+                                                          siguen los corre"
+
+lista.append("Mundo")                                    "Agrega el dato "Mundo" alfinal de la lista"
+
+lsita.remove("Hola")                                     "Borra el dato "Hola" de la lista, borra solo el primer dato,
+                                                          en caso de haber varias repeticiones, tenemos que aplicarla
+                                                          varias veces con count para saber cuantas veces existe"
+
+lista.pop(1)                                             "Borra el elemento en la segunda posicion, 1 es el indice"
+
+lista.clear()                                            "Borra todos los datos de las listas"
+
+
+---------------------------------------------------------------------------------------------------------------------------
+
+                                                         "NUMPY"
+
+import numpy as np
+
+np.zeros((4,8))                                          "Crea un array de 4 filas y 8 columnas con zeros"
+
+np.full((4,8), 7)                                        "Crea un array de 4 filas y 8 columnas solo que tengan valores 7"
+
+np.random.rand(4,8)                                      "Crea un array de 4 filas y 8 columnas con datos entre 0 y 1
+                                                          decimales"
+
+np.random.randint(0,10,32)                               "Crea un array, pero de una fila con 32 valores ENTEROS entre
+                                                          0 y 10"
+
+np.reshape(array_una_fila, (4,8))                        "Crea un array de 4 filas y 8 columnas que calza perfecto con
+                                                          el array anterior de 32 datos, lo redimenciona"
+
+np.array([[4, 5, 6, 7] , [8, 10, 11, 12]])               "Crea un array con los numeros especificados"
+
+np.linspace(0,10,32)                                     "Crea un array de una fila, con 32 elementos, esos elementos son
+                                                          dependiendo del rango que se le de, este tiene un rango de 0
+                                                          a 10, ese rango lo divide en 32 partes y da valor a todos los
+                                                          elementos"
+
+mi_array.ndim                                            "Muestras las filas del array"
+
+mi_array.shape                                           "Muestra las "columnas" del array"
+
+mi_array.size                                            "Muestra las dimenciones del array"
+
+mi_array[1,2]  [filas, columnas]                         "En caso de que queramos tomar solo las filas o columans se escribe
+                                                          de esa forma"
+
+mi_array[1,0:]                                           "Estrictamente no son filas y columnas, sino que elementos
+                                                          que se dividen en mas datos, mi_array[1,0:] se entiendo
+                                                          como de el segundo elemento, muestra todos los datos"
+
+listas como array                                        "Los array entienden todas las sintaxis de las listas, se puede
+                                                          ocupar tambien"
+
+mi_array.ravel()                                         "Transforma el array en una lista, pegando los subconjuntos,
+                                                          por eso digo que en realidad no son filas y columnas"
+
+
+---------------------------------------------------------------------------------------------------------------------------
+
+                                                    "TIPOS DE ESTRUCTURAS PYTHON"
+
+Listas                                                   "En python las listas pueden tener datos mezclados, se ordenan
+                                                          separados por una coma, se crean con corechetes []"
+
+Tuplas                                                   "Es igual que las listas, pero al crearlas no se pueden modificar
+                                                          se crear con parentesis (), no hay tantas funiones para Tuplas
+                                                          y para llamar a algun dato de una tupla se pone una coma (1,)"
+
+Conjuntos                                                "Son iguales a las listas, pero se utilizan con llaves {}, aunque
+                                                          como los diccionarios ocupan llaves, se crear como set(1,2,etc),
+                                                          en los conjuntos los datos no se pueden repetir, las llaves
+                                                          pueden tener tuplas o listas dentro en cada dato, hay funciones
+                                                          para mezclar tuplas que esten dentro de diferentes formas"
+
+Diccionarios                                             "Tienen una key y un valor asociado a la key, deben tener el mismo
+                                                          tipo de datos, sintaix {1:"Hola",2: "Mundo"}"  
+
+                                                                                                                  
+
+
 
 
 
