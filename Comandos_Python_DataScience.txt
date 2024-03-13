@@ -1,0 +1,149 @@
+                                         ___________________________________
+                                         |                                  |
+                                         |             INDICE               |
+                                         |__________________________________|
+
+            1. STRING                            "Todo sobre los string y las funcioness aplicables"
+            2. COSAS DE MATEMATICA               "Operaciones y funciones de matemaica como libreria MATH" 
+            3. OPERADORES LOGICOS                "Operadores logicos como and y or"
+            4. COSAS DE SINTAXIS                 "Algunos ejemplos de sintaxis y variables, etc" 
+            5. NUMPY                             "Sobre aplicaciones y funciones de la libreria NUMPY"
+            6. TIPO DE ESTRUCTURA EN PYTHON      "Tipos de estructuras en python"
+
+
+---------------------------------------------------------------------------------------------------------------------------
+
+                                                "LIBRERIA PANDAS"
+
+import pandas as pd 
+
+Series()   pd.Series(lista)                                 "Los valores de la lista los reconoce como una columna, donde
+                                                             cada columna esta enumerada"
+
+DataFrame()  pd.DataFrame(Una_estructura_de_Dato)           "Crea una Data Frame apartir de una lista, diccionario, etc"
+
+             pd.DataFrame(Diccionario)                      {"Nombres" : ["Juan" , "Julio", "Andres"], "Edad" : [22 ,33 ,44]}
+                                                            (En este caso Nombre y Edad son los nombres de las columnas
+                                                            y la primera fila Juan 22, segunda fila Julio 33, tercera fila 
+                                                            Andres 44)
+
+dataframe = la importacion
+
+head()  dataframe.head()                                    "Muestras las primeras 5 lineas del dataframe"
+
+shape()  dataframe.shape()                                  "Dimenciones del dataframe, filas y columnas"
+
+sort_values()  dataframe.sort_values("nombre_columna")      "Ordena de manor a mayor o por abcedario el dataframe segun
+                                                             esa columna"
+
+           dataframe[dataframe["nombre_columna"] > 100]     "Pone una condicion y muestra solo los datos que cumplen con
+                                                             ella, las demas filas las no las muestra"
+           dataframe[CONDICION]
+
+select_dtypes()  dataframe.select_dtypes(include="int64")   "Solo mostrara columnas con datos tipo enteros, en caso de float64
+                                                             de que sean decimales,"bool" para datos tipo booleanos, "object"
+                                                             es para mostrar solo los que tiene string u otros tipo de datos"
+
+columns  dataframe.columns                                  "Muestras los nombre de las columnas"
+
+dataframe["nombre_nueva_columna"] = ""                      "Creamos una nueva columna al final del dataframe sin nada"
+                                  = "nada"                  "En este caso nada se repide en toda la columna, si se quiera
+                                                             rellenar dato por dato es con una lista [] debe tener la misma
+                                                             cantidad de filas del dataframe"
+
+drop()  dataframe.drop("nombre_columna", axis=1)            "Elimina una columna que se llame "nombre_columna" y axis es
+                                                             para especificar que es una columna, de no ponerlo lo buscara
+                                                             en el indice"
+
+dataframe = dataframe[["nombre_columna1", "nombre_columna2", "nombre_columna3"]]
+
+                                                            "Muestra una nueva tabla en el orden que nosotros le pusimos
+                                                             las columnas, le podemos cambiar el orden de las columnas de la
+                                                             original"
+
+iloc[]  dataframe.iloc[:, :4]                               "Permite mostrar las primeras 4 columnas, filas le dijimos todas
+                                                             columnas desde la cuarta hacia atras"
+
+        dataframe.iloc[:2]                                  "En este caso muestra solo las primera fila, asi lo entiende"
+
+loc()  dataframe.loc[:, dataframe.columnas.str.startswith("r")] 
+           
+                                                            "Muestra todas las columnas que empiezen con la letra "r""
+
+concat()  pd.concat([dataframe1, dataframe2])               "Une dos dataframe hacia abajo, es decir le agrega mas filas
+                                                             al primera dataframe, tienen que tener la misma cantidad
+                                                             de columnas"
+
+reset_index()  dataframe.reset_index(drop=TRUE)             "En caso de tener indices repetidos por agregaciones de otros
+                                                             dataframe, le aplicamos esto y resetea los indices"                                                           
+
+
+rename()  dataframe.rename(columns={"nombre_columna":"nuevo_nombre"}) 
+
+                                                            "Le cambia el nombre a la columna"
+
+
+IMPORTANTE al momento de ocupar columnas obtenemos una lista con los numbres, esos nombres son stirng se puede ocupar
+           todas las funciones de string en esa lista para modificarlas
+
+
+isnull()  dataframe.isnull().sum()                          "Dice si hay valores nulos en cada columna y cuantos son, aveces
+                                                             aunque salga vacio no son nulos, son string"
+
+dropna()  dataframe.dropna()                                "Elimina todas las filas que tengan valores nulos"
+
+          dataframe.dropna(axis=1)                          "Elimina todas las filas que tengan valores nulos"
+
+fillna()  dataframe.fillna(value=0)                         "Cambia los valores nulos por lo que nosotros le especifiquemos
+                                                             en value"          
+ 
+          dataframe.fillna(method="ffill")                  "Cambia nulo por el valor anterior de la columna"
+
+          dataframe.fillna(method="bfill")                  "Cambia nulo por el valor siguiente de la columna"
+
+          dataframe.fillna(dataframe.mean())                "Cambia nulo por la media de cada columna, depende en cual este"
+
+interpolate()  dataframe.interpolate()                      "Cambia nulo por lo que "deberia" ser el computador lo entiende"
+
+
+
+---------------------------------------------------------------------------------------------------------------------------
+
+                                        "IMPORTACION Y EXPORTACION DE ARCHIVOS PANDAS"
+
+
+##### archivo .csv
+
+pd.read_csv("ruta de el archivo", encoding = "ISO-8859-1")  "Importa un archivo .csv para leerlo, los archivos csv se
+                                                              separan por comas, endoing es para corregir un error posible"
+                   
+                  pd.read_csv("ruta de el archivo", usecols=["nombre_columna1", "nombre_columna2", ...])
+
+                                                            "Muestra solo esas columna, especificadas segun el nombre"
+
+
+dataframe.to_csv("nombre_de_salida.csv", index=FALSE)       "Exporta un dataframe cualquier (el dataframe no tiene tipo
+                                                             de archivo) lo exportara en este caso como un archivo .csv"
+
+
+dataframe[["nombre_columna1", "nombre_columna2", ...]].to_csv("nombre_de_salida", index=FALSE)
+
+                                                            "Exporta solo algunas columnas que nosotros le especifiquemos"
+
+
+##### archivo .html
+
+pip install lxnl
+pd.read_html("link de la pagina web")[0]                    "Lee una tabla desde una pagina web cualquiera, entendera los
+                                                             datos escritos no imagenes, el [0] debemos especificarle
+                                                             es la ubicacion de la columna que sera el indice, si hay
+                                                             varias tablas hay que ir probando cual funciona" 
+                                                                             
+
+##### archivo .xlsx
+
+pd.read_excel("ruta de el archivo")                         "Abre archivos xlsx de excel"
+
+dataframe.to_excel("nombre_archivo.xlsx", index=FALSE)      "Exporta como archivo para excel cualquier dataframe"
+
+
