@@ -3,12 +3,10 @@
                                          |             INDICE               |
                                          |__________________________________|
 
-            1. STRING                            "Todo sobre los string y las funcioness aplicables"
-            2. COSAS DE MATEMATICA               "Operaciones y funciones de matemaica como libreria MATH" 
-            3. OPERADORES LOGICOS                "Operadores logicos como and y or"
-            4. COSAS DE SINTAXIS                 "Algunos ejemplos de sintaxis y variables, etc" 
-            5. NUMPY                             "Sobre aplicaciones y funciones de la libreria NUMPY"
-            6. TIPO DE ESTRUCTURA EN PYTHON      "Tipos de estructuras en python"
+            1. LIBRERIA PANDAS                             "La mayoria de las funciones con usos GENERALES"
+            2. PANDAS FUNCIONES SQL                        "Funciones que hacern lo mismo que funciones de SQL" 
+            3. FECHAS CON PANDAS                           "Funciones que sirven para datos tipo FECHA"
+            4. IMPORTACIONES Y EXPORTACIONES CON PANDAS    "Importaciones y importacion con las funciones de pandas" 
 
 
 ---------------------------------------------------------------------------------------------------------------------------
@@ -94,6 +92,12 @@ dropna()  dataframe.dropna()                                "Elimina todas las f
 
           dataframe.dropna(axis=1)                          "Elimina todas las filas que tengan valores nulos"
 
+duplicated()  dataframe.duplicated().sum()                  "Analiza si existen valores duplicados en el dataframe"
+
+drop_duplicates()  dataframe.drop_duplicates()              "Elimina todos los valores que esten duplicados en el 
+                                                             dataframe"
+
+
 fillna()  dataframe.fillna(value=0)                         "Cambia los valores nulos por lo que nosotros le especifiquemos
                                                              en value"          
  
@@ -104,6 +108,290 @@ fillna()  dataframe.fillna(value=0)                         "Cambia los valores 
           dataframe.fillna(dataframe.mean())                "Cambia nulo por la media de cada columna, depende en cual este"
 
 interpolate()  dataframe.interpolate()                      "Cambia nulo por lo que "deberia" ser el computador lo entiende"
+
+
+apply()  dataframe["columna1"] = dataframe["columna1"].apply(lambda x :x+5)
+
+                                                            "Apply le aplica una funcion a toda la columna, en este caso
+                                                             solo le suma 5 a todos los valores de esa columna PUEDE
+                                                             SER CUALQUIER FUNCION"
+
+mean()  dataframe["columna1"].mean()                        "Calcula el promedio de todos los datos de esa columna"
+
+replace()  dataframe["columna1"].replace("un_dato", "nuevo_dato")
+
+                                                            "Remplaza valores, remplaza todos los datos que se llamen
+                                                            "un_dato" por "nuevo_dato" en esa columna, si queremos
+                                                             remplazar varios elementos, hacemos una lista ([],[]...)
+                                                             dentro le ponemos cada cambio a cada corchete"
+
+           dataframe["columna1"].replace(r"^A.*", "nuevo_dato", regex=TRUE)                                                             
+                                                             
+                                                            "Remplaza todos los datos de esa columna que empiezen con A
+                                                             por "nuevo_dato"
+
+           dataframe["columna1"],replace("a", "o")          "Remplaza todas las "a" de esa columna por "o""
+
+
+str.split()  dataframe["columna1"].str.split(" ")           "Separa cada letra de los string con " " en toda la columna"
+
+             dataframe[["nueva_columna1", "nueva_columna2"]]=dataframe["columna1"].str.split(" ", expand=TRUE)
+
+                                                            "Separa una columna en dos columna, la separacion se produce
+                                                             cuando todos los datos de tienen un caracter en particular
+                                                             en este caso asumiendo que todos tienen " " los separa
+                                                             por ese caracter, el dato de la izquierda a la nueva_columna1
+                                                             y el dato de la derecha a la nueva columna2"
+
+sort_values()  dataframe.sort_values(by="nombre_columna")   "Ordena toda la tabla segun el abcdario o segun menor a mayor
+                                                             si es que es un numero, segun la "nombre_columna" señalada"
+
+               dataframe.sort_values(by="nombre_columna", ascending=FALSE) "Para ordenar de forma descendente"
+
+               dataframe.sort_values(by=["columna1", "columna2"])  "Ordena primera por columna1 y despues por columna2"
+                       
+               dataframe.sort_values(by=["columna1", "columna2"]).reset_index(drop=TRUE)
+
+                                                            "Lo anterior hara que los indices se mantengan en caso de
+                                                             que se quieran reiniciar los indices le aplicamos reset"
+
+
+sort_index()  dataframe.sort_index()                        "En caso de realizarle un cambio de orden previamente, se
+                                                             se puede restablecer segun el indice para volver a la original"
+                                                                                     
+rank()  dataframe["nombre_columna"].rank()                  "Lo que hace es crear una nueva columna que diga en que orden
+                                                             segun el dato de la columna "nombre_columna", dira en que
+                                                             posicion como ranking estan, le asociara un lugar 1.0 = 1°,
+                                                             en caso de haber valores repetidos les aplica decimales"
+
+        dataframe["nombre_columna"].rank(method="min")      "En este caso los ordena por ranking igual que la anterior,
+                                                             pero no ocupa decimales, simplemente los deja con la misma
+                                                             posicion por debajo es decir de 1.5 pasa a 1.0"
+
+        dataframe["nombre_columna"].rank(method="dense")    "En el caso anterior se salta lugares que esten repetidos
+                                                             dos repetidos en primero salta al tercero en el otro, este
+                                                             hace que no salte que siga con el segundo"
+
+        dataframe["nombre_columna"].rank(ascending=FALSE)   "En este caso el rankeo es descente el que era el primera ahora
+                                                             es el ultimo"
+
+np.sqrt()  np.sqrt(dataframe["nombre_columna"])             "Le aplica una funcion de numpy en este caso raiz cuadrada
+                                                             a todo la columna"
+
+agg()  dataframe.agg(["sum", "mean", "min", "count", "max"])"Crea un nuevo dataframe con el resumen estadistico de todas
+                                                             las columnas, segun las operaciones que le especifiquemos"
+
+describe()  dataframe.describe()                            "Dice toda la informacion estadistica de el dataframe, de
+                                                             manera rapida, es equivalente summary de R"
+
+std()  dataframe["columna"].std()                           "Es la desviacion estandar de esa columna"
+
+quantile()  dataframe["columna"].quantile(0.25)             "Es el quantil de esa columna, se puede especificar"
+
+nunique()  dataframe["columna"].nunique()                   "Dice cuantos son los valores sin contar los repetidos de esa
+                                                             columna, es decir solo los valores unicos"
+
+value_count()  dataframe["columna"].value_count()           "Es un resumne de la cantidad de veces que se repite cada
+                                                             valor en la columna, y ademas dice el tipo de dato de la 
+                                                             columna"
+
+corr()  dataframe["columna1"].corr(dataframe["columna2"])   "Dice cual es la correlacion de los datos con respecto a otra
+                                                             1 si es que son casi iguales, 0 cuando existe mucha diferencia,
+                                                             es posible hacer una tabla de correlacion sin especificar
+                                                             ninguna columna"
+
+melt()  dataframe.melt(id_vars=["columna1", "columna2"], value_vars=["columna3", "columna4"], var_name="nombre_columna",
+                       value_name="nombre_columna2")     
+
+                                                            "Este metodo restructura la tabla, simplemente hace una nueva
+                                                             tabla estructurada de otra forma, "id_vars" dice las columnas
+                                                             que queremos mantener en la nueva tabla, "value_vars" son las
+                                                             columnas que queremos reestructurar, "var_name" y
+                                                            "value_name" son para definir los nombres de las nuevas 
+                                                             columnas"
+
+                                                             IMPORTANTES para reestrucutar contrariamente es decir volver
+                                                             a la original, con groupby volvera a ser como antes
+
+
+
+                             
+---------------------------------------------------------------------------------------------------------------------------
+
+                                                   "PANDAS FUNCIONES DE SQL"
+
+groupby()  dataframe.groupby("nombre_columna").sum()        "Agrupa los datos de la columna señalada, lo que hace es
+                                                             encontrar los datos repetidos y los agrupa como uno solo,
+                                                             despues necesita alguna operacion para hacer con los datos
+                                                             de las otras columnas, en este caso se sumaran todos los datos
+                                                             para las repeticiones agrupadas, sumara todas las otras columnas"
+
+           dataframe.groupby(["nombre_columna1","nombre_columna2"]).sum()        
+                    
+                                                            "En este caso se agupan para dos columnas, las categorias pueden
+                                                             ser no coicidentes, en ese caso hara una subdivicion adicional
+                                                             de otra agrupacion para la segunda columna, solo ordenara los
+                                                             datos automaticamente"
+
+           dataframe.groupby(["nombre_columna1","nombre_columna2"]).agg(["sum", "mean"]) 
+
+                                                            "En el caso de que queramos hacer mas operaciones a las
+                                                             agrupaciones ocupamos la funcion agg(), los agregara
+                                                             acontinuacion cada operacion"
+
+concat()  pd.concat([dataframe1, dataframe2], axis=0)       "Para recordar este metodo junta los dos dataframe, pero lo hara
+                                                             al final, ya sea de las filas o columnas que nosotros le
+                                                             especifiquemos, creando un cuadro, no hara coicidir nada,
+                                                             solo los juntara las mismas cantidad de filas o columnas
+                                                             rellenando con NaN"
+
+merge()  pd.merge(dataframe1, dataframe2, on="columna", how="outer")
+
+                                                            "Fusiona dos dataframe, los fusiona por la columna en on=
+                                                            "columna" que deberia ser igual o con datos para fusionar,
+                                                            "outer" significa que los fusionara, automaticamente
+                                                             entiende cuando falta algun dato lo rellena con NaN.
+                                                             Es equivalente al FULL JOIN de SQL"
+
+         pd.merge(dataframe1, dataframe2, on="columna", how="inner")
+                                                             
+                                                            "Fusion igual que el anterior, pero en este caso no toma
+                                                             en cuenta los que no coincidan exactamente en alguna categoria
+                                                             los que deberia rellenar con NaN no los mostrara, es equivalente
+                                                             al INNER JOIN de SQL"
+
+
+         pd.merge(dataframe1, dataframe2, on="columna", how="left") 
+
+                                                            "Fusiona igual que el "outer", pero no rellena todos los valores
+                                                             con NaN, solo rellena los valores que se encuentre solo en
+                                                             el primer dataframe1 y los que solo existan en el segundo
+                                                             no los tomara, es equivalente al LEFT JOIN"
+
+         pd.merge(dataframe1, dataframe2, on="columna", how="right")
+
+                                                            "Es igual que el anterior, pero en este caso toma en cuenta
+                                                             solo los del segundo dataframe2 y esos si no existen el
+                                                             primero los rellenara con NaN, pero los que solo existan en
+                                                             el primero no los tomara en cuenta, es equivalente al RIGHT
+                                                             JOIN de SQL"
+
+join()  dataframe1.join(dataframe2, lsuffix="_df1", rsuffix="_df2")
+
+                                                            "No los fusiona como tal sino mas bien los ordena de tal forma
+                                                             que las columnas o filas queden ordenadas, los datos que no
+                                                             coincian en la misma posicion no hara una distincion, solo
+                                                             estaran en su ubicacion original, y mostrara dos veces la
+                                                             columna que ocupo para "juntar" las dataframe"
+
+pivot_table()  dataframe.pivot_table(values=["columna1", columna2], index="columna3", aggfunc=np.sum)
+
+                                                            "Lo que hace es parecido al group by, en este caso crea una
+                                                             tabla nueva que tenga los datos, agrupa para la columna indice
+                                                             señalada, en este caso "columna3", las otras columnas 
+                                                             (columna1 y columna2), se debe decidir una operacion con
+                                                             ellas, en este caso se sumaran las dos columnas para la
+                                                             agrupacion para la columna3"
+                
+                dataframe.pivot_table(values=["columna1", columna2], index=["columna3","columna4"] aggfunc=np.sum)
+
+                                                            "Crea una tabla que agrupe para dos columnas las distinciones
+                                                             en las agrupaciones las hace automaticamente"
+
+                mi_pivot_table["nuevo_nombre_columna"] = mi_pivot_table["columna3"] - mi_pivot_table["columna4"]
+
+                                                            "En este caso para una pivot table ya creada, le agrega
+                                                             una nueva columna que es la operacion de las dos columnas
+                                                             anteriores"
+                                                                    
+
+
+
+---------------------------------------------------------------------------------------------------------------------------
+
+                                                     "FECHAS CON PANDAS"
+
+from datetime import datetime
+import numpy as np
+
+to_datetime()  pd.to_datetime("2023-01-01 10:00:00")        "Al crear poner una fecha asi entre " " es simplemente un 
+                                                             string, para trasfrormarla a formato fecha debemos ocupar
+                                                             esta funcion y debe tener esa estructura"
+
+               pd.to_datetime(dataframe["nombre_columna"])  "Cambia todos los datos de una columna a tipo fecha"
+
+
+
+datetime.now()  datetime.now()                              "Entrega la fecha actual con la hora"
+
+Timestamp()  pd.Timestamp(datetime.now())                   "Transforma la fecha actual en un punto de tiempo que siempre
+                                                             la fecha actual puede estar disponible en variable"
+
+date_range()  pd.date_range(start="2023-01-01", end="2023-12-01", freq="M")
+
+                                                            "Lo que hace es entregar una especie de lista con todos los
+                                                             datos a partir "2023-01-01" itinerados por el cada mes hasta
+                                                             la fecha de termino"
+
+              pd.date_range(start="2023-01-01", end="2023-12-01", freq="D")
+
+                                                            "Hace lo mismo que la anterior, pero esta vez los itinera por
+                                                             
+                                                            "otras frecuencias: "H":"horas", "T":"minutos", "S":"segundos",
+                                                                                "L":"milisegundos", "B":"dias laborales",
+                                                                                "W":"semanas", "A":"fin de año", "AS":"inicio
+                                                                                de año", "Q":"fin trimestre", etc
+
+Series()  pd.Series(columna_da_datos, index=rangos_anteriores) 
+
+                                                            "Lo que hace es crear una nueva tabla, con la columna de datos
+                                                             pero que para cada dato le aplica una fecha, tienen que
+                                                             coincidir la misma cantidad de datos con el rango de fechas"
+
+shift()  mi_serie.shift(1)                                  "Lo que hace es correr los datos (no los indices) un espacio
+                                                             hacia abajo de los indices, por lo que queda un indice sin dato
+                                                             lo rellena con NaN, los datos sin indice no se muestran"
+
+
+asfreq()  mi_serie_dias.asfreq("M")                         "Al pasarle una serie con muchos datos, solo mostrara el ultimo
+                                                             dato del mes, que se dara el ultimo dia"
+
+resample()  mi_serie_dias.resample("M").sum()               "Ha una serie larga de dias de muchos meses, lo que hace es
+                                                             mostrar la recaudacion (la suma) a final de cada mes con "M", 
+                                                             sum(), se le pueden aplicar cualquier otras funciones"
+
+tz_localize() mi_serie_dias.tz_localize("UTC")              "Le agrega la hora UTC a las fechas registradas, pero por
+                                                             defecto ya estan en la UTC, asi que no agregara nada"
+
+tz_convert()  mi_serie_dias.tz_convert("America/Santiago")  "Cambia la hora a otra zona horaria, tambien dice cuanto
+                                                             le resto o sumo desde la hora UTC"
+
+import pytz
+for tz in pytz.all_timezones:                               "Muestra todas las zonas horarias disponibles"
+     print(tx)                                                                                                           
+                                                              
+Period()  pd.Period("2023-01")                              "Crea un periodo, no es necesario poner la fecha entera, por
+                                                             si solo entendera que quieres solo ocupar meses como unidad
+                                                             por ejemplo: mi_periodo + 1 es igual "2023-02""
+
+timesdelta()  timesdelta(days=7)                            "Crea una fecha para hacer operaciones, no contiene como
+                                                             una fecha como tal, sino contiene 7 dias que se pueden
+                                                             sumar a otra fecha, se puede poner ademas: week=semanas
+                                                             hours=horas, minutes=minutos, seconds=segundos, miliseconds=
+                                                             milisegundos
+                                                             
+                                                             IMPORTANTES es que tambien se puede sumar a SERIES de tiempo
+                                                             y lo sumara a todas las fechas
+                                                             
+                                                             mi_serie + timesdelta(days=7), sumara 7 dias a todas las
+                                                             fechas"
+
+rolling()  mi_serie.rolling(windows=7).mean()               "Lo que es sacar el promedio en una ventana de 7 dias, los
+                                                             primeros 6 dias no calcula nada, pero todos los otros empieza
+                                                             a calcular considerando los 6 que no se mostraban, calcula
+                                                             media moviles, cada dato agregado por fecha se va incorporando
+                                                             al calculo de la media"
+
 
 
 
