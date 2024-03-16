@@ -263,7 +263,9 @@ se debe ocupar otras funciones que generalmente son write.csv2() etc, se debe bu
 
 variable = read_csv("ubicacion")                           "Importa el archivo csv desde alguna ubicacion para ser ocupado"
 
-write.csv(variable, files="ubicacion_salida")              "Exporta el archivo hacia alguna ubicacion de salida, el nombre
+write.csv(variable, file="ubicacion_salida")    (no va "/" al principio y al final)
+                                   
+                                                           "Exporta el archivo hacia alguna ubicacion de salida, el nombre
                                                            "variable" es solo para el codigo"
 
 
