@@ -1,0 +1,29 @@
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------
+
+                                              "GRAFICAS ORIENTADAS A OBJETOS"
+
+import matplotlib.pyplot as plt
+
+fig                                                             "fig se ocupar para definir que se creara una figura
+                                                                 todo lo que sigue sera para esa figura"
+
+ax                                                              "ax, es una varibale para referirse a cierto grafico"
+
+subplots()  (fig , ax = plt.subplots())                         "Define una figura y una variable para cada grafico"
+
+
+barh()  ax.barh(np.arange(10), dataframe.columna.iloc[:10])     "Crea un grafico de barra"
+
+set_yticks()  ax.set_yticks(np.arange(0.4,11.4,1))              "Define el rango de los escalados del eje y,
+                                                                 ("minimo del eje, maximo del eje, valor separacion"),
+                                                                 no se muestran por defecto los valroes en la grafica"
+
+set_yticklabels()  ax.set_yticklabels(np.arange(1,11))          "Muestra los valores que se mostraran en el eje"
+
+set()  ax.set(ylabel="titulo_eje_y", xlabel="titulo_eje_x", title="titulo_grafico")  "Para poner los titulos de el grafico"
+

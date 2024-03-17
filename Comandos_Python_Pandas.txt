@@ -25,11 +25,16 @@ DataFrame()  pd.DataFrame(Una_estructura_de_Dato)           "Crea una Data Frame
                                                             y la primera fila Juan 22, segunda fila Julio 33, tercera fila 
                                                             Andres 44)
 
+
 dataframe = la importacion
 
 head()  dataframe.head()                                    "Muestras las primeras 5 lineas del dataframe"
 
 shape()  dataframe.shape()                                  "Dimenciones del dataframe, filas y columnas"
+
+sample()  dataframe.sample(n=10)                            "Si no se quiere ver el dataframe entero, podemos hacer una
+                                                             muestra del dataframe, en este caso muestra los primeros
+                                                             10 filas del dataframe"
 
 sort_values()  dataframe.sort_values("nombre_columna")      "Ordena de manor a mayor o por abcedario el dataframe segun
                                                              esa columna"
@@ -409,7 +414,13 @@ pd.read_csv("ruta de el archivo", encoding = "ISO-8859-1")  "Importa un archivo 
 
                                                             "Muestra solo esas columna, especificadas segun el nombre"
 
-                  pd.read_csv("ruta de el archivo", sep="\;")  "Sirve decir la separacion en caso de ser otra"                                                            
+                  pd.read_csv("ruta de el archivo", sep=";")  "Sirve decir la separacion en caso de ser otra, separacion
+                                                               tab .tcs "\t", en caso de ser un espacio delim_whitespace=TRUE"
+
+                  pd.read_csv("ruta de el archivo", header=None)  "Generalmente los archivos tienen una descripcion en una
+                                                                   fila, con este le indicamos no usarla"
+
+                  pd.read_csv("ruta de el archivo, na_values=["NA", 99]")  "Para que no tome los valores Na o 99"                                                                                                                                                                                           
 
 
 dataframe.to_csv("nombre_de_salida.csv", index=FALSE)       "Exporta un dataframe cualquier (el dataframe no tiene tipo
