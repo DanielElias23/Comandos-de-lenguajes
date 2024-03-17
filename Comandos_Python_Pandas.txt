@@ -409,6 +409,8 @@ pd.read_csv("ruta de el archivo", encoding = "ISO-8859-1")  "Importa un archivo 
 
                                                             "Muestra solo esas columna, especificadas segun el nombre"
 
+                  pd.read_csv("ruta de el archivo", sep="\;")  "Sirve decir la separacion en caso de ser otra"                                                            
+
 
 dataframe.to_csv("nombre_de_salida.csv", index=FALSE)       "Exporta un dataframe cualquier (el dataframe no tiene tipo
                                                              de archivo) lo exportara en este caso como un archivo .csv"
