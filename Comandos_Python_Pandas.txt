@@ -32,6 +32,8 @@ head()  dataframe.head()                                    "Muestras las primer
 
 shape()  dataframe.shape()                                  "Dimenciones del dataframe, filas y columnas"
 
+                   dataframe.shape[0] o dataframe.shape[1]  "Es para tomar la cantidad de filas y columnas, respectivamente"
+
 sample()  dataframe.sample(n=10)                            "Si no se quiere ver el dataframe entero, podemos hacer una
                                                              muestra del dataframe, en este caso muestra los primeros
                                                              10 filas del dataframe"
@@ -48,6 +50,8 @@ select_dtypes()  dataframe.select_dtypes(include="int64")   "Solo mostrara colum
                                                              es para mostrar solo los que tiene string u otros tipo de datos"
 
 columns  dataframe.columns                                  "Muestras los nombre de las columnas"
+
+           dataframe.columns.tolist()                       "Todos los nombres de las columnas los pone en una lista"
 
 dataframe["nombre_nueva_columna"] = ""                      "Creamos una nueva columna al final del dataframe sin nada"
                                   = "nada"                  "En este caso nada se repide en toda la columna, si se quiera
@@ -69,7 +73,9 @@ iloc[]  dataframe.iloc[:, :4]                               "Permite mostrar las
 
         dataframe.iloc[:2]                                  "En este caso muestra solo las primera fila, asi lo entiende"
 
-loc()  dataframe.loc[:, dataframe.columnas.str.startswith("r")] 
+loc()  dataframe.loc["columna1",...]                        "Muestra solo las columnas que se le especifiquen"
+
+       dataframe.loc[:, dataframe.columnas.str.startswith("r")] 
            
                                                             "Muestra todas las columnas que empiezen con la letra "r""
 
@@ -219,8 +225,24 @@ melt()  dataframe.melt(id_vars=["columna1", "columna2"], value_vars=["columna3",
                                                              a la original, con groupby volvera a ser como antes
 
 
+set_index()  dataframe.set_index("nombre_columna")           "Toma esa columna y la coloca de indice en el data frame"
 
-                             
+stack()  dataframe.stack()                                   "El dataframe le cambia la estructura, las columnas pasan
+                                                              a ser filas, en general lo dejara de 1 columna,
+                                                              todo pasara a 1 columnas transformandolas en filas, no es un
+                                                              dataframe al parecer no lo reconoce como tal, es importante
+                                                              al hacer un stack, elegir un indicce con set_index lo ordenara
+                                                              para esa columna"
+                                                              
+
+to_frame()  dataframe.stack().to_frame()                     "Muestra lo mismo que lo anterior, pero como un dataframe"                                                              
+
+            dataframe.stack().to_frame().reset_index()       "El formato de stack() es solo una columna, pero cada columna
+                                                              tiene nombres añadidos que nos se cosideran, al resetear el
+                                                              indice se forma un nuevo dataframe, que ahora cosnidera los
+                                                              nomrbes, puede ser de 3 o 4 columnas"
+                                                              
+                                                                                   
 ---------------------------------------------------------------------------------------------------------------------------
 
                                                    "PANDAS FUNCIONES DE SQL"

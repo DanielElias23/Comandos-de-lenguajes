@@ -1,0 +1,71 @@
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------
+
+                                            "GRAFICAS CON SEABORN"
+
+import seaborn as sns
+
+distplot()  sns.distplot(columna_datos, bins=20)             "Crea un histograma de bins=20 con una linea de densidad"
+
+boxplot()  sns.boxplot(columna_datos)                        "Crea un grafico de cajas"
+
+pairplot()  sns.pairplot(dataframe, hue="columnas_categoria", size=3)
+
+                                                             "Un grafico muy completo, permite hacer muchos graficos de
+                                                              manera instantanea, en hue="columna", le decimos la columna
+                                                              que contiene las categorias, en size=3 le decimos cuantas
+                                                              categorias son en totales, por lo que crear una matriz de
+                                                              graficos de comparaciones columna por columna, dividiendo
+                                                              por colores segun la cantidad de categorias, en este caso
+                                                              divide todos los graficos con 3 colores"
+
+### MULTIGRAFICOS
+
+jointplot()  sns.jointplot(x=columna1, y=columna2, kind="hex")
+
+                                                             "Crea un grafico de areas, en este caso hace una especie de
+                                                              grafico tipo panal de avejas que muestra la densidad de datos
+                                                              por medio de colores mas oscuros, tambien muestra histogramas
+                                                              en los ejes"
+
+### GRILLA DE GRAFICOS 
+
+plot = sns.FacetGrid(dataframe, col="columna_categoria", magin_titles=TRUE)
+plot.map(plt.hist, "nombre_columna", color="blue")
+
+                                                             "Crea un Grilla de graficos para la columna de categorias
+                                                              cada grafico sera para una categoria, luego crea el tipo de
+                                                              grafico en este caso seran histogramas, luego le especificamos
+                                                              que columnas de datos ocupara para los graficos"
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------
+
+                                             "DEFINIR OUTLIERS"
+
+import numpy as np
+
+q25, q50, q75 = np.percentile(columna_datos, [25, 50, 70])
+resto= q75 - q25
+
+min = q25 - 1.5*(resto)
+max = q75 + 1.5*(resto)
+
+#limites
+print(min, q25, q50, q75, max)
+
+#mostrar outliers
+[x for x columna_datos["Unemployement"] if x > max] "puede ser con "min" tambien"
+
+---------------------------------------------------------------------------------------------------------------------------
+
+                                             "AGREGAR RANGO A DESCRIBE"
+
+dataframe.describe().iloc["range"] = dataframe.describe().iloc["min"] - dataframe.describe().iloc["max"]   
+
+guardar esto como variable

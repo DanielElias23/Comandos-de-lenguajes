@@ -14,8 +14,15 @@ fig                                                             "fig se ocupar p
 
 ax                                                              "ax, es una varibale para referirse a cierto grafico"
 
+axes()  ax = plt.axes()
+
 subplots()  (fig , ax = plt.subplots())                         "Define una figura y una variable para cada grafico"
 
+hist()
+
+           dataframe.hist()                                     "Hace varios histogramas por separado cada columna"
+
+           dataframe.plot.hist(bins=25, alpha=0.5)              "Hace varios histogramas todos juntos en uno"
 
 barh()  ax.barh(np.arange(10), dataframe.columna.iloc[:10])     "Crea un grafico de barra"
 
@@ -27,3 +34,20 @@ set_yticklabels()  ax.set_yticklabels(np.arange(1,11))          "Muestra los val
 
 set()  ax.set(ylabel="titulo_eje_y", xlabel="titulo_eje_x", title="titulo_grafico")  "Para poner los titulos de el grafico"
 
+---------------------------------------------------------------------------------------------------------------------------
+
+                                         "COSAS SOBRE LOS GRAFICOS"
+
+ axList = dataframe.hist()                                       "Al guardar un grafico como una variable, este no contiene
+                                                                  el grafico en si, sino que los metadatos de los graficos,
+                                                                  y ademas se lee como matriz"
+
+          dataframe.hist(figsize=(8,8))                          "figsize agranda el tamaño de los graficos"
+
+for ax in axList.flaten():
+
+        if ax.is_last_row():                                     "axList es una matriz donde los primeros y ultimos son
+              ax.set_xlabel("nombre eje x")                       labels que podemos poner de esta forma"
+
+        if ax.is_first_col():
+              ax.set_ylabel("nombre eje y")                                                                                                                                                    -

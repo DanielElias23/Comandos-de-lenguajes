@@ -88,7 +88,9 @@ int("1")                                                  "Transforma un string 
 
 float("3.5")                                              "Transforma un strin en un flotante"
 
-
+set()  set(lista) (o tupla, etc)                          "Transoforma a un iterable, en caso de una lista de numeros las
+                                                           deja igual, pero un string lo separa completamente letra por letra
+                                                           en una lista solo de letras"
 
 
 
