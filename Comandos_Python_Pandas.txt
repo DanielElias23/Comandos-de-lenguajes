@@ -49,6 +49,9 @@ select_dtypes()  dataframe.select_dtypes(include="int64")   "Solo mostrara colum
                                                              de que sean decimales,"bool" para datos tipo booleanos, "object"
                                                              es para mostrar solo los que tiene string u otros tipo de datos"
 
+                 dataframe.select_dtypes(include="int64").columns() "Muestra solo los nombres de las columnas"
+
+
 columns  dataframe.columns                                  "Muestras los nombre de las columnas"
 
            dataframe.columns.tolist()                       "Todos los nombres de las columnas los pone en una lista"
@@ -242,7 +245,14 @@ to_frame()  dataframe.stack().to_frame()                     "Muestra lo mismo q
                                                               indice se forma un nuevo dataframe, que ahora cosnidera los
                                                               nomrbes, puede ser de 3 o 4 columnas"
                                                               
-                                                                                   
+info()  dataframe.info()                                     "Muestra toda la informacon del dataframe"
+
+copy()  dataframe["columna"].copy()                          "Hace una copia de esa columna, sirve para definir mas variables"
+                                                                                                                   
+
+
+
+
 ---------------------------------------------------------------------------------------------------------------------------
 
                                                    "PANDAS FUNCIONES DE SQL"

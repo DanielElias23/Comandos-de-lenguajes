@@ -18,6 +18,10 @@ axes()  ax = plt.axes()
 
 subplots()  (fig , ax = plt.subplots())                         "Define una figura y una variable para cada grafico"
 
+            fig, (ax1, ax2) =plt.subplots(1,2, figsize=(10,8))  "Permite configurar varios graficos"
+
+            dataframe["columna"].hist(ax=ax1)                   "Para configurar solo ese grafico"
+
 hist()
 
            dataframe.hist()                                     "Hace varios histogramas por separado cada columna"

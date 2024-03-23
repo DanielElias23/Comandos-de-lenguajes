@@ -1,0 +1,155 @@
+
+
+
+
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------
+                                                 MACHING LEARNING SUPERVISADO
+---------------------------------------------------------------------------------------------------------------------------
+
+                                                     COMANDOS GENERALES
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------
+        
+                                                      PREPROCESAMIENTO
+
+Para ocupar cada funcion como son muy largos los nombres se pasan a variables y luego para hacer efectivos los cambios
+se pasan a array con un transformador
+
+Ejemplo: OHE = OneHotEncoder()
+         OHE.fit_transform(datos)
+
+####         
+
+
+from sklearn.preproccessing import OneHotEncoder
+
+OneHotEncoder()  OneHotEncoder()                               "Cada categoria de typo string la transforma en binario"
+
+from sklearn.preproccessing import StandardScaler
+
+StandardScaler()  StandardScaler()                             "Traspasa todos los datos a la otra escala, los datos son
+                                                                modificados para que sean valores oscilando cerca de 0,
+                                                                pero la relacion entre todos se mantiene, al graficarlos
+                                                                se conserva la misma forma"
+
+from sklearn.preproccessing import PolynomialFeatures
+
+PolynomialFeatures()  PolynomialFeatures(degree=2, include_bias=True)
+                                       
+                                                               "Se dice que les crea mas categorias a los datos, pero lo que
+                                                                es crea un nuevo array con valores que se le aplican ciertas
+                                                                operaciones matematicas (Se le llama polynomica) es como si
+                                                                expandiera el dato en mas datos"
+
+                      pf = PolynomialFeatures(degree=2, include_bias=True)
+                      pf.fit.transform([2,3])
+                                                               "Lo que hace es [2,3], como le dijimos bias si agrega un valor
+                                                                1, entonces lo que hace es crea una nueva tupla
+                                                                con en este caso 6 valores porque es grado dos, hace las
+                                                                siguientes operaciones: [1, 2^1, 3^1, 2^2, 3^2, 2*3] y asi
+                                                                sucesivamente en caso de agregar mas grados"
+
+   
+
+---------------------------------------------------------------------------------------------------------------------------
+
+                                                        REGRESIONES
+
+from sklearn.linear_model import LinearRegression    
+
+
+LinearRegression()  clf = LinearRegression()                   "Crea un modelo para regresion lineal (le pasa las formulas)"
+
+fit()  clf.fit(x,y)                                            "Entrena el modelo creado (hace una regresion lineal)"
+
+coef_  clf.coef_                                               "Nos entrega el valor "b0" para esos datos"
+
+intercept_  clf.intercept_                                     "Nos entrega el valor "b1" para esos datos"
+
+predict()  clf.predict([[x]])  clf.predict(x) (para una columna entera)
+
+                                                               "Segun nuestro modelo nos predice un valor para ese x,
+                                                                todo esto clf.predict(x) = y_predecido"
+
+
+---------------------------------------------------------------------------------------------------------------------------
+
+                                                          METRICAS
+
+##### Regresion lineal
+
+from sklearn.metrics import max_error
+
+max_error()  max_error(y, y_predicho)                          "Calcula el maximo residuo de todos los puntos (solo uno),
+                                                                en este caso solo del eje "y""
+
+from sklearn.metrics import mean_absolute_error
+
+mean_absolute_error()  mean_absolute_error(y, y_predicho)      "Calcula la media de todos los residuos de la columna "y"
+
+from sklearn.metrics import mean_squared_error
+
+mean_squared_error()  mean_squared_error(y, y_predicho, squared=True)  "Calcula los residuos al cuadrados sumados y luego
+                                                                        los divide por la cantidad, en este caso squared=True
+                                                                        es para NO aplicarle raiz cuadrada, False le aplicara
+                                                                        la raiz cuadrada"
+
+from sklearn.metrics import r2_score
+
+r2_score()  r2_score(y, y_predicho)                            "Dice que tan bueno es el modelo, 1 significa que el modelo
+                                                                es perfecto, muy cercano a 1 es bueno, no tiene limite en
+                                                                negativo, ES SOLO PARA REGRESIONES LINEALES"
+
+
+
+---------------------------------------------------------------------------------------------------------------------------
+
+                                                           MODELOS
+
+from sklearn.model_selection import train_test_split
+
+train_test_split()  train_test_split(datos_iniciales, categorias) "Este comando entre 4 arrays continuos, siempre lo que se
+                                                                   hace es definir variables para 4 array para que sea, mas
+                                                                   ordenado"
+
+datos_entrenamiento, datos_testeo, objetivo_entrenamiento, objetivo_prueba = train_test_split(datos_iniciales, categoiras)
+
+                                                               "Lo que hace es obtener los datos y las categorias que les damos
+                                                                (datos de entrenamiento), luego los revuelve y los vuelve a
+                                                                ocupar para hacer una prueba y el predice la categoria
+                                                                (datos de prueba)"
+
+                                   datos_entrenamiento   ->    "Es un array con los mismos datos, pero copiados, al hacer
+                                                                la copia los revuelve, no estan en el mismo orden, son los
+                                                                datos para entrenar"
+
+                                   datos_testeo          ->    "Es un array con los mismos datos, pero copiados, al hacer
+                                                                una copia los revuelve, estos son datos de prueba"
+
+                                   objetivo_entrenamiento ->   "Es un array que dice la categoria de cada datos de entrenamiento"
+
+                                   objetivo_prueba       ->    "Es un array que dice la categoria de los datos de prueba, hace
+                                                                una prediccion"
+
+
+                                   train_test_split(datos_iniciales, categoiras, test_size=0.3)
+
+                                                               "Por defecto ocupar 75% de los datos para entrenamiento y 
+                                                                25% para prueba, pero eso se puede cambiar con test_size
+                                                                en este caso 0.3 es 30% y el otro se modifica automaticamente"
+
+
+
+
+
