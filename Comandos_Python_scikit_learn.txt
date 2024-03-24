@@ -34,7 +34,28 @@ Ejemplo: OHE = OneHotEncoder()
 
 from sklearn.preproccessing import OneHotEncoder
 
-OneHotEncoder()  OneHotEncoder()                               "Cada categoria de typo string la transforma en binario"
+OneHotEncoder()  OneHotEncoder()                               "Una columna de catergoria con string, la divide en varias columnas
+                                                                dependiendo de la cantidad de categorias, ejemplo 3 categorias
+                                                                las divide en 3 columna, siendo el nombre de la columna la
+                                                                categoria anterior, si la categoria de esa FILA es una la
+                                                                marcara con 1 en esa columna y 0 cuando no lo es, en todas las
+                                                                otras categorias marcara 0, ejemplo: [0, 1, 0] o [1, 0, 0]"
+
+from sklearn.preproccessing import LabelsEncoder
+
+LabelsEncoder()  LabelsEncoder()                               "Una columna con categorias con string, simplemente las
+                                                                cambia de string a valor numerico, asignandole un numero
+                                                                entero a cada categoria, ejemplo: "Gris"  a valor 1,
+                                                                "Verde" a valor 2, etc y crea una nueva columna"
+
+from sklearn.preproccessing import MinMaxScaler
+
+MinMaxScaler()  MinMaxScaler()                                 "Lo que hace es escalar los valores numericos entre 0 y 1,
+                                                                siendo por ejemplo una columna con valores, el mayor
+                                                                valor de esa columna, sera 1 y el menor sera 0, todos los otros
+                                                                estaran en la misma relacion unos a otros, pero seran valores
+                                                                entre 0 y 1, hay una formula para esto"
+
 
 from sklearn.preproccessing import StandardScaler
 
@@ -59,6 +80,8 @@ PolynomialFeatures()  PolynomialFeatures(degree=2, include_bias=True)
                                                                 con en este caso 6 valores porque es grado dos, hace las
                                                                 siguientes operaciones: [1, 2^1, 3^1, 2^2, 3^2, 2*3] y asi
                                                                 sucesivamente en caso de agregar mas grados"
+
+
 
    
 
@@ -130,16 +153,16 @@ datos_entrenamiento, datos_testeo, objetivo_entrenamiento, objetivo_prueba = tra
                                                                 ocupar para hacer una prueba y el predice la categoria
                                                                 (datos de prueba)"
 
-                                   datos_entrenamiento   ->    "Es un array con los mismos datos, pero copiados, al hacer
+                                   datos_entrenamiento (x) ->  "Es un array con los mismos datos, pero copiados, al hacer
                                                                 la copia los revuelve, no estan en el mismo orden, son los
                                                                 datos para entrenar"
 
-                                   datos_testeo          ->    "Es un array con los mismos datos, pero copiados, al hacer
+                                   datos_testeo  (x_test)  ->  "Es un array con los mismos datos, pero copiados, al hacer
                                                                 una copia los revuelve, estos son datos de prueba"
 
-                                   objetivo_entrenamiento ->   "Es un array que dice la categoria de cada datos de entrenamiento"
+                                   objetivo_entrenamiento (y) -> "Es un array que dice la categoria de cada datos de entrenamiento"
 
-                                   objetivo_prueba       ->    "Es un array que dice la categoria de los datos de prueba, hace
+                                   objetivo_prueba  (y_test)  -> "Es un array que dice la categoria de los datos de prueba, hace
                                                                 una prediccion"
 
 
@@ -150,6 +173,34 @@ datos_entrenamiento, datos_testeo, objetivo_entrenamiento, objetivo_prueba = tra
                                                                 en este caso 0.3 es 30% y el otro se modifica automaticamente"
 
 
+from sklearn.model_selection import ShuffleSplit
 
+ShuffleSplit()  ShuffleSplit()                                 "Lo que hace es para un conjunto de datos ya sea numeros,
+                                                                string, tuplas(los cuenta como 1 dato), los mezcla y 
+                                                                muestra los indices de todas las mezcla, separandolas
+                                                                en datos de entramiento y datos de prueba"
+
+                SS = ShuffleSplit(n_splits=5, test_size=.25, random_state=0) 
+
+                                                               "Esto es para poner la operacion en una variable, con
+                                                                n_splits es el numero de iteraciones (o mezclas que hara)
+                                                                test_size es el porcentaje de datos de prueba que hara,
+                                                                lo de entramiento es todo lo que sobre, random_state es una
+                                                                especie de plantilla de mezclas, cada valor es una mezcla
+                                                                establecida en posiciones, de tal forma que random_state=0
+                                                                es siempre la misma mezcla y asi, etc.
+
+                a, b, c, d, e = SS.split(columna_datos)        "Hara arrays dependiendo de las iteraciones que le hayamos
+                                                                pruesto en este caso le pusimos 5 iteraciones, hara 5 arrays
+                                                                , pero esos array se subdividen en 2, por lo que en total son
+                                                                10, pero para copiar en variables los otros array, necesitamos
+                                                                hacer un for para darles una variable"
+
+                                    a, b, c, d, e              "Cada una variable contiene 2 arrays, un array son los indices
+                                                                de los datos de entrenamiento y el otro infices de los datos
+                                                                de prueba, son solo las posiciones de los datos no los datos"
+                                                                
+                                                                                                                         
+                                                                                                                                                                
 
 
