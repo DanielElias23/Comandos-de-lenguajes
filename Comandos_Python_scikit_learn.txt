@@ -134,6 +134,8 @@ r2_score()  r2_score(y, y_predicho)                            "Dice que tan bue
                                                                 es perfecto, muy cercano a 1 es bueno, no tiene limite en
                                                                 negativo, ES SOLO PARA REGRESIONES LINEALES"
 
+                                                                r2_score(y, cross_val_predict(...)) si da cercano a 1 es bueno
+
 
 
 ---------------------------------------------------------------------------------------------------------------------------
@@ -201,6 +203,94 @@ ShuffleSplit()  ShuffleSplit()                                 "Lo que hace es p
                                                                 de prueba, son solo las posiciones de los datos no los datos"
                                                                 
                                                                                                                          
-                                                                                                                                                                
+  from sklearn.model_selection import KFold
 
+  KFold()  KFold(n_splits=1, random_state=0, shuffle=True)     "Hace lo mismo que ShuffleSplit, hace bloques y las posiciones
+                                                                de los datos de la misma forma, la opcion shuffle=True significa
+                                                                que mezcla los datos antes de crearlos, al poner shuffle=False
+                                                                evitaremos fuga de datos, depende las repeticiones va mezclando
+                                                                los datos como validacion cruzada, de esta forma obtendremos
+                                                                los array"                                                                                                                                                          
+
+
+from sklearn.model_selection import cross_val_score
+
+cross_val_score()  cross_val_score(tipo_ajuste, x, y, cv=5)    "Hace una validacion cruzada, recordando que la validacion
+                                                                cruzada es solo para confirmar los parametros del modelo
+                                                                estan bien, entonces lo que hace es separar en 5 grupos
+                                                                (cv=5), estos grupos se iran intercalando los datos de 
+                                                                entrenamiento con los datos de validacion (prueba), para
+                                                                probar que estan bien, al ponerlo como variable tendremos
+                                                                un array con los resuldas, podemos sacarle la media y 
+                                                                la desviacion standart"
+
+
+from sklearn.model_selection import cross_val_predict         
+
+cross_val_predict()  cross_val_predict(funcion, x, y, cv=5)
+
+                                                               "Hace lo mismo que cross_val_score, pero la mezcla de datos
+                                                                no es igual, en este caso solo mezcla datos de forma aleatoria
+                                                                es como tomar datos al azar por lo que no es correcto para
+                                                                hacer una validacion cruzada, pero puede ser util para comparar
+                                                                o visualizar datos de modelos"
+
+                                                                "Se le puede aplicar a cv=KFold() para que sea igual a
+                                                                cross_val_score"
+
+
+from sklearn.model_selection import Ridge
+
+Ridge()  Ridge(columna, max_iter=100)                          "Es un otro tipo de regresion que tiene penalizacion por
+                                                                por un parametro beta y otro lamnda, lo que voy a buscar
+                                                                en esta regresion es que los parametros sean pequeños, se
+                                                                puede minimizar"
+
+from sklearn.model_selection import Lasso
+
+Lasso()  Lasso(columna, max_iter=100)                          "Es otra regresion, pero esta no se puede minimizar con
+                                                                derivada, hay que probar por intento, el beneficio es
+                                                                que se puede anular un parametro en la minimizacion"
+
+from sklearn.model_selection import GridSearchCV
+
+GridSearch()  GridSearch(estimador, hiperparametros, cv=5)     "Encontrara los mejores parametros para ese estimador y para
+                                                                esos hiperparametros, generalmente se ocupa para forest y
+                                                                esa estimacion, pueden ser diccionarios y tener varios modelos,
+                                                                etc"
+
+                                                                Muy util para encontrar en una regresion polinomica que
+                                                                grado queda mejor para una regresion o en caso de regresiones
+                                                                ridge o lasso los mejores parametros beta para esos modelos,
+                                                                porque se pueden probar varios a la vez
+
+                                                                grid = GridSearch(...)
+
+                                                                pd.DataFrame(grid.cv_results_) #muestra como dataframe donde
+                                                                se le añaden nuevas columnas con puntuaciones
+
+                                                                grid.fit(x,y)
+
+                                                                grid.best_score_ , grid.best_params_   #Muestras los mejores
+                                                                                                        hiperparametros 
+
+
+---------------------------------------------------------------------------------------------------------------------------
+
+                                                      PIPELINE
+
+from sklearn.pipeline import Pipeline
+
+Pipeline()  pipe = Pipeline([("nombre_operacion1", operacion1), ("nombre_operacion2", operacion2)])
+
+            pipe.fit(x_train,y_train)   pipe.funcion() #añade otra funcion adicional
+
+                                                               "Lo que hace es que puede hacer varias operaciones o funciones
+                                                                a la vez, entendiendo por orden que primero se hace la primera
+                                                                segundo la segunda, generalmente se ocupa un escalador y luego
+                                                                un modelo de ajuste a eso se le llama estimador"
+
+                                                                cross_val_predict(pipe, x, y, cv=KFold(....))
+
+                                                                Para esto es bueno ocupar una pipeline
 

@@ -134,6 +134,8 @@ math.inf o -math.inf                                      "Es infinito positivo 
 math.dist(p, q)                                           "Distancia euclidian entre el punto p y q"
 
 
+
+
 ---------------------------------------------------------------------------------------------------------------------------
 
                                                   "OPERADORES LOGICOS"
@@ -203,6 +205,10 @@ np.linspace(0,10,32)                                     "Crea un array de una f
                                                           dependiendo del rango que se le de, este tiene un rango de 0
                                                           a 10, ese rango lo divide en 32 partes y da valor a todos los
                                                           elementos"
+
+np.geomspace(1, 1000, num=4)                             "Genera un array con 4 valores, esos valores son multiplos, en
+                                                          este caso sera array[1, 10, 100, 1000] hasta llegar a 4 valores"
+
 
 mi_array.ndim                                            "Muestras las filas del array"
 
