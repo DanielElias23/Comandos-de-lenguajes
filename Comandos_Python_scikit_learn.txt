@@ -113,6 +113,37 @@ predict()  clf.predict([[x]])  clf.predict(x) (para una columna entera)
                                                                 todo esto clf.predict(x) = y_predecido"
 
 
+from sklearn.linear_model import Ridge
+
+Ridge()  Ridge(columna, max_iter=100, alpha=0.001)             "Es un otro tipo de regresion que tiene penalizacion por
+                                                                por un parametro beta y otro lamnda, lo que voy a buscar
+                                                                en esta regresion es que los parametros sean pequeños, se
+                                                                puede minimizar, alpha defina el valor del parametro"
+
+
+from sklearn.linear_model import Lasso
+
+Lasso()  Lasso(columna, max_iter=100)                          "Es otra regresion, pero esta no se puede minimizar con
+                                                                derivada, hay que probar por intento, el beneficio es
+                                                                que se puede anular un parametro en la minimizacion"
+
+
+from sklearn.linear_model import ElasticNetCV
+
+ElasticNetCV()  ElasticNet(alphas, ll_ratio, max_iter=1000).fit(X_train, y_train)
+
+                                                               "Es una mezcla de las regresiones Ridge y Lasso, ademas con
+                                                                GridSearch, alphas y ll_ratio son los coeficientes,
+                                                                pueden ser listas de datos"
+
+from sklearn.linear_model import LogisticRegression
+
+LogisticRegression()  LogisticRegression(penalty="l2", c=10)   "Hace la regresion logistica, con penality es para penalizar
+                                                                con el agregado de lasso y el valor de la constante de
+                                                                regulacion 10, "c" mas alta menos penalizacion"                                                                
+
+
+
 ---------------------------------------------------------------------------------------------------------------------------
 
                                                           METRICAS
@@ -143,7 +174,23 @@ r2_score()  r2_score(y, y_predicho)                            "Dice que tan bue
 
                                                                 r2_score(y, cross_val_predict(...)) si da cercano a 1 es bueno
 
+from sklearn.metrics import accuracy_score
 
+accuracy_score()  accuracy_score(y_prueba, y_prediccion)       "Es la acertividad de una matriz de confusion"
+
+from sklearn.metrics import precision_score
+
+from sklearn.metrics import recall_score
+
+from sklearn.metrics import f1_score
+
+from sklearn.metrics import roc_auc_score
+
+from sklearn.metrics import confusion_matrix
+
+from sklearn.metrics import roc_curve
+
+from sklearn.metrics import precision_recall_curve
 
 ---------------------------------------------------------------------------------------------------------------------------
 
@@ -246,12 +293,7 @@ cross_val_predict()  cross_val_predict(funcion, x, y, cv=5)
                                                                 cross_val_score"
 
 
-from sklearn.model_selection import Ridge
 
-Ridge()  Ridge(columna, max_iter=100, alpha=0.001)             "Es un otro tipo de regresion que tiene penalizacion por
-                                                                por un parametro beta y otro lamnda, lo que voy a buscar
-                                                                en esta regresion es que los parametros sean pequeños, se
-                                                                puede minimizar, alpha defina el valor del parametro"
 
 from sklearn.model_selection import RidgeCV
 
@@ -259,25 +301,13 @@ RidgeCV()  RidgeCV(alphas, cv=4)                               "Es un tipo de re
                                                                 la validacion cruzada, es lo mismo que GridSearch con Ridge"
 
 
-from sklearn.model_selection import Lasso
 
-Lasso()  Lasso(columna, max_iter=100)                          "Es otra regresion, pero esta no se puede minimizar con
-                                                                derivada, hay que probar por intento, el beneficio es
-                                                                que se puede anular un parametro en la minimizacion"
 
 from sklearn.model_selection import LassoCV
 
 LassoCV()  LassoCV(alphas, cv=4)                               "Es lo mismo que combinar GridSearch con la regresion llamada
                                                                 Lasso"
 
-
-from sklearn.model_selection import ElasticNetCV
-
-ElasticNetCV()  ElasticNet(alphas, ll_ratio, max_iter=1000).fit(X_train, y_train)
-
-                                                               "Es una mezcla de las regresiones Ridge y Lasso, ademas con
-                                                                GridSearch, alphas y ll_ratio son los coeficientes,
-                                                                pueden ser listas de datos"
 
 
 
@@ -303,6 +333,15 @@ GridSearch()  GridSearch(estimador, hiperparametros, cv=5)     "Encontrara los m
                                                                 grid.best_score_ , grid.best_params_   #Muestras los mejores
                                                                                                         hiperparametros 
 
+
+from sklear.model_selection import StratifiedShuffleSplit
+
+StratifiedShuffleSplit()  StratifiedShuffleSplit(n_splits=1, test_size=0.3, random_state=)
+
+                                                               "Es muy parecido a los anteriores con los split significan
+                                                                la cantidad de grupos que hara, pero en este caso la unica
+                                                                diferencia es que en cada division de entrenamiento y las 
+                                                                de prueba, estan dividias por porcentajes de categorias"
 
 ---------------------------------------------------------------------------------------------------------------------------
 
