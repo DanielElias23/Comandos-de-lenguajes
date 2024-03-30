@@ -94,7 +94,7 @@ PolynomialFeatures()  PolynomialFeatures(degree=2, include_bias=True)
 
 ---------------------------------------------------------------------------------------------------------------------------
 
-                                                        REGRESIONES
+                                                  REGRESIONES Y CLASIFICADORES
 
 from sklearn.linear_model import LinearRegression    
 
@@ -138,9 +138,16 @@ ElasticNetCV()  ElasticNet(alphas, ll_ratio, max_iter=1000).fit(X_train, y_train
 
 from sklearn.linear_model import LogisticRegression
 
-LogisticRegression()  LogisticRegression(penalty="l2", c=10)   "Hace la regresion logistica, con penality es para penalizar
+LogisticRegression()  LogisticRegression(penalty="l2", c=10, solver="liblinear")
+
+                                                               "Hace la regresion logistica, con penality es para penalizar
                                                                 con el agregado de lasso y el valor de la constante de
                                                                 regulacion 10, "c" mas alta menos penalizacion"                                                                
+
+from sklearn.neighbors import KNeighborsClassifier
+
+KNeighborsClassifier()  KNeighborsClassifier(n_neighbors=3)    "Para hacer una classificacion KNN donde n_neghbors es k,
+                                                                tambien posteriormente ocupa fit y prefict"
 
 
 
@@ -308,7 +315,12 @@ from sklearn.model_selection import LassoCV
 LassoCV()  LassoCV(alphas, cv=4)                               "Es lo mismo que combinar GridSearch con la regresion llamada
                                                                 Lasso"
 
+from sklearn.linear_model import LogisticRegressionCV
 
+LogisticRegression()  LogisticRegression(cs=10, cv=4, penalty="ll", solver="liblinear")
+
+                                                               "Es lo mismo que combinar GridSearch con la regresion
+                                                                logistica, cs es el valor por defecto"                                                             
 
 
 from sklearn.model_selection import GridSearchCV
