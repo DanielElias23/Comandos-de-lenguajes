@@ -27,7 +27,13 @@ Para ocupar cada funcion como son muy largos los nombres se pasan a variables y 
 se pasan a array con un transformador
 
 Ejemplo: OHE = OneHotEncoder()
-         OHE.fit_transform(datos)
+         OHE.fit_transform(datos)   #OHE se queda con los datos que le pasaron, estos datos estaran por defecto
+
+OHE.transform(columna)  ##transform es para aplicar la transformacion a la columna (codificacion en este caso)
+
+OHE.inverse_transform(resulado_anterior)   ##deshace el cambio anterior, vuelve a la normalidad
+
+OHE.classes_   ##muestra la cantidad de datos uncicos dentro del fit
 
 ####         
 
@@ -88,9 +94,36 @@ PolynomialFeatures()  PolynomialFeatures(degree=2, include_bias=True)
 
                       Y_pred = lr.predict(X_poly)                                                               
 
-                                                                                
 
-   
+from sklearn.preproccessing import LabelBinarizer
+
+LabelBinarizer()  LabelBinarizer()                             "Genera una matriz en binario, desde una columna en el fit
+                                                                lo que hara [2,3] dentro del fit entendera como que solo
+                                                                quieres mostrar la columna 2 y 3, el resultado seran dos
+                                                                columna, matriz de nx2, en el transform va otra tupla, con
+                                                                [2,4] que cada valor indica donde van los 1, todo esta con 0,
+                                                                excepto las columnas [2,4], la 4 en este caso no se muestra,
+                                                                por que en el fit no se le especifico.
+
+                                                                [[1,0]  Ira poniendo los 1 fila por fila, fila 1, columna 2,
+                                                                [0,0]]  colocara un 1, (la columna 2 es la que se muestra
+                                                                        de las primeras, la cantidad de filas que tenga
+                                                                        sera debido a la cantidad de datos en transform)
+
+from sklearn.preproccessing import OrdinalEncoder
+                                                                        
+OrdinalEncoder() OrdinalEncoder()                              "Al entregarle una tupla con subtuplas [[,],[,]] al fit
+                                                                lo que hara sera darle un numero a cada dato, puede ser string
+                                                                0 al primero que encuentre en caso de string, 0 al numero mas
+                                                                bajo que encuentre, diferenciara automaticamente si son numeros
+                                                                o string, creado dos codificaciones simultaneras para cada tipo
+                                                                de dato, lo que hara sera entregar la misma tupla pero solo con
+                                                                numeros que categorizan y se refieren a una categoria. Crea
+                                                                una matriz solo con los datos que le especifiquemos en el
+                                                                transform([[,],[,]]), pero la categorizacion se creo en el 
+                                                                fit.
+
+
 
 ---------------------------------------------------------------------------------------------------------------------------
 
@@ -149,7 +182,26 @@ from sklearn.neighbors import KNeighborsClassifier
 KNeighborsClassifier()  KNeighborsClassifier(n_neighbors=3)    "Para hacer una classificacion KNN donde n_neghbors es k,
                                                                 tambien posteriormente ocupa fit y prefict"
 
+from sklean.svm import LinearSVC
 
+LinearSVC() LinearSVC(penalty="12", C=10)                      "Es para ocupar la clasificacion support vector machine,
+                                                                donde le especificamos la regulacion de los coeficientes,
+                                                                tenemos que entregarle un fit(x_train, y_train)
+
+from sklearn.svm import SVC
+
+SVC()  SCV(kernel="rbf", gamma=1, C=10)                        "Es para ocupar la clasificacion support vector machine, pero
+                                                                en este caso la version no lineal, ocupando nucleos, gamma
+                                                                y C son coeficientes de regulacion, valores bajos para ambos
+                                                                es mas regulacion y valores, mas altos menos regulacion"
+
+from sklearn.kernel_approximation import Nystroem
+
+Nystroem()  Nystroem(kernel="rbf", gamma=1, C=10)
+
+from sklearn.kernel_approximation import RBFsampler
+
+RBFsampler()  RBFsampler(gamma=1, n_components=100)
 
 ---------------------------------------------------------------------------------------------------------------------------
 
@@ -183,7 +235,8 @@ r2_score()  r2_score(y, y_predicho)                            "Dice que tan bue
 
 from sklearn.metrics import accuracy_score
 
-accuracy_score()  accuracy_score(y_prueba, y_prediccion)       "Es la acertividad de una matriz de confusion"
+accuracy_score()  accuracy_score(y_prueba, y_prediccion)       "Es la acertividad de una matriz de confusion, a todos los
+                                                                demas funcuines se les entrega y_test, y_predict"
 
 from sklearn.metrics import precision_score
 
@@ -193,7 +246,8 @@ from sklearn.metrics import f1_score
 
 from sklearn.metrics import roc_auc_score
 
-from sklearn.metrics import confusion_matrix
+from sklearn.metrics import confusion_matrix                   "Hay que darle los y_test y y_predict, dara la matriz, para
+                                                                graficarla hay que hacerla con seaborn (heatmap)"
 
 from sklearn.metrics import roc_curve
 
