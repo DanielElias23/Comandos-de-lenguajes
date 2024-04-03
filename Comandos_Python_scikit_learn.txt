@@ -203,6 +203,82 @@ from sklearn.kernel_approximation import RBFsampler
 
 RBFsampler()  RBFsampler(gamma=1, n_components=100)
 
+
+from sklearn.tree import DecisionTreeClassifier
+
+DecisionTreeClassifier()  DecisionTreeClassifier(criterion="Gini", max_features=10, max_depth=5, random_state=0)
+
+                                                              "Para ocupar un arbol de decision con criterio y error de Gini
+                                                               con profundidad 5, se le entregan los datos de entrenamiento
+                                                               al fit(x_train, y_train)"
+
+tree_  DecisionTreeClassifier.tree_                           "Es para ver los datos del arbol que estamos estudiando"
+
+node_count DecisionTreeClassifier.tree_.node_count            "Muestra la cantidad de nodos del arbol"
+
+max_depth  DecisionTreeClassifier.tree_.max_depth             "Dice la profundidad del arbol"
+
+
+
+from sklearn.tree import DecisionTreeRegressor
+
+DecisionTreeRegressor()  DecisionTreeRegressor()              "Es para hacer regresiones con arbol de deciciones, tiene que
+                                                               tener un fit"
+
+from sklearn.tree import export_graphvis
+from io import StringIO
+import pydotplus
+
+
+dot_data=StringIO()
+
+export_graphvis()  export_graphvis(DecisionTreeClassifier(), out_file=dot_data, filled=True)
+
+                                                               "Para graficar los arboles de decision"
+
+from sklearn.ensemble import BaggingClassifier
+
+BaggingClassifier()  BaggingClassifier(n_estimators=50)        "Es para hacer un empaquetado de arboles de decicion, donde
+                                                                el numero de estimadores, es el numero de arboles que tendremos,
+                                                                necesita fit(x_train, y_train)"
+
+from sklearn.ensemble import BaggingRegressor
+
+from sklearn.ensemble import RandomForestClassifier
+
+RandomForestClassifier()  RandomForestClassifier(n_estimators=50)
+
+from sklearn.ensemble import ExtraTreeClassifier
+
+ExtraTreeClassifier()  ExtraTreeClassifier(n_estimators=50)
+
+from sklearn.ensemble import RandomForestRegressor
+
+from sklearn.ensemble import GradientBoostingClassifier
+
+GradientBoostingClassifier()  GradientBoostingClassifier(learning_rate=0.1, max_features=1, subsample=0.5, n_estimators=200)
+
+                                                               "Al gradiente le aplican fit(x_train, y_train) luego predict"
+
+from sklearn.ensemble import AdaBoostClassifier
+
+AdaBoostClassifier()  AdaBoostClassifier(base_estimators=DecisionTreeClassifier(), learning_rate=0.1, n_estimators=200)
+
+                                                               "A adaboost se le aplicar el fit y luego predict"
+
+from sklearn.ensemble import VotingClassifier
+
+VotingClassifier() VotingClassifier(lista_de_estimadores)      "Esta funcion es para apilar (stacking) clasificadores,
+                                                                como bosques aleatorios, regresion logistica, etc, luego
+                                                                se ocupar fit(x_train, y_train) y predict"
+
+from sklearn.ensemble import StackingClassifier
+
+StackingClassifier()  StackingClassifier(lista_de_estimadores, final_estimator=LogisticRegression())                    
+
+                                                               "Es similar al anterior, permite ocupar diferentes
+                                                                clasificadores, votar y luego hacer una prediccion final"
+
 ---------------------------------------------------------------------------------------------------------------------------
 
                                                           METRICAS
