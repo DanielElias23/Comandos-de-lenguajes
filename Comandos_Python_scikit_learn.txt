@@ -62,6 +62,15 @@ MinMaxScaler()  MinMaxScaler()                                 "Lo que hace es e
                                                                 estaran en la misma relacion unos a otros, pero seran valores
                                                                 entre 0 y 1, hay una formula para esto"
 
+from sklearn.preproccessing import Scale
+
+Scale()  Scale(X, axis=0)                                      "Escala los datos al parecer de forma aleatoria en cuanto
+                                                                relacion entre cada valor, pero mantienen una proporcion
+                                                                entre todos los datos, siguen una mediana y una varianza
+                                                                dependiendo del valor que le entregemos, axis=0 significa
+                                                                escala por separado por columna, axis=1 significa que escala
+                                                                por fila"
+
 
 from sklearn.preproccessing import StandardScaler
 
@@ -279,6 +288,30 @@ StackingClassifier()  StackingClassifier(lista_de_estimadores, final_estimator=L
                                                                "Es similar al anterior, permite ocupar diferentes
                                                                 clasificadores, votar y luego hacer una prediccion final"
 
+
+from sklearn.cluster import KMeans
+
+KMeans()  KMeans(n_cluster=3, init="k-means++")                "Este codigo empieza iterar n_cluster sera el resultado
+                                                                final de cluster, k-means es la distancia total al cuadrado,
+                                                                luego hay que ocupar fit(X1) y predict"
+
+                                 inertia=[]
+                                 list_cluster=list(1,2,3,4,5,6,7,8,9,10)
+                                 for k in list_cluster:
+                                      kmeans=KMeans(n_cluster=k)
+                                      kmeans.fit(X)
+                                      inertia.append(km.inertia_)
+
+                                                               "forma de itinerar los diferentes k y obtener la inertia"
+
+
+ from sklearn.cluster import MiniBatchKMeans
+
+ MiniBatchKMeans()  MiniBatchKMeans()                          "En este caso toma lotes aleatorios, pero mas pequeños que el
+                                                                comando anterior, esto hace que sea mas rapido"                                                               
+
+
+
 ---------------------------------------------------------------------------------------------------------------------------
 
                                                           METRICAS
@@ -487,7 +520,7 @@ StratifiedShuffleSplit()  StratifiedShuffleSplit(n_splits=1, test_size=0.3, rand
 
 ---------------------------------------------------------------------------------------------------------------------------
 
-                                                   CARACTERISTICAS
+                                                     OTROS
 
 from sklearn.feature_selection import RFE
 
@@ -498,6 +531,45 @@ RFE()  refMod = RFE(est, n_features_to_select=5)              "n_features_to_sel
                              y_predict = rfeMod.predict(X_test)                                                            
 
                                                                                             
+from sklearn.utils import shuffle  
+
+shuffle()  shuffle(array)                                     "Revuelve los valores, por defecto al parecer los invierte"
+
+
+from sklearn.cluster import AgglomerativeClustering
+
+AgglomerativeClustering()  AgglomerativeClustering(n_clusters=3, affinity="euclidean", linkage="ward")
+
+                                                              "Para ocupar agrupaciones aglomerativas, se le ponen el numero
+                                                               de cluster, afinidad la forma que se calcula la distancia,
+                                                               y el tipo de enlace entre cluster, luego se ocupa fit(X)
+                                                               y predict(X2)"
+
+
+from sklearn.cluster import DBSCAN
+
+DBSCAN()  DBSCAN(eps=3, min_samples=2)                        "Para hacer conglomerados con DBSCAN, eps es epsilon, y
+                                                               min_samples es n_clu, luego se ocupa fit(X), luego
+                                                               DBSCAN.labels_, en este ultimo entrega valores, 0 pertenece 
+                                                               al primer cluster, 1 al segundo cluster, -1 son los outliers"
+
+from sklearn.cluster import MeanShift
+
+MeanShift()  MeanShift(bandwidth=2)                           "Para ocupar el metodo MeanShift donde bandwidth es el tamaño
+                                                               de la ventana, despues el fit(X) y predict(X2)
+
+from scipy.cluster import hierarchy
+
+hierarchy()  Z = hierarchy.linkage(AgglomerativeClustering.children_, method="ward")
+
+                 fig, ax = plt.subplots(figsize=(5,5))
+
+                 hierarchy.dendrogram(Z, orientation="top", ax=ax, p=1, truncate_mode="level")
+
+                                                              "Muestra un mapa conceptual jerarquico de los cluster, truncate_mode
+                                                               significa que sera cortado el mapa conceptual, p=1 dice cuantos
+                                                               niveles mostrara"
+                                     
 
 
 ---------------------------------------------------------------------------------------------------------------------------
