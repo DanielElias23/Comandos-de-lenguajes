@@ -133,6 +133,16 @@ OrdinalEncoder() OrdinalEncoder()                              "Al entregarle un
                                                                 fit.
 
 
+from sklearn.preproccessing import FuntionTransformer
+
+FuntionTransformer()  FuntionTransformer(np.funcion) funcion como np.log1p sin parentesis
+
+                                                              "Para aplicarle una funcion a todos los datos, es un escalamieto
+                                                               personalizado, en este caso se le aplica ln(1+x) a todos los
+                                                               datos, luego se aplica FuntionTransformer.transform(X) con
+                                                               esto se hace efectivo el cambio"
+
+
 
 ---------------------------------------------------------------------------------------------------------------------------
 
@@ -569,6 +579,12 @@ hierarchy()  Z = hierarchy.linkage(AgglomerativeClustering.children_, method="wa
                                                               "Muestra un mapa conceptual jerarquico de los cluster, truncate_mode
                                                                significa que sera cortado el mapa conceptual, p=1 dice cuantos
                                                                niveles mostrara"
+
+from sklearn.decomposition import PCA
+
+PCA()  PCA(n_components=3)                                    "Lo que hacemos es ocupar PCA y nos dice que si tenemos 10
+                                                               columnas lo queremos reducir a 3 columnas, luego aplicar
+                                                               fit_trasform(X_train)"
                                      
 
 
