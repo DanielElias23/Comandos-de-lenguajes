@@ -526,7 +526,26 @@ StratifiedShuffleSplit()  StratifiedShuffleSplit(n_splits=1, test_size=0.3, rand
                                                                "Es muy parecido a los anteriores con los split significan
                                                                 la cantidad de grupos que hara, pero en este caso la unica
                                                                 diferencia es que en cada division de entrenamiento y las 
-                                                                de prueba, estan dividias por porcentajes de categorias"
+                                                                de prueba, estan dividias por porcentajes de categorias"4
+
+---------------------------------------------------------------------------------------------------------------------------
+                                                REDES NEURONALES
+---------------------------------------------------------------------------------------------------------------------------
+
+from sklearn.neural_network import MLPClassifier
+
+MLPClassifier()  MLPClassifier(hidden_layer_sizes=(5,3), activation="logistic")
+
+                                                               "Sklearn solo tiene un modelo simple de redes neuronales, no
+                                                                es el mas optimo, hidden_layer_sizes dice cuanta seran las
+                                                                capas ocultas, como hay 2 valores son 2 capas, una con 5 nodos
+                                                                y la otra con 3 nodos, con la regresion logistica en cada nodo,
+                                                                luego le aplicamos un fit(X_train, y_train) y despues
+                                                                predict(X_test)"
+
+
+
+
 
 ---------------------------------------------------------------------------------------------------------------------------
 
@@ -580,12 +599,42 @@ hierarchy()  Z = hierarchy.linkage(AgglomerativeClustering.children_, method="wa
                                                                significa que sera cortado el mapa conceptual, p=1 dice cuantos
                                                                niveles mostrara"
 
+
 from sklearn.decomposition import PCA
 
 PCA()  PCA(n_components=3)                                    "Lo que hacemos es ocupar PCA y nos dice que si tenemos 10
                                                                columnas lo queremos reducir a 3 columnas, luego aplicar
                                                                fit_trasform(X_train)"
-                                     
+
+                                                       
+from sklearn.decomposition import KernelPCA
+
+KernelPCA()  KernelPCA(n_components=3, kernel="rbf", gamma=1)
+
+                                                              "Para ocupar Kernel PCA donde n_componentes son las Dimenciones
+                                                               final que queremos, en kernel le ponemos maquina de vectores
+                                                               de soporte, y gamma=1 es para decir que tan lineal o no lineal
+                                                               quieres el conjunto, luego se le aplica fit_transform(X) o 
+                                                               fit(X_train) luego tranform(X_test)
+
+from sklearn.decomposition import MDS
+
+MDS()  MDS(n_components=2)                                    "Para ocupar el escalado multi-dimensional, solo ponemos
+                                                               en n_componentes=2 como el numero de dimensiones finales,
+                                                               en este caso reduce dimensiones por ejemplo de 3 a 2,
+                                                               ocupamos fit_transform(X)"
+
+       MDS(dissimilary="precomputed", random_state=0, n_components=2, metric=False)   
+
+                                                              "Para hacer una MDS sin metrica"                                                            
+
+
+from sklearn.decomposition import NMF
+
+NMF()  NMF(n_components=3, init="random")                     "Para ocupar NMF, n_components no dice cuantos componentes
+                                                               diferentes queremos realmente, y luego init para iniciar
+                                                               de forma aleatoria, pero no es necesario, luego solo ocupamos
+                                                               fit(X)"
 
 
 ---------------------------------------------------------------------------------------------------------------------------
