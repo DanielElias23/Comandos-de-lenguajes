@@ -1,0 +1,129 @@
+
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------
+
+from keras.models import Sequencial
+
+from tensorflow.keras.models import Sequencial
+
+Sequencial() modelo = Sequencial()                                "Se ocupa para crear un modelo secuencial en redes
+                                                                   neruonales, las activaciones se agregan por separado"
+
+                             modelo.fit(X_train, y_train, validation_data=(X_test, y_test), epochs=200)
+
+                                                                  "Para ajustar el modelo despues de haberle agregado
+                                                                   las capas, funcion de activacion, et, epochs es la
+                                                                   cantidad de veces que el modelo ocupa los datos de entrada
+                                                                   en este caso 200 veces"
+
+                             modelo.predict_classes(X_test)
+                             modelo.predict(X_test)                                                                   
+
+
+from keras.layers import Dense
+
+from tensorflow.keras.layers import Dense
+
+Dense()  modelo.add(Dense(units=4, input_dim=3))                 "Para agregar capas al  modelo, es posible agregar, la
+                                                                  activacion directamente a cada capa o por separado"
+
+         modelo.add(Dense(units=4, input_dim=3, activation="relu")) tambien esta input_shape(8,)
+
+from keras.layers import Activation
+
+from tensorflow.keras.layers import Activation
+
+Activation()  modelo.add(Activation("sigmoid"))                   "Para agregar la funcion de activacion al modelo"
+
+
+from tensorflow.keras.optimizers import Adam
+
+Adam()
+
+from tensorflow.keras.optimizers import SGD
+
+SGD()  modelo.compile(SGD(lr=0.003))                              "Para ocupar el gradiente desenciente estocastico con tasa
+                                                                   de aprendizaje 0.003"
+
+from tensorflow.keras.optimizers import RMSprop
+
+RMSprop()
+
+
+---------------------------------------------------------------------------------------------------------------------------
+                                                  DATASETS DE KERAS
+
+from tensorflow.keras.datasets import cifar100                    "Conjunto de imagenes"
+from tensorflow.keras.datasets import boston_housing
+from tensorflow.keras.datasets import cifar10                     "Conjunto de imagenes"
+from tensorflow.keras.datasets import california_housing
+from tensorflow.keras.datasets import fashion_mnist               "Conjunto de imagenes"
+from tensorflow.keras.datasets import imdb
+from tensorflow.keras.datasets import mnist                       "Conjunto de imagenes"
+from tensorflow.keras.datasets import reuters
+
+
+
+---------------------------------------------------------------------------------------------------------------------------
+                                                   CARGAR IMAGENES
+
+from tensorflow.keras.utils import load_img
+
+load_img()  load_img("imagen.jpg", target_size=(img_height, img_width), interpolation="nearest", garyscale=True)
+
+                                                                   "Para cargar una imagen para poderla usar"
+
+
+from tensorflow.keras.utils import image_dataset_from_directory
+
+image_dataset_from_directory()  image_dataset_from_directory( "/content/dogs_cats/", shuffle=True, batch_size=BATCH_SIZE,
+                                                              image_size=IMG_SIZE)
+
+                                                                   "Carga todas las imagenes de una carpeta"
+
+
+######### funcion para cargar imagenes de internet
+
+      def load_image(link, target_size=None):
+               import requests
+               import shutil
+               import os
+               _, ext = os.path.splitext(link)
+               r = requests.get(link, stream=True)
+               with open('temp.' + ext, 'wb') as f:
+                    r.raw.decode_content = True
+                    shutil.copyfileobj(r.raw, f)
+               img = tf.keras.preprocessing.image.load_img('temp.' + ext, target_size=target_size)
+               return tf.keras.preprocessing.image.img_to_array(img)
+
+URL = 'https://cf-courses-data.s3.us.clsNetwork-ML311-Coursera/labs/Module3/L1/Dog_Breeds.jpg'
+img = load_image(URL, target_size=(100, 100)) 
+# plot the image
+plt.imshow(img/255)           
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
