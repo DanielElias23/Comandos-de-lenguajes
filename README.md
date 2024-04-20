@@ -1,7 +1,6 @@
 # Comandos y funciones de Python, R, SQL
-![Python](https://img.shields.io/badge/python-2.x-orange.svg)
-![Type](https://img.shields.io/badge/Machine-Learning-red.svg) ![Type](https://img.shields.io/badge/Type-Supervised-yellow.svg)
-![Status](https://img.shields.io/badge/Status-Completed-yellowgreen.svg)
+![Python](https://img.shields.io/badge/Python-Completado-orange.svg)
+![R](https://img.shields.io/badge/R-Incompleto-red.svg)
 ![SQL](https://img.shields.io/badge/SQL-Completado-yellowgreen.svg)
 
 ## Explicación
