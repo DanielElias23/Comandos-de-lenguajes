@@ -1,6 +1,6 @@
 # Comandos y funciones de Python, R, SQL
-![Python](https://img.shields.io/badge/Python-Completado-orange.svg)
-![R](https://img.shields.io/badge/R-Incompleto-red.svg)
+![Python](https://img.shields.io/badge/Python-Completado-yellowgreen.svg)
+![R](https://img.shields.io/badge/R-Incompleto-orange.svg)
 ![SQL](https://img.shields.io/badge/SQL-Completado-yellowgreen.svg)
 
 ## Explicación
