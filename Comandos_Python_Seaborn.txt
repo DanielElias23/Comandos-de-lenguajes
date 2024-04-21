@@ -60,7 +60,7 @@ max = q75 + 1.5*(resto)
 print(min, q25, q50, q75, max)
 
 #mostrar outliers
-[x for x columna_datos["Unemployement"] if x > max] "puede ser con "min" tambien"
+[x for x in columna_datos if x > max] "puede ser con "min" tambien"
 
 ---------------------------------------------------------------------------------------------------------------------------
 
