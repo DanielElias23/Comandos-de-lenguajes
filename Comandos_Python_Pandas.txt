@@ -18,7 +18,7 @@ import pandas as pd
 Series()   pd.Series(lista)                                 "Los valores de la lista los reconoce como una columna, donde
                                                              cada columna esta enumerada"
 
-DataFrame()  pd.DataFrame(Una_estructura_de_Dato)           "Crea una Data Frame apartir de una lista, diccionario, etc"
+DataFrame()  pd.DataFrame(Una_estructura_de_Datos)          "Crea una Data Frame apartir de una lista, diccionario, etc"
 
              pd.DataFrame(Diccionario)                      {"Nombres" : ["Juan" , "Julio", "Andres"], "Edad" : [22 ,33 ,44]}
                                                             (En este caso Nombre y Edad son los nombres de las columnas
@@ -30,7 +30,7 @@ dataframe = la importacion
 
 head()  dataframe.head()                                    "Muestras las primeras 5 lineas del dataframe"
 
-shape()  dataframe.shape()                                  "Dimenciones del dataframe, filas y columnas"
+shape  dataframe.shape                                      "Dimenciones del dataframe, filas y columnas"
 
                    dataframe.shape[0] o dataframe.shape[1]  "Es para tomar la cantidad de filas y columnas, respectivamente"
 
