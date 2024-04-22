@@ -229,7 +229,15 @@ listas como array                                        "Los array entienden to
 mi_array.ravel()                                         "Transforma el array en una lista, pegando los subconjuntos,
                                                           por eso digo que en realidad no son filas y columnas"
 
+np.where()   np.where(condicion, x, y)                   "x e y deben ser array de la misma cantidad de datos, lo que hace
+                                                          es segun la condicion que le pongamos creara un nuevo array
+                                                          ira alterando los valores segun cual de los datos cumple con
+                                                          la condicion, ejemplo la condicion x > 2, si el valor de x
+                                                          cumple pondra el de x, sino el de y, hasta formar un array con
+                                                          la misma cantidad de datos que x e y, ideal para crear columnas
+                                                          nuevas en bases de datos desde otras columnas"
 
+                                                          
 ---------------------------------------------------------------------------------------------------------------------------
 
                                                     "TIPOS DE ESTRUCTURAS PYTHON"
