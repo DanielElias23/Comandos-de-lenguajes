@@ -1,0 +1,80 @@
+st.write()  st.write("texto")                "Write puede hacer cualquer cosa streamlit lo resulve automaticamente,
+            st.write("imagenes")              generalmente se ocupa para escribir texto, dado que las otras estructuras
+            st.write("link")                  no siempre las muestra como realmente queremos que se vea"
+            st.write("dataframe")
+
+st.divider()                                 "Crea una linea divisoria horizontal"
+
+st.dataframe()  st.dataframe(dataframe)      "Muestra una tabla explicitamente en forma de imagen, en forma de excel"
+
+st.table()  st.table(dataframe)              "Muestra una tabla en forma en bruto sin ser tan bonita y no puede ser modificada"
+
+st.line_chart()  st.line_chart(dataframe)    "Grafica un grafico de linea"
+
+st.scatter_chart(df, x="columna1", y="columna2", color=color)  "Crea un grafico de dispercion que un dataframe
+                                                                en especifico, el color es una funcion"
+
+st.map()  st.map(dataframe)                  "Grafica un mapeo, pero tienen que ser coordenadas"
+                                              acepta solo columnas llamadas latitud y longuitud.
+
+st.slider()  st.slider("x")                  "Crea un widget que es un interactivo, en este caso
+             st.write(x, "cuadrado es", x*x)  es una barra que es desplazable, muestra los
+                                              diferentes resultados de cierto x, en write va x,
+                                              el valor actual definido, un string cualquiera, la
+                                              operacion"
+
+st.button()  st.button()                     "Es para crea un widget, elige un valor en una                                         
+                                              casilla para interactuar"
+
+st.text_input()  st.text_input("Nombre_persona", key="name") "Crea una identificacion"
+
+st.session_state.name                        "Accede a la identificacion para poder ver ciertos
+                                              elementos de la pagina"
+                                      
+st.checkbox()  if st.checkbox("Mostrar data"):     "Crea una casilla, para apretar y ver la
+                    chart_data = pd.DataFrame(df)   informacion oculta solo si se le da click"
+                    chart_data
+
+st.selectbox() opcion = st.selectbox("Una pregunta", df[columna])  
+                                                   "Es un interactivo para elegir opciones segun
+                                                    la columna que le entregemos
+               "Your selected: ", opcion           "Muesta de forma pequeña la seleccion, es sin
+                                                    formato de escritura este texto"
+
+st.siderbar  st.siderbar.widget()            "Hara que el widget en particular se vea a la izquierda"
+
+st.columns() left_column, right_column = st.columns(2) "Sirve para editar columnas en la pagina
+                                                        opciones en forma de columna"
+
+import time
+ 
+st.empty() lastest_iteracion = st.empty()    "Calcula por separado las iteraciones"
+
+st.progress()  st-progress(i+1)              "Sirve para calcular progreso de iteraciones"
+
+time.sleep()  time.sleep(0.1)                "Puede definir tiempo que se puede demorar por iteracion"
+
+@st.cache_data                               "Guarda una funcion y su calculo en la memoria cache,
+                                              esto hace que la funcion se ejecute mucho mas rapido
+                                              en el futuro, se reconosca el resultado, se guardan
+                                              api, dataframes, python primitivas, estos se guardan
+                                              el almacenamiento.
+
+@st.cache_resource                           "Este es tambien para eso, pero guarda modelos de 
+                                              maching learning y conecciones a servidores"
+
+st.header()  st.header("texto")              "Pone un texto en grande en negrita como titulo"
+
+st.markdown()  st.markdown("texto")          "Crea un texto grande un poco mas grande que el anterior
+                                              como un titulo"
+
+st.color_picker()  st.color_picker("Color", "#FF0000")  
+
+st.connection()  st.connection("nombre_database")  "Es la coneccion a una data base y se guarda en
+                                                    una variable"
+                                                    
+nombre_coneccion.query()  nombre_coneccion.query("consulta SQL") "Hacemos una consulta con la coneccion
+                                                                  anterior, crea una consulta, se puede
+                                                                  guardar como variable, se necesita
+                                                                  transformar a dataframe"
+
