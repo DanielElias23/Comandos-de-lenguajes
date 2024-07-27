@@ -1,3 +1,43 @@
+                                        ___________________________________
+                                        |                                  |
+                                        |             INDICE               |
+                                        |__________________________________|
+
+         1. SEPARAR EN PAGINAS                            "Separar en varias paginas separadas la pagina principal"                   
+         2. FUNCIONES STREAMLIT                           "Funciones para editar la pagina de streamlit"
+         3. FORMULARIOS STREAMLIT                         "Formularios para ingresar datos a la pagina"
+         4. GRAFICAS STREAMLIT                            "Diferentes funciones para hacer graficos"
+
+
+###########################################################################################################################
+
+                                        SEPARAR EN PAGINAS
+
+Para separar en muchas paginas podemos, correr muchos codigos por separado, esto sirve cuando se hace
+muy grande una pagina, hay que importar la libreria en cada pagian"
+
+Debemos tener un archivo.py con cualquier nombre, en el misma carpeta donde se aloja una carpeta llamada "pages"
+dentro de la carpeta todos los archivos.py se reconoceran como paginas del principal
+
+main_page.py                                 "Sera la pagina principal"
+
+                 st.markdown("# Main page 🎈")             "Esto se hace para que todas las paginas esten en un link
+                 st.sidebar.markdown("# Main page 🎈")      en la barra de la izquierda"
+
+pages/page_2.py                              "Sera la pagina 2"
+
+                 st.markdown("# Page 2 ❄️")
+                 st.sidebar.markdown("# Page 2 ❄️")
+
+pages/page_3.py                              "Sera la pagina 3"
+
+                 st.markdown("# Page 3 🎉")
+                 st.sidebar.markdown("# Page 3 🎉")
+
+###############################################################################################################################
+
+                                       FUNCIONES STREAMLIT
+
 st.write()  st.write("texto")                "Write puede hacer cualquer cosa streamlit lo resulve automaticamente,
             st.write("imagenes")              generalmente se ocupa para escribir texto, dado que las otras estructuras
             st.write("link")                  no siempre las muestra como realmente queremos que se vea"
@@ -8,14 +48,6 @@ st.divider()                                 "Crea una linea divisoria horizonta
 st.dataframe()  st.dataframe(dataframe)      "Muestra una tabla explicitamente en forma de imagen, en forma de excel"
 
 st.table()  st.table(dataframe)              "Muestra una tabla en forma en bruto sin ser tan bonita y no puede ser modificada"
-
-st.line_chart()  st.line_chart(dataframe)    "Grafica un grafico de linea"
-
-st.scatter_chart(df, x="columna1", y="columna2", color=color)  "Crea un grafico de dispercion que un dataframe
-                                                                en especifico, el color es una funcion"
-
-st.map()  st.map(dataframe)                  "Grafica un mapeo, pero tienen que ser coordenadas"
-                                              acepta solo columnas llamadas latitud y longuitud.
 
 st.slider()  st.slider("x")                  "Crea un widget que es un interactivo, en este caso
              st.write(x, "cuadrado es", x*x)  es una barra que es desplazable, muestra los
@@ -63,7 +95,11 @@ time.sleep()  time.sleep(0.1)                "Puede definir tiempo que se puede 
 @st.cache_resource                           "Este es tambien para eso, pero guarda modelos de 
                                               maching learning y conecciones a servidores"
 
+st.title()  st.title("texto")                "Pone un texto muy grande"
+
 st.header()  st.header("texto")              "Pone un texto en grande en negrita como titulo"
+
+st.subheader()  st.subheader("texto")        "Pone un texto mediano"
 
 st.markdown()  st.markdown("texto")          "Crea un texto grande un poco mas grande que el anterior
                                               como un titulo"
@@ -77,4 +113,77 @@ nombre_coneccion.query()  nombre_coneccion.query("consulta SQL") "Hacemos una co
                                                                   anterior, crea una consulta, se puede
                                                                   guardar como variable, se necesita
                                                                   transformar a dataframe"
+
+###########################################################################################################################
+
+                                                  FORMULARIOS
+
+Formularios para que la persona que interactua pueda responder preguntas
+
+st.form()  st.form(key, clear_on_submit=False, *, border=True)  "Form se ocupa para crear el formulario, se
+                                                                 crear con with, key es un identificador de
+                                                                 este formulario en especifico, clear es para
+                                                                 despues de darle enviar se borre todo, border
+                                                                 es para mostrar el borde del formulario"
+
+st.text_input()  st.text_input(label="escriba su nombre")       "Es para introducir algun texto a streamlit, esto
+                                                                 se guarda como variable, label es solo lo que
+                                                                 aparece a modo de indicacion para introducir"
+
+st.number_input()  st.number_input(label="escriba un numero")   "Es para introducir algun numero a streamlit, esto
+                                                                 se guarda en una variable, label es la indicacion"
+
+                   st.number_input(label, format="%d", step=1)  "Es una opcion para sumar o restar con botones"
+
+st.selectbox()  st.selectbox(label="escoga una", option=["opcion1", "opcion2"...]) "Para seleccionar una opcion"
+
+st.form_submit_button()  st.form_submit_button("Enviar")        "Es para poner el boton de enviar que finaliza el
+                                                                 formulario"
+
+
+###PARA MOSTRAR EN PANTALLA RESULTADOS
+
+Para que se guarden en variables
+
+if variable_input_sumit:
+    st.write(f"resultado {number_input_variable}")
+
+
+###########################################################################################################################
+
+                                                   GRAFICAS
+
+Las graficas de matplotlib o numpy se pueden guardar como variables y graficar dentro de estos codigos
+
+st.pyplot()  st.pyplot(figure)               "Es para ocupar grafias de matplotlib, se deben poner en tipo
+                                              figura"
+
+             fig, ax = plt.subplots()
+             ax.hist(x, bins=20)
+             st.pyplot(fig)
+
+st.line_chart()  st.line_chart(dataframe)    "Grafica un grafico de linea"
+
+st.scatter_chart(df, x="columna1", y="columna2", color=color)  "Crea un grafico de dispercion que un dataframe
+                                                                en especifico, el color es una funcion"
+
+st.bar_chart()  st.bar_chart("valores o grafico")     "Para hacer un grafico de barras o histograma"
+
+st.map()  st.map(dataframe)                  "Grafica un mapeo, pero tienen que ser coordenadas
+                                              acepta solo columnas llamadas latitud y longuitud, puede graficar
+                                              un mapa completo de la tierra"
+
+st.area_chart() st.area_chart(x, y)          "Grafico de densidad"
+
+
+st.bokeg_chart()  st.bokeh_chart(figura, use_container_width=True)  "Traza una linea encima de un grafico, que se exporta
+                                                                     figura"
+
+
+
+
+
+
+
+
 
