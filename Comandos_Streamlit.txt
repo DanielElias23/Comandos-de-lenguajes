@@ -75,8 +75,15 @@ st.selectbox() opcion = st.selectbox("Una pregunta", df[columna])
 
 st.siderbar  st.siderbar.widget()            "Hara que el widget en particular se vea a la izquierda"
 
+st.expander() with st.expander("Click aqui"):                          "Muestra una barra que al apretarlo muestra
+                   st.write("muestra este contenido al hacer click")    mas opciones que le pongamos"
+                   st.write("muestra este contenido al hacer click")
+
 st.columns() left_column, right_column = st.columns(2) "Sirve para editar columnas en la pagina
-                                                        opciones en forma de columna"
+                                                        opciones en forma de columna, no columnas dataframe
+                                                        sino que seccion en formas de columna"
+
+             left_column.funcion()                     "Para agregar cosas en esa seccion"
 
 import time
  
@@ -103,6 +110,8 @@ st.subheader()  st.subheader("texto")        "Pone un texto mediano"
 
 st.markdown()  st.markdown("texto")          "Crea un texto grande un poco mas grande que el anterior
                                               como un titulo"
+
+
 
 st.color_picker()  st.color_picker("Color", "#FF0000")  
 
@@ -140,6 +149,10 @@ st.selectbox()  st.selectbox(label="escoga una", option=["opcion1", "opcion2"...
 st.form_submit_button()  st.form_submit_button("Enviar")        "Es para poner el boton de enviar que finaliza el
                                                                  formulario"
 
+st.file_uploader()  st.file_uploader("Sube un archivo")         "Para cargar un archivo a la pagina, puede ser cualquier
+                                                                 archivo"
+
+st.camera_input()  st.camera_input("Saca una foto con tu camara")  "Puedes sacar una foto con tu camara y cargarla"
 
 ###PARA MOSTRAR EN PANTALLA RESULTADOS
 
@@ -148,6 +161,15 @@ Para que se guarden en variables
 if variable_input_sumit:
     st.write(f"resultado {number_input_variable}")
 
+###ESTABLECER TIEMPO DE CARGA DE PROCESO
+
+barra_pro = st.progress(0)
+
+for perc_completed in range(100):
+      time.sleep
+      barra_pro.progress(perc_completed+1)
+
+st.success("La tarea de completo") 
 
 ###########################################################################################################################
 
@@ -179,7 +201,11 @@ st.area_chart() st.area_chart(x, y)          "Grafico de densidad"
 st.bokeg_chart()  st.bokeh_chart(figura, use_container_width=True)  "Traza una linea encima de un grafico, que se exporta
                                                                      figura"
 
+st.metric()  st.metric(label="Especie de titulo de la nota", value="60 °C", delta="3 °C")
 
+                                                                    "Es una nota, donde se indica solo un valor en grande,
+                                                                     titulo, valor en grande y delta es una variación,
+                                                                     puede ser negativo para indicar que bajo"
 
 
 
