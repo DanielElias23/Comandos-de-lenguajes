@@ -1,0 +1,385 @@
+                                         ___________________________________
+                                         |                                  |
+                                         |             INDICE               |
+                                         |__________________________________|
+
+                     1. PLATFORM                                    "Libreria"
+                     2. OS                                          "Libreria" 
+                     3. SHUTIL                                      "Libreria"
+                     4. TIME                                        "Libreria"
+                     5. SYS                                         "Libreria"
+                     6. urllib.request                              "Libreria"
+                     7. JSON                                        "Libreria"
+                     8. PPRINT                                      "Libreria"
+                     9. PICKLE                                      "Libreria"
+                    10. CSV                                         "Libreria"
+                    11. RE                                          "Libreria"
+
+
+###########################################################################################################################
+
+                                             Platoform
+                                             
+###Se ocupa para obtener información del dispositivo ocupado
+
+platform.architecture()                             "Dice los bit del sistema operativo y 
+                                                     y que sistema operativo se ocupa"
+                                                   
+platform.platform()                                 "Dice que version de sistema operativo 
+                                                     se esta ocupando"
+                                                     
+platform.python_version()                           "Dice que version de python se esta
+                                                     ocupando"
+                                                     
+platform.system()                                   "Que marca de modelo de sistema operativo se 
+                                                     se esta ocupando"
+                                                     
+
+###########################################################################################################################
+
+                                               OS
+
+###Se ocupa para interactuar con el sistema operativo y entregar información
+
+os.cpu_count()                                      "Nos dice el numero de nucleos del pc"
+
+os.get_terminal_size()                              "Dice el tamaño del codigo que estamos 
+                                                     progamando"
+                                                                                                                                                                                                                                                                                                                                                                   
+os.system("ls")                                     "Ejecuta un comando en la terminal"
+
+              os.system("time python archivo.py")   "Entega cuanto se demora un archivo en correr"
+              
+              os.system("python -m cProfile archivo.py")  "Entrega información detallada de cuanto se demora
+                                                           cada funcion en correr"
+
+os.execv("archivo.py", lista_parametros)            "Es igual al anterior, pero con los parametros por 
+                                                     separado"
+
+os.listdir(".")                                     "Entrega una lista de todos los directorios en el que
+                                                     estamos"
+                                                     
+                   os.listdir("directorio2")        "Entrega una lista de todos los directoriso de ese
+                                                     directorio"
+
+os.getcwd()                                         "Dice la ruta en la que estamos"
+
+os.chdir("directorio")                              "Nos cambiamos de directorio"
+
+os.mkdir("nuevo_directorio")                        "Crea un nuevo directorio"
+
+os.makedirs("aaa/bbb/ccc")                          "Crea un arbol de directorios"
+
+os.remove("archivo.py")                             "Borra un archivo"
+
+os.rmdir("directorio")                              "Borra un directorio VACIO"
+
+os.rename("archivo.py", "nuevo_archivo.py")         "Cambia el nombre de archivo o directorios"
+
+os.path.abspath("archivo.py")                       "Entrega la ruta completa del archivo"
+
+os.path.dirname("ruta")                             "Entrega la ruta, pero solo hasta el directorio" 
+
+os.path.basename("ruta")                            "Entrega el nombre final de una ruta"
+
+os.path.exists("archivo.py")                        "Entrega true si el archivo existe o false si no
+                                                     existe"
+
+os.path.isdir("directorio")                         "Dice si directorio, es un directorio entrega true"
+
+os.path.isfile("archivo.py")                        "Dice si ese es un archivo con true"
+
+os.path.getatime("archivo.py")                      "Entrega una fecha del archivo"
+
+os.path.getmtime("archivo.py")                      "Entrega la ultima fecha de modificacion en segundos"
+
+os.path.getctime("archivo.py")                      "Entrega la fecha de creacion del archivo"
+
+os.path.getsize("archivo.py")                       "Entrega lo que pesa el archivo en bytes"            
+
+###########################################################################################################################
+
+                                          SHUTIL
+                                          
+shutil.copy("archivo.py", "archivo_copia.py")                    "Copia un archivo"
+
+shutil.copy2("archivo.py", "archivo_copia.py")                   "Copia un archivo incluso con fecha
+                                                                  de creación"
+
+shutil.copytree("mi_libreria", "ruta")                           "Puede copiar un arbol de directorios
+                                                                  en alguna dirección"
+
+shutil.rmtree("mi_libreria")                                     "Borra todo un arbol de directorios"
+
+shutil.move("directorio", "ruta")                                "Mueve un diectorio a otra ruta"
+
+shutil.disk_usage(".")                                           "Entrega el almacenamiento del disco"
+
+                              shutil.disk_usage(".").free        "Entrega solo el espacio disponible en bytes"
+                              
+shutil.which("archivo.py")                                       "Busca el archivo en los path y entregara su
+                                                                  ruta"
+                                                                  
+shutil.get_archive_formats()                                     "Muestra los formatos de compresion que 
+                                                                  puede ocupar"
+                                                                  
+shutil.make_archive("zipeado", "zip", "archivo.py")              "Comprime un archivo en un formato especifico
+                                                                  primero nombre del archivo que se creara, 
+                                                                  formato, archivo a comprimir"
+                                                                  
+shutil.unpack_archive("zipeado.zip", "nombre_descompresion", "zip") "Descomprime zipeado.zip"
+
+###########################################################################################################################
+
+                                         TIME
+                                         
+###Esta libreria muestra tiempos desde 1970-1-1 00:00:00, todos los tiempos empiezan desde esta fecha
+
+time.time()                                        "Entrega los segundos transcurridos desde la fecha
+                                                    de inicio"
+                                                    
+time.gmtime(time.time())                           "Entrega la fecha actual, pero en otro formato y 
+                                                    contado desde UTC, pero se ocupa para transformar
+                                                    los segundos en fechas"
+
+                time.gmtime(time.time()).tm_year   "Entrega solo el año de la fecha actual UTC"
+                
+time.localtime()                                   "Entrega la fecha actual considerando la hora local"
+
+                time.localtime(time.time())        "Transforma formato segundos en fecha, considerando
+                                                    la hora local"
+                                              
+                time.localtime(time.time()).tm_year  "Solo el año en int"
+                
+                time.localtime(time.time()).tm_mon   "Solo el mes en numero"
+                
+                time.localtime(time.time()).tm_mday  "Solo el dia en numero"
+                
+                time.localtime(time.time()).tm_hour  "Solo la hora en numero"
+                
+                time.localtime(time.time()).tm_min   "Solo los minutos en numero"
+                
+                time.localtime(time.time()).tm_sec   "Solo los segundos en numero"
+                
+                time.localtime(time.time()).tm_wday  "Numero de la semana del mes en numero"
+                
+                time.localtime(time.time()).tm_yday  "Numero de dias del año"
+    
+time.strftime("%d/%m/%Y %H:%M:%S", time.localtime()")  "Entrega toda la fecha como 31/12/01 17:31:20
+                                                        como string"
+                                                        
+time.strptime("fecha string", %d/%m/%Y %H:%M:%S)       "Es el proceso inverso al anterior se le debe
+                                                        indicar el formato de entrada"
+                                                        
+time.sleep(5)                                        "Hace una pausa de 5 segundos"
+
+###########################################################################################################################
+
+                                                SYS
+                                                
+sys.exit()                                           "Te saca de la escritura de python"
+
+                  sys.exit("texto")                  "Muestra ese texto antes de terminar el programa"
+
+sys.argv                                             "Es una lista de los parametros para correr un programa
+                                                      se cuenta el nombre del archivo"
+
+                  len(sys.argv)                      "Conteo de todos los parametros, sirve para cortar el
+                                                      codigo si no se le entregan todos los parametros"
+                                                      
+                  var = sys.argv[1]                  "Se queda con el primer parametro despues del nombre y
+                                                      la toma como variable, siempre son string"
+                                                      
+###########################################################################################################################
+
+                                        urllib.request
+                                        
+from urllib.request import urlopen                                        
+                                           
+req = urlopen("url")                                 "Hace una peticion a la pagina web"
+
+dir(req)                                             "Muestra todo los parametros que se le pueden hacer
+                                                      a esta peticion"
+                                                      
+req.code                                             "Muestra el estado de la peticion 400 es un error"
+
+req.read()                                           "Entrega todo el codigo de la pagina en formato bytes"
+
+string = req.read().decode("utf-8")                  "Lo devuelve como un string"
+
+objeto = open(os.path.basename("url"), "wb")         "Guarda un archivo desde una url en formato bytes"
+                                                      
+open(os.path.basename("url"), "w", encoding="utf-8") "En este caso se ocupa para transformar en string algun
+                                                      texto de la pagina web, w indica string y necesariamente
+                                                      encoding"               
+           
+objeto.write(urlopen("url").read(), "wb")            "Obtiene el objeto abierto con open y le da el formato
+                                                      de imagen"
+           
+                 objeto.close()                      "Lo cierra para no mostrar el objeto"
+                 
+###########################################################################################################################
+
+                                                 JSON
+                      
+###Hay paginas web transforman datos de paginas web a Json bonitos, facil de interpretar                      
+                                                 
+j = json.load(string_json)                                    "Carga los datos del json como lista de 
+                                                               python, cada elemento es un diccionario"
+                                                               
+j[0]                                                          "Entrega el primer elemento de la lista
+                                                               recordando que es un lista con diccionarios"
+                                                               
+j[0]["nombre"]                                                "Entrega el elemento nombre"
+
+j[0]["nombre"][0]                                             "Si nombre fuera una lista, se pone 0 para
+                                                               conseguir el elemnto"
+ 
+json.dumps(string_python)                                     "Un string formato lista con diccionario lo
+                                                               transformara a json"
+                                                               
+###########################################################################################################################
+
+                                          PPRINT
+
+from pprint import pprint
+                                  
+###Pprint es util para trabajar con archivos json ya que lo muestra como diccionarios bonitos 
+
+pprint(string_json)                                         "Lo muestra como un diccionario mas agradable"
+
+
+###########################################################################################################################
+
+                                           PICKLE
+
+import pickle
+                                           
+###Es un tipo de dato de python 'pkl', lleva todos los datos a binarios, pesan mucho menos
+
+archivo1 = open("archivo.pkl", "wb")                           "Abre un archivo pickle escritura binaria"
+
+archivo2 = open("archivo.pkl", "rb")                           "Abre un archivo pickle lectura binaria"
+
+archivo_python = pickle.load(archivo2)                         "Carga un archivo para ser visto como archivo
+                                                                de python depende de la forma que tenga el 
+                                                                tipo"
+
+pickle.dump(archivo_dato, archivo1)                            "Lo que hace es guarda la información
+                                                                serializada del archivo_dato en el archivo
+                                                                serializado pickle archivo1, es un proceso
+                                                                de escritura"
+                                                                
+                        archivo1.close()                       "cerramos el archivo, con with no se necesita
+                                                                cerrar el archivo"
+                                                                                                     
+###########################################################################################################################
+
+                                                    CSV
+                                                    
+import csv
+
+###Para ocupar archivos separados con ',' como tablas
+
+open("archivo.csv", "w", encoding="utf-8") as f:
+
+write = csv.writer(f, lineterminator="\n")
+
+for fila in json.loads(req.read()):              "Carga archivo json y lo itienera por parte"
+             write.writernow(fila)               "Lo carga como archivo csv, pero no tienen tipos de datos
+                                                  son todos string"
+
+###########################################################################################################################
+
+                                                   RE
+                                                   
+import re
+
+###Se utiliza para buscar patrones en los datos
+
+re.search(r"c..a", texto)                                     "Busca todos las palabras que empiezan con 'c' y
+                                                               terminan con 'a' de 4 letras en el 'texto', 
+                                                               entrega solo la primera coincidencia"
+                                                               
+x = re.findall(r"c..a", texto)                                "Lo mismo que el anterior, pero entrega todas
+                                                               las coincidencias en una lista"
+                                                                
+x.group()                                                     "Lo devuelve como string sin ser lista"
+                                                                              
+          
+patrones             re.findall(r"c..a", texto)   "c..a"      "Le da lo mismo lo que hay en los puntos"
+
+                            r"c[ao][ao]a"         "[ao]"      "Para que busque tanto con a y o, cada []
+                                                               es un solo caracter"
+                                                                   
+                            r"ca[^ao]"            "[^ao]"     "Ahora buscara con todos excepto con a y o"
+                            
+                            r"[a-z]" r"[A-Z]"     "[a-z]"     "Es para tomar rangos de letras segun abecedario
+                                                               pero toma cada letra por separada como string,
+                                                               tambien toma en cuenta si es que son minusculas
+                                                               o mayusculas"
+                                                               
+                            r"[a-z]+"             "[a-z]+"    "Ya no toma solo las letras sino que la primera
+                                                               coincidencia y luego todo lo que sigue de la
+                                                               palabra, hace una lista con todas estas
+                                                               palabras por separado"
+                                                               
+                            r"[a-zñ]+"            "[a-zñ]"    "Lo mismo que los anteriores, pero ahora agrega
+                                                               la 'ñ'"     
+                                                               
+                            r"[a-zñÑA-Z]+"        "[a-zñÑA-Z]" "Ahora toma en cuenta los dos rangos, en
+                                                                la practica devuelve todas las letras, las
+                                                                palabras las entrega como lista de string"
+                                                                    
+                                              [a-zñÑA-ZáéíóúÁÉÍÓÚ]+ "Agrega todas las letras, las con tilde no
+                                                                     se agregaban"
+                                                                     
+                            r"\d+"                "\d+"        "Devuelve todos los datos numericos, d de 
+                                                                digito"
+                                                               
+                            r"\D+"                "\D+"        "Devuelve todo lo que no contenga numeros"
+                            
+                            r"[0-9]+"             "[0-9]"      "Devuelve todo lo que contenga el rango de
+                                                                numeros entre 0 a 9"
+                                                                
+                            r"\w+"                "\w+"        "Devuelve lo que reconosca como palabras de
+                                                                cualquier idioma"
+                                                                
+                            r"\W+"                "\W+"        "Devuelve cualquier todo lo que no sea 
+                                                                palabras ni numeros"
+                                                                
+                            r"\s+"                "\s+"        "Devuelve todos los espacios"
+                            
+                            r"\S+"                "\S+"        "Devuelve todo lo que no sean espacios"
+                                                                
+                            r"col+r"              "col+r"      "Devuelve todo lo que empieza con 'col' y
+                                                                termina con 'r' sin importar lo que este entre
+                                                                estos patrones, tambien los tomara"
+                                                                
+                            r"colo*r"             "colo*r"     "Indica que la letra anteior 'o', se puede
+                                                                repetir varias veces y terminar con 'r' como
+                                                                colooooooor, tambien la tomara, tambien puede
+                                                                no estar como 'colr'"
+                                                                
+                            r"colo?r"             "colo?r"     "Este caso solo puede repetirse 0 o 1 vez no 
+                                                                mas"
+                                                                
+                            r"color{2}r"          "colo{2}r"   "Indica la cantidad de veces que debe repetirse
+                                                                el ultimo caracter, en este caso solo tomara
+                                                                'coloor'"
+                                                                
+                            r"\d{1,5}"            "\d{1,5}"    "Indica la cantidad de veces que se repite 
+                                                                entre 1 a 5 veces"
+                                                                
+                            r"^a+"                "^a+"        "Indica todo lo que no empieze con a"
+                            
+                            r"+a$"                 "+a$"       "Para indicar todo lo que termina con a"
+                            
+re.findall(r"c..a", texto, flags=re.MULTILINE)                 "Es para que el patron lo repita en cada
+                                                                linea reconociendo regloenes"
+                                                                                           
+re.findall(r"c..a", texto, flags=re.IGNORECASE)                "Ignora si es mayuscula o minuscula"
+
+re.findall(r"c..a", texto, flags=re.IGNORECASE | re.MULTILINE) "Ocupa los dos anteiores"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+
