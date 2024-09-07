@@ -39,7 +39,7 @@ platform.system()                                   "Que marca de modelo de sist
 
                                                OS
 
-###Se ocupa para interactuar ejecutar comandos desde terminal y entregar información
+###Se ocupa para ejecutar comandos desde terminal y entregar información
 
 os.cpu_count()                                      "Nos dice el numero de nucleos del pc"
 
