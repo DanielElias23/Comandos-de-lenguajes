@@ -18,7 +18,7 @@
 
 ###########################################################################################################################
 
-                                             Platoform
+                                             Platform
                                              
 ###Se ocupa para obtener información del dispositivo ocupado
 
