@@ -1,0 +1,235 @@
+                                         ___________________________________
+                                         |                                  |
+                                         |             INDICE               |
+                                         |__________________________________|
+
+            1. ETIQUETAS PRINCIPALES                          "Principales etiquetas de un archivo html"
+            2. ATRIBUTOS IMPORTANTES                          "Atributos importantes para css y javascript" 
+            3. SECCIONES DE LA PAGINA WEB DENTRO DE BODY      "Secciones en html"
+            4. BODY                                           "Todas las opciones y etquetas del contenido de la web" 
+            5. ARCHIVOS EN LA WEB                             "Como subir archivos a la web"
+            6. FORMULARIOS                                    "Creación de formularios con html"
+            7. LISTAS                                         "Creación de listas hacia abajo distintivas"
+            8. TABLAS                                         "Creación de tablas en html"
+
+###########################################################################################################################
+
+                                                    ETIQUETAS PRINCIPALES
+                                             
+<!DOCTYPE html>                                               "Para indicar que es que es archivo html para el explorador,
+                                                               si no se pone lo entendera como codigo antiguo, no actualizado"
+                                                               
+<html>                                                        "Estructura principal de un archivo html"
+</html>
+
+<head>                                                        "Son encabezados de las paginas web lo que aparecerá en la
+</head>                                                        pestaña del navegador"
+
+<body>                                                        "Es el contenido de la pagina web, es lo que vera el usuario"
+</body>
+
+<!--texto-->                                                  "Para escribir comentarios en el codigo"
+
+###########################################################################################################################
+
+                                                ATRIBUTOS IMPORTANTES
+
+<h1 id="titulo">Este es el titulo</h1>                        "Comunmente en los titulos se pone las id para identificar
+                                                               un objeto entero o seccion, no se pone para todo los textos,
+                                                               por ejemplo puede ser para <header> en <h1 id>, tambien se
+                                                               ocupa para seleccion"
+                                                               
+<a href="#titulo"></a>                                        "Redirige directamente al objeto con la id="titulo" en la
+                                                               misma pagina"
+                                                               
+<article class="post">                                        "class se ocupa con un fin diferente, es para identificar
+                                                               objetos enteros que son iguales, por ejemplo un articulo
+                                                               es un objeto con titulo imagen y descripcion entero es
+                                                               clase posteo, esto es para que sean arregaldos con css
+                                                               o javascript despues todos juntos"                              
+
+###########################################################################################################################
+
+                                           SECCIONES DE LA PAGINA WEB DENTRO DE BODY
+
+<header>                                                      "Es la seccion de titulo se crea automaticamente como
+         <h1>titulo</h1>                                       un banner"
+</header>         
+
+<section>                                                     "Es una seccion de la pagina que limita"
+</section>
+
+<section>                                                     "Da un formato articulo titulo imagen descripcion, sirve
+        <article>                                              mas para que el navegador identifique"
+               <h2>text<h2>
+        </article>
+</section>
+
+<footer>                                                      "Footer es para poner una seccion abajo de la pagina
+</footer>                                                      usualmente es para poner correos y demas" 
+
+<div>                                                         "Div es para el mismo fin de section"
+</div>
+
+
+###########################################################################################################################
+
+                                                        <BODY>
+                                                        
+<h1></h1>                                                     "Es para colocar titulos grandes en negrita"
+
+<h2></h2>                                                     "Es para colocar subtitulos medianos en negrita"
+
+<h3></h3>                                                     "Es para colocar textos en negrita"
+
+<h4></h4>                                                     "Es para colocar textos pequeños en negrita"
+
+<h5></h5>                                                     "Es para colocar textos aun mas pequeños en negrita"
+
+<h6></h6>                                                     "Es para colocar textos muy muy pequeños en negrita"
+
+<a href="https://www.google.com"> Ir a google </a>            "Es para redireccionar a otro link, donde href sera la pagina que
+                                                               redirijira y Ir a google será lo que se mostrará"
+
+<a target="_blank" href="https://www.google.com"> Ir a google </a>  "Crea una nueva pestaña con el mismo link anterior"
+
+<p></p>                                                       "Agrega un texto a la pagina" 
+
+<span>texto</span>                                            "Esto aparentemente no hace nada, pero sirve para referenciar
+          <p><span> hola </span> como estas?</p>               texto"
+
+<br>                                                          "Salta de linea en el texto, no necesita cerrarse"
+          <p>hola <br> como estas</p>                         "Un salto de linea"
+          <p>hola <br><br> como estas</p>                     "Doble salto de linea"
+          
+<hr>                                                          "Crea una linea delimitadora en toda la pagina"
+
+
+###########################################################################################################################
+
+                                                 ARCHIVOS EN LA WEB
+                                                 
+<img src="carpeta/ruta.png"/>                                 "Para mostrar una imagen en la pagina web desde los archivos"
+
+<img src="link"/>                                             "Para mostrar una imagen desde un link" 
+
+<img src="link" width="400" height="400"/>                    "Para cambiar las dimensiones de la imagen"
+
+###########################################################################################################################
+
+                                                         FORMULARIOS 
+
+<form>                                                        "Para crear formularios"
+</form>
+
+<form action="ruta">                                          "Dice la ruta donde queremos guardar el formulario"
+
+<form action="ruta" method="GET">                             "Envia los valores con su variable en formato URL"
+                    method="POST"                             "Envia el valor de las variables ordenado"
+
+<label>texto</label>                                          "Para crear descripcion del formualrio"
+
+<input />                                                     "Crea un espacio para contestar una pregunta"  
+
+<input placeholder="Escriba su nombre" />                     "Para mostrar una descripción en la barra" 
+
+<input name="nombre_23" />                                    "Para obtener la variable con el input en name, cada input
+                                                               debe tener un name"  
+
+<input type="text" />                                         "Es el que viene por defecto para que el input sea un texto"
+       type="email"                                           "Para que el input sea un email"
+       type="password"                                        "Para que el input sea un password (no se ve lo que se escribe)"
+       type="radio"                                           "Para dar click en una opcion de punto, uno o otro"
+       type="checkbox"                                        "Para dar click en una opcion de cuadradito, uno y/o otro"
+       type="file"                                            "Puedo entregarle un archivo, mostrara el buscardor de archivos"
+       type="button"                                          "Para hacer click en un boton"
+       type="submit"                                          "Para hacer click en un boton y enviar un formulario, envia
+                                                               todo el formulario automaticamente al servidor"
+
+<input value="valor por defecto" />                           "Le da un valor por defecto a la casilla"
+
+<textarea placeholder="Escriba un comentario"></textarea>     "Es para crear un cuadro grande que se pueda escribir un 
+                                                               comentario, se puede redimencionar"
+
+<textarea> Valor por defecto </textarea>                      "Le da un valor por defecto" 
+
+<textarea rows="10" cols"50"></textarea>                      "Define una dimension para el cuadro de texto"
+
+<label for="nombre1"> Nombre </label>                         "Relaciona el label con el input automaticamente"
+<input id="nombre1" /> 
+
+<button type="button"> Enviar </button>                       "Para crear un boton"
+        type="reset"                                          "Para resetear el formulario"
+        type="submit"                                         "Para enviar el formulario"
+
+###########################################################################################################################
+
+                                                       LISTAS
+                                                     
+<ul>                                                          "Sirve para crear listas con puntos al principio"
+</ul>
+
+<ol>                                                          "Sirve para crear listas con numeros al principio"
+</ol>
+
+<li> Elemento 1 </li>                                         "Pone el texto como elementos para las listas"
+
+<li value="52"> Elemento 1 </li>                              "En el caso de <ol> empieza la enumeracion desde el 52"
+
+<li style="list-style-type: lower-alpha;"></li>               "Ahora en el caso <ol> poner letras en vez de numeros, las 
+                                                               letras las va colocando automaticamente con el mismo style"
+
+<li style="list-style-type: lower-roman;"></li>               "Para el caso <ol> en vez de numeros, mostrara numeros
+                                                               romanos"
+
+<ol>                                                          "Para anidar diferentes listas"
+   <li>
+        <ol>                                                      
+        
+###########################################################################################################################
+
+                                                          TABLAS
+
+<head>                                                        "Para hacer una tabla con lineas con css"
+     <style>
+          table,th,td {
+                border:1px solid black;
+          }
+     <style>
+<head>
+
+<table>                                                       "Para colocar tablas"
+</table>
+
+<table style="border: 1px solid black">                       "Para crear un borde a la tabla con css"
+
+<thead>                                                       "Para decirle al navegador que es el nombre de las columans"
+        <tr></tr>
+</thead>
+
+<tr></tr>                                                     "Para colocar un registro de la tabla, se alinean a la
+                                                               izquierda"
+
+<tbody>                                                       "Para decirle al navegador que es el cuerpo de la tabla"
+</tbody> 
+
+<th></th>                                                     "Para colocar los nombres de las columnas de la tabla y
+        <tr>                                                  ademas genera las columnas, se centran al tamaño"
+          <th>columna1</th>
+          <th>columna2</th>
+        </tr>
+        
+<td></td>                                                     "Es para agragar filas a la tabla"
+        <tr>
+           <td> elemento 1</td>
+           <td> elemento 2</td>
+        </tr>
+
+<tfoot>                                                       "Es para colocar pie a la tabla por ejemplo totales"
+        <tr>
+           <td><td>
+           <td>total<td>
+        <tr>
+</tfoot>
+        
+        
