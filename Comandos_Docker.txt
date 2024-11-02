@@ -1,0 +1,333 @@
+                               ___________________________________
+                               |                                  |
+                               |             INDICE               |
+                               |__________________________________|
+
+            1. DOCKER COMANDOS GENERALES        "Comandos de uso general de docker"
+            2. COMANDOS CONTENEDORES            "Comandos para crear y ajustar contenedores e imagenes" 
+            3. VARIABLES DE ENT0RNO             "Como pasar variables de entornos a los diferentes contenedores y imagenes"
+            4. DOCKERFILE                       "Creación de contenedores con archivos Dockerfile"
+            5. DOCKER COMPOSE                   "Enfocado a como usar docker compose y complementar con archivos.yml"
+
+
+###########################################################################################################################
+
+                                               DOCKER COMANDOS GENERALES
+
+sudo systemctl start docker                                  "Para iniciar docker"
+
+sudo systemctl stop docker                                   "Para detener el servicio de docker por completo"
+
+sudo systemctl status docker                                 "Para ver el estado de docker"
+
+sudo systemctl enable docker                                 "Para habilitar docker desde el inicio"
+
+sudo systemctl disable docker                                "Para desactivar el inicio automatico"
+
+docker --version                                             "Para saber la version de docker"
+
+docker info                                                  "Para ver toda la información de docker"
+
+
+###########################################################################################################################
+
+                                            DOCKER COMANDOS CONTENEDORES
+
+docker ps                                                    "Para ver los contenedores en ejecución"
+
+docker ps -a                                                 "Para ver todo los contenedores incluso los detenidos"
+
+docker stop <container_id>                                   "Para detener un contenedor"
+
+docker stop $(docker ps -q)                                  "Para detener todos los contenedores"
+
+docker images                                                "Para ver todas las imagenes instaladas, respository es el
+                                                              nombre de la imagen, tag es la etiqueta (como la version)
+                                                              IMAGE id: identificador unico, cuando se creo y el tamaño"
+
+docker pull <imagen>                                         "Para instalar la imagen estan en docker hub"
+
+docker image rm <respository>:tag                            "Para eliminar una imagen"
+
+docker create <image(respository)>                           "Para crear un contenedor, entrega el identificador del
+                                                              contenedor dfe1fe05dfa83279adb962e60a2ac3546e0ae158bcec102638ad99f526a41921"
+
+docker start <idenficador_del_contenedor>                    "Para iniciar el contenedor"
+
+docker run <respository>                                     "Para hacer correr un contenedor"
+
+docker ps                                                    "Nos indica la lista de los contendores que estan corriendo,
+                                                              nos muestra el identificador abreviado, el puerto al cual se
+                                                              se puede conectar"
+                                                           
+docker stop <identificador_abreviado>                        "Detenemos el contendor"         
+
+docker create --name <nuevo_nombre> <respository>            "Crea un nombre para no llamarlo por el identificador, todas
+                                                              las acciones que requerian el identificador del contenedor
+                                                              ahora se pueden hacer por el nombre"
+
+docker create -p27017:27017 --name monguito mongo            "Hace que se conecte nuestro puesto con el puerto de la otra
+                                                              host con el ip y el puerto directamente, la gracia de hacer
+                                                              esto es que nosotros elegimos el puerto, sino docker lo hara
+                                                              automaticamente"
+
+docker logs monguito                                         "Muestra todos los logs del contenedor"
+
+docker logs -follow monguito                                 "Muestra todos los logs en tiempo real"
+
+docker run -d mongo                                          "Crea TODO desde 0, si es que no existe la imagen mongo, 
+                                                              la descarga y si no existe contenedor lo corre
+                                                              automaticamente"
+
+docker run --name monguito -p27017:27017 -d mongo            "Hace absolutamente todo lo anterior" 
+
+docker commit <id_container> nginx:<nuevo_tag>               "Guarda y corre en paralelo una versión modificada del contenedor"
+
+docker save -o ngnix.tar nginx=<tag>                         "Guarda o exporta un contenedor comprimido, el -o se refiere a output"
+
+docker load -i nginx.tar                                     "Carga un contenedor guardado, -i de input"
+
+docker tag nginx<tag> nginx:<nuevo_tag>                      "Cambia el tag creado otro contenedor, no lo borra porque son referencias"
+
+docker volume create <nombre_volumen>                        "Crea un nuevo volumen, es almacenamiento persistente,
+                                                              estos almacenamientos pueden ser usados por mas de un
+                                                              contenedor"
+
+docker volume ls                                             "Muestra la lista de volumenes creados (son directorios)"
+
+docker volume rm -f <mi-volumen>                             "Borra el volumen, pero se deben borrar los contenedores"
+
+docker cp <mi-contenedor>:<ruta_archivo_ubuntu> <ruta_en_pc> "Para copiar un archivo dentro del contenedo fuera del
+                                                              contenedor"
+
+docker network ls                                            "Sirve para ver todas las redes disponibles en docker" 
+                                                              Red por defecto es ridge (permite comunicación entre
+                                                              contenedores), otras redes: host (permite que la red
+                                                              comparta la red del host o pc), overlay (permite la 
+                                                              comunicación entre contenedores en diferentes host),
+                                                              macvlan (permite asignar una dirección MAC a un contenedor y que se
+                                                              comporte como dispositivo fisico en la red), none (
+                                                              el contenedor no tendra acceso a la red)
+
+docker network inspect <nombre_red>                          "Dice todos los detalles de la web"
+
+docker network create <nombre_red>                           "Crea una nueva red, sirve para permitir que los contenedores
+                                                              se comuniquen entre ellos, para comunicarse entre contenedores
+                                                              se nombran solo por su nombre"
+
+docker network rm <nombre_red>                               "Elimina la red"   
+
+docker network connect <nombre_web1> <nombre_web2>           "Junta dos redes para que los contenedores en ambas puedan
+                                                              trabajar juntos"                                                        
+
+docker network disconnect <nombre_web1> <nombre_web2>        "Desconecta dos redes que habian sido conectadas"
+
+docker run -d --name web --network mi-red nginx
+
+docker run -it --name mi-contenedor -v mi-volumen:/datos ubuntu bash "Crea un contenedor con ubuntu y almacenamiento"
+
+
+###########################################################################################################################
+
+                                              VARIABLES DE ENTORNO
+
+Las variables de entrono se encuentran en la descripción de las imagenes en DockerHub
+
+docker create -p27017:27017 --name monguito -e MONGO_INITDB_ROOT_USERNAME=daniel -e MONGO_INITDB_ROOT_PASSWORD=1234 mongo
+
+                                                             "Para crear un contenedor con las variables de entorno que
+                                                              pide para tener las propiedades ROOT de mongo"                                                           
+
+docker build -t <nuevo_nombre_app>:<etiqueta_nueva(tag)> <ruta/Dockerfile o .>   
+                                                               
+                                                              "Para crear una nueva imagen con un archivo Dockerfile, . es para
+                                                              indica que esta en la misma carpeta donde se encuentra"
+
+docker create -p27017:27017 --name monguito --network mired -e MONGO_INITDB_ROOT_USERNAME=daniel -e MONGO_INITDB_ROOT_PASSWORD=1234 mongo
+
+                                                            "Para crearlo ahora con la red"
+
+docker create -p3000:3000 --name chanchito --network mired miapp:etiqueta 
+
+                                                            "Para crear el contenedor con la nueva imagen"
+
+docker search <image>                                       "Muestra las imagenes disponibles sobre esa imagen de Dockerhub,
+                                                             algo importante es que aparecen las valoraciones de la gente
+                                                             y si son offiales aparece [OK]"
+
+docker container prune                                      "Borra todos los contenedores detenidos"
+
+docker image prune                                          "Borra todas las imagenes que no estan siendo usadas por ningun
+                                                             contenedor"
+
+###########################################################################################################################
+
+                                        CREACIÓN DE CONTENEDORES PERSONALIZADOS
+
+##########BASES DE DATOS
+
+docker run --name database -e MYSQL_ROOT_PASSWORD=1234 -d mysql
+
+#se inspecciona para saber la IP de la base de datos, puerto por defecto 3306/tcp en docker ps
+docker inspect database | grep IPAddress
+
+#nos fijamos en:
+"IPAddress": "172.17.0.2"
+
+#para entrar a la base de datos
+mysql -u root -h 172.17.0.2 -p1234
+
+##########BASES DE DATOS PARTE 2
+
+import mysql.connector
+
+# Conexión con usuario root
+conexion = mysql.connector.connect(
+    host="localhost", 
+    user="root",  
+    password="1234"  # Tu contraseña
+)
+
+cursor = conexion.cursor()
+cursor.execute("CREATE DATABASE IF NOT EXISTS mi_base_de_datos")
+cursor.close()
+conexion.close()
+
+###########BASES DE DATOS PARTE 3
+
+#Este metodo debe tener las tablas limpias sin datas vacios o nan
+
+cursor = conexion.cursor()
+
+archivos_csv = ['datos1.csv', 'datos2.csv', 'datos3.csv']
+
+for archivo in archivos_csv:
+    df = pd.read_csv(archivo)
+    nombre_tabla = archivo.split('.')[0]  # Nombre de la tabla será el nombre del archivo sin la extensión
+    columnas = ", ".join([f"{col} VARCHAR(255)" for col in df.columns])
+    
+    cursor.execute(f"CREATE TABLE IF NOT EXISTS {nombre_tabla} ({columnas})")
+    
+    for i, row in df.iterrows():
+        sql = f"INSERT INTO {nombre_tabla} ({', '.join(df.columns)}) VALUES ({', '.join(['%s']*len(row))})"
+        cursor.execute(sql, tuple(row))
+
+conexion.commit()
+cursor.close()
+conexion.close()
+
+##########PAGINA WEB
+docker run -d -p 8080:80 nginx                                   
+
+FROM nginx:alpine
+COPY ./web/ /usr/share/nginx/html/                          "Congiguración de Dockerfile"
+
+docker build --no-cache -t mi-sitio-web .                   "Crea una nueva imagen con la pagina web, sin cache que da
+                                                             problemas"
+
+docker run -d -p 8080:80 mi-sitio-web                       "Para correr la pagina web"                                                       
+
+docker start id_contenedor                                  "Para correr la pagina al encnder el pc nuevamente"
+
+ifconfig                                                    "Para ver la ip de la red 192.168.x.x:8080 en la red local"
+
+
+#######PYTHON
+
+COPY script.py /sh/script.py
+CMD ["python", "/sh/script.py"]                             "Configuración de Dockerfile"
+
+docker build --no-cache -t mi-app
+
+docker run -d -p 8080:80 mi-app
+
+
+###########################################################################################################################
+
+                                                DOCKERFILE
+
+Este archivo tiene un lenguaje diferente que se detalla a contiuación para crear aplicaciones desde 0
+
+FROM                                                        "Indica la imagen base que se utilizará para contruir una nueva
+                                                             imagen"
+
+RUN                                                         "Ejecuta comandos en la imagen"
+
+COPY                                                        "Copia archivos o directorios desde el host a la imagen"
+
+WORKDIR                                                     "Establece el directorio de trabajo por defecto para el resto
+                                                             de instrucciones"
+
+CMD                                                         "Define el comando que se ejecutara cuando se incie un contenedor"
+
+ENTRYPOINT                                                  "Define el comando o parametros que se ejecutaran por defecto"
+
+ARG                                                         "Permite definir variables como NOMBRE=Julio, despues se cita
+                                                             $NOMBRE o en la terminal cambiarlo con --build-arg=Nombre=juan"
+
+
+###########################################################################################################################
+
+                                          DOCKER .YML y DOCKER COMPOSE
+
+El archivo.yml se utliza para configurar docker, es especialmente para docker compose
+
+docker compose up                                           "Ejecuta el archivo .yml" 
+
+docker compose -f otro_nombre.yml up                        "Para ejecutar archivo con otro nombre"
+
+docker compose up -d                                        "Lo ejecuta en segundo plano"
+
+docker compose ps                                           "Muestra los contenedores definidos con el archivo.yml"
+
+docker compose logs                                         "Muestra los logs de docker compose"
+
+docker compose down                                         "Borra todo, los contenedores y las redes"
+
+#Crea un servicio
+services:
+    #Crea un microservicio
+    web:
+        #Que imagen va a ocupar
+        image: ngnix:latest
+        #Especifica los puertos
+        ports:
+           - "8080:80"
+    web1:
+        build: .
+        ports:
+           - "8081:81"
+    db:
+        image: mariadb:10.6.4-focal
+        comand: "--default-authentication-plugin=mysql_native_password"
+        volumes:
+           - db_data:/var/lib/mysql
+        networks:
+           - mi-red
+        #Para que cuando un contenedor falle lo vuelva a lanzar
+        restart: always
+        enviroment:
+          - MYSQL_ROOT_PASSWORD=1234
+          - MYSQL_DATABASE=wordpress
+          - MYSQL_USER=daniel
+          - MYSQL_PASSWORD=1234
+        expose:
+          - 3306
+          - 33060
+    wordpress:
+        image: wordpress:latest
+        volumes:
+           - wp_data:/var/www/html
+        ports:
+           - 8080:80
+        restart:always
+        enviroment:
+           - WORDPRESS_DB_HOST=db
+           - WORDPRESS_DB_USER=wordpress
+           - WORDPRESS_DB_PASSWORD=wordpress
+           - WORDPRESS_DB_NAME=wordpress
+volumes:
+    db_data:
+    wp_data:
+networks:
+    mi-web:

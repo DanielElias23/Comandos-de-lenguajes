@@ -1,0 +1,259 @@
+                               ___________________________________
+                               |                                  |
+                               |             INDICE               |
+                               |__________________________________|
+
+            1. METODOS DE USO DE CSS                   "Todas las formas de ocupar css en un archivo html"
+            2. USO DE ARCHIVOS POR SEPARADO            "Como ocupar el metodo mas ordenado con el archivo por separado y sus comandos" 
+            3. COLORES                                 "Configuraciones de colores para todos los objetos"
+            4. BORDES                                  "Configuracion de los bordes de los objetos"
+            5. FONDO                                   "Como editar el fondo de las secciones y objetos"
+            6. CONFIGURACIONES DE OBJETOS              "Como configurar los objetos creados en html con css"
+            7. CONFIGURACIONES DE TEXTO                "Configuraciones de textos de html"
+            8. CONFIGURACIONES DE LISTAS               "Configuraciones de listas de html"
+            9. CONFIGURACIONES DE TABLAS               "Configuraciones de tablas de html"
+        
+
+###########################################################################################################################
+
+                                           METODOS DE DAR ESTILO
+
+Hay 3 formas de darle estilo a una pagina html con css
+
+metodo1:   se puede cambiar <body style="color:aqua"></body>
+
+metodo2:   se puede aplicar por objeto en el <head> para que lo aplique a todos los objetos
+           <title>Pagina 2</title>
+                    <style>
+                           body {
+                              color:aqua;
+                           }
+                    </style>            
+
+
+metodo3: por archivos separados style.css y pagina.html, para ello se necesita configurar en <head>
+                  <title>Pagina 2</title>
+                  <link rel="stylesheet" href="style.css" />
+
+
+###########################################################################################################################
+
+                                          USO ARCHIVO POR SEPARADO
+
+Para darle estilo con un archivo por separado metodo3 hay que elegir los objetos, es importante saber que un objeto
+puede tener mas de una clase ejemplo: class="texto objeto" y que los stylos se sobreponen hacia abajo, ultimo se sobrepone
+
+#identificador {}                                                 "El objeto de html debe tener id="identificador""
+
+.texto {}                                                         "Lo aplicara a todos los objetos class="texto""
+
+p.texto {}                                                        "Selecciona los objetos <p class="texto">"
+
+div p {}                                                          "Aplica los cambios a todos los objetos <div><p>"
+
+div h1, div h2 {}                                                 "Aplica a mas de un selector"
+
+#para estos el orden es importante
+a:link {}                                                         "Es para configurar un link que no ha sido visitado"
+
+a:visited {}                                                      "Es para configurar un link que ya fue visitado"
+
+a:hover {}                                                        "Es para configurar un link cuando el mouse pasas por encima"
+
+a:active {}                                                       "Es cuando se hace un click a un link"
+
+* {}                                                              "Aplica a toda la pagina, pero solo si no se han
+                                                                   definido antes"
+
+/*comentario*/                                                    "Para escribir un comentario"            
+
+
+###########################################################################################################################
+
+                                                         COLORES
+
+Primero saber que f es blanco y 0 es negro
+existen 3 formas de poner styles con colores 
+
+p  {color: #000000}                                               "Los dos primeros equivalen el rojo, los dos segundos
+                                                                   al verde, los dos ultimos al azul"
+
+   {color: #ff0000}                                               "Es rojo"
+
+p {color: rgb(255,255,255);}                                      "Es otra forma de poner colores rojo, verde, azul"   
+
+p {color: aqua}                                                   "Es otra forma de poner el color con texto"
+
+
+###########################################################################################################################
+
+                                                      BORDES
+
+p {border: 5px black dashed}                                      "Aplica un borde de linea entrecortada negro de 5 pixeles"        
+
+p {border: 5px black solid}                                       "Aplica la linea completa"
+
+p {border: 5px black doted}                                       "Aplica borde de puntitos"
+
+p {border: 5px black double}                                      "Aplica una doble linea delgada"
+
+p {border: 5px black inset}                                       "Es la linea solida, pero con un efecto 3d" 
+
+p {border: 5px black hidden}                                      "La oculta la linea" 
+
+p {border: 5px black outset}                                      "Es la version inversa a inset"
+
+p {border: 5px black groove}                                      "Hace un efecto 3d hacia el centro"
+
+p {border: 5px black ridge}                                       "Es el efecto 3d contrario a groove"
+
+#otra forma de describir el borde por caracteristica
+p {
+    border-style: ridge;
+    border-color: aqua;
+    border-radius: 5px;                                           "Para redondear el borde"       
+    border-width: 1cm; o 5mm; o 1px; o 1in; o 1pt; 5pc, 5rem, 5em "Grosor del borde en diferentes medidas"
+                                                                   es importante decir que "em" es relativo tamaño se
+                                                                   ajusta al objeto automaticamente"                                                                         
+    
+}
+
+###########################################################################################################################
+
+                                                  FONDO
+
+p {
+    background-color: rgba(255,255,255,1);                        "Resalta un objeto como destacador rgba es
+                                                                   es para transparencia y el ultimo valor"
+    background-image: url("ruta del archivo imagen");             "Muestra imagen de fondo, no se centra automaticamente, la muestra con el tamaño original"
+    background-size: auto;                                        "Ajusta el fondo automaticamente al objeto, pero se minimiza"
+                     cover;                                       "Se ajusta a una dimensión del objeto, manetiene relacion aspecto y se ajusta a la ventana"                                                               
+                     contain;                                     "Se ajusta a las dimensiones y las replicar"
+    background-repeat: no-repeat;                                 "Para que no se repita el fondo"
+                       repeat-x;                                  "Solo se replica horizontalmente"
+                       repeat-y;                                  "Solo se replica verticalmente"
+    background-position: left top;                                "Donde queremos que aparesca el fondo horizonatla y vertical"
+              scroll;                                             "Hace que lo que no se ve se pueda ver como una ventana"
+    outline: 1px black;                                           "Es un borde fuera del borde"
+} 
+
+
+
+###########################################################################################################################
+
+                                                   CONFIGURACIONES DE OBJETOS
+
+p {
+    margin: 15px 5px 10px 5px;                                   "Aplica un margen fuera del elemento que mueve el elemento arriba, right, bottom, left"
+    padding: 15px 5px 30px 20px;                                 "Se genera un margen dentro del elemento con las mismas medidas"
+    overflow: hidden;                                            "Si es que algo sale del margen como el texto no se vera"
+    height: 400px;                                               "Es el alto del fondo"            
+    width: 400px;                                                "Es el ancho del fondo"
+    opacity=0.3;                                                 "Da opacidad al objeto completo no solo al color"
+}
+
+p {
+    position: relative;                                          "Es relativa en la pagina principal"
+              fixed;                                             "Se ajusta a la ventana y la sigue"
+              absolute;                                          "Es relativo al objeto padre mas cercano"
+    left: 20px;                                                  "Crea un margen a la izquierda"
+    top: 30px;                                                   "Crea un margen a arriba"
+    float: right;                                                "El objeto queda commo flotando en la derecha, los ordena con
+                                                                  los demas"
+}
+
+p {
+    display: block;                                              "Algunos objetos por defecto vienen aleandos esto hace que por
+                                                                  por defecto haga un salto de linea como objetos span"
+             inline;                                             "Para objetos que tiene salto de linea, para que queden alineados" 
+             none;                                               "Oculta los objetos"
+             inline-block;                                       "Ajusta todos los objetos como iguales"
+    visibility: hidden;                                          "Oculta los objetos tambien"
+    max-width: 20px;                                             "Es el maximo ancho que puede llegar"
+}
+
+p {
+    transition: propiedad_definida 0.3s ease;                    "Crea una animación segun lo que se le especifique
+    propiedad_definida: black                                     en este caso sombra de caja lo crea automaticamente 
+}                                                                 La animación se tiene que definir despues para todas
+                                                                  las clases"                                                                  
+
+p:hover {
+    box-shadow: 0 0.1rem 0.4rem rgba(0,0,0,0.3)                  "La forma de animación"
+}
+
+
+###########################################################################################################################
+
+                                         CONFIGURACIONES TEXTO 
+
+p {
+    text-align: center;                                          "Sirve para centrar texto o poner otra
+                                                                  localización en la pagina"
+                justify;                                         "Intenta aplicarlo en todo el el ancho
+                                                                  distrubuirlo equitativamente"    
+    text-decoration: underline;                                  "Subraya el texto"
+                     line-through;                               "Tacha el texto con una linea" 
+                     overline;                                   "Aparece una linea por encima del texto"
+    text-shadow: 5px 5px 5px blue;                               "Le da sombra el texto 5px derecha y 5px hacia abajo
+                                                                  5px es el difuminado, y el color"
+    font-family: Verdana, sans-senis;                            "Cambia la fuente del texto por Verdana si no esta
+                                                                  disponible la cambia por sans"                                                                                                                                                                                                                                                                                                               
+}                                        
+
+
+nueva fuente en font-family                                      "Si no esta disponible la fuente la buscamos en
+                                                                  google font, debemos copiar el codigo para obtener"                                            
+
+copiar este texto en <head> del html <link rel="preconnect" href="https://fonts.googleapis.com">
+                                     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+                                     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,
+                                      500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" 
+                                      rel="stylesheet">
+
+luego configurar en css el tipo de letra:  .poppins-thin {
+                                           font-family: "Poppins", sans-serif;
+                                           font-weight: 100;
+                                           font-style: normal;
+                                           }                                     
+
+
+###########################################################################################################################
+
+                                           CONFIGURACIONES DE LISTAS
+
+ul{
+    list-style-type: none;                               "Para que desaparescan los puntos, pero no mueve las posiciones"
+                     circle;                             "Es otro simbolo en vez de los puntos"
+    padding-left: 0;                                     "Mueve la lista sin puntos hacia la izquierda"      
+}                                               
+
+
+###########################################################################################################################
+
+                                            CONFIGURACIONES DE TABLAS
+
+table {
+    width: 100%;                                         "Todas las palabras de la tabla se veran"
+    border-collapse: colapse;                            "Se ajusta mejor a los bordes"
+}                                                
+
+th, td {
+    border: solid 1px blue;                              "Le da un borde a la tabla"
+    padding: 5px;                                        "Se configura el ajuste a las lineas"
+}
+
+th {
+    background-color: red;                               "Le da color solo al fondo de las cabezeras"
+}
+
+td:hover {
+    background-color: blue;                              "Cuando se pasa el mouse por la tabla cambian de color"
+    cursor: pointer;                                     "Cambia el mouse de la flecha a la mano"
+}
+
+td:nth-chiled(even) {
+    background-color: gray;                              "Intercala colores en la tabla dependiendo si son pares o inpares
+                                                          hay que tener cuidado con otros posible colores de orden, se deben
+                                                          colocar antes que otras configuraciones"
+}

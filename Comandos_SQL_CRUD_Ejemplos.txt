@@ -1,0 +1,293 @@
+                               ___________________________________
+                               |                                  |
+                               |             INDICE               |
+                               |__________________________________|
+
+            1. CONEXIONES A NUBES CON ARCHIVOS EXTERNOS        "Conexiones para meterse en archivos fuera de la base de datos"
+            2. CREACION DE TABLAS                              "Ejempl de crear tablas en SQL" 
+            3. INSERTAR DATOS                                  "Ejemplo de como insertar datos provenientes de otras tablas"
+            4. BORRAR DATOS                                    "Ejemplo de borrar datos de las tablas"
+            5. ACTUALIZAR DATOS                                "Ejemplos de actualizar datos de tablas"
+            6. LECTURA DE DATOS                                "Ejemplo de Lectura de datos"
+            7. TODO JUNTO                                      "Ejemplo largo aplicando todas las cosas juntas"
+
+###########################################################################################################################
+
+                                            CONEXIONES A NUBES CON ARCHIVOS EXTERNOS
+                                            
+#Ejemplo de azure SQL, Azure data blop storage
+
+EXEC sp_configure 'show advanced options', 1;                                      "Habilita funciones avanzadas"
+RECONFIGURE;                                                                       "Hace la reconfiguracion""
+EXEC sp_configure 'Ad Hoc Distributed Queries', 1;
+RECONFIGURE;
+
+
+SELECT *                                                                           "Selecciona todo"
+FROM OPENROWSET(                                                                   "Funcion para acceder a archivos externos"
+    BULK 'https://nombredecuenta.blob.core.windows.net/contenedor/archivo.csv',    
+    FORMAT = 'CSV', 
+    DATA_SOURCE = 'nombre_de_origen_de_datos',
+    FIRSTROW = 2                                                                   "Desde que fila empezara a leer"
+) AS resultado;                                                                    "El resultado se ocupara como resultado"
+
+
+#Ejemplo de google, con BigQuery
+
+SELECT * 
+FROM OPENQUERY(
+    [NombreDSN], 
+    'SELECT * FROM `mi_proyecto.mi_dataset.mi_tabla_externa`'
+);
+
+
+#Ejemplo de aws, SQL Server con Redshift
+
+SELECT * 
+FROM OPENQUERY(
+    [NombreDSN],
+    'SELECT * FROM mi_schema_externo.mi_tabla_s3'
+);
+
+
+###########################################################################################################################
+
+                                                        CREACION DE TABLAS
+
+#Ejemplo tabla 1
+
+CREATE TABLE productos (
+    producto_id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(255) NOT NULL,
+    descripcion TEXT,
+    precio DECIMAL(10, 2) CHECK (precio > 0),
+    cantidad_en_stock INT DEFAULT 0 CHECK (cantidad_en_stock >= 0),
+    categoria_id INT,
+    creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    actualizado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (categoria_id) REFERENCES categorias(categoria_id)
+        ON DELETE SET NULL
+        ON UPDATE CASCADE
+);
+
+#Ejemplo tabla 2
+
+CREATE TABLE clientes (
+    cliente_id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    telefono VARCHAR(15),
+    direccion TEXT,
+    ciudad VARCHAR(100),
+    estado VARCHAR(50),
+    codigo_postal VARCHAR(10),
+    pais VARCHAR(100) DEFAULT 'Chile',
+    creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    actualizado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    CONSTRAINT chk_email_formato CHECK (email LIKE '%_@_%._%')
+);
+
+###########################################################################################################################
+
+                                                  INSERTAR DATOS 
+
+#Ejemplo 1
+
+INSERT INTO sales_transactions (
+    transaction_id,
+    customer_id,
+    product_id,
+    quantity,
+    total_price,
+    discount_applied,
+    transaction_date
+)
+SELECT 
+    NEWID() AS transaction_id,              -- Genera un ID único para la transacción
+    c.customer_id,                          -- ID del cliente
+    p.product_id,                           -- ID del producto
+    CAST(RAND() * 5 + 1 AS INT) AS quantity, -- Cantidad aleatoria entre 1 y 5
+    (p.price * (1 - COALESCE(d.discount_percent, 0) / 100)) * CAST(RAND() * 5 + 1 AS INT) AS total_price,
+                                            -- Calcula el precio total aplicando el descuento, si existe
+    COALESCE(d.discount_percent, 0) AS discount_applied, -- Porcentaje de descuento aplicado
+    GETDATE() AS transaction_date           -- Fecha actual como fecha de la transacción
+FROM 
+    customers AS c
+INNER JOIN 
+    products AS p 
+    ON p.category = 'Electronics'           -- Solo productos de la categoría "Electronics"
+LEFT JOIN 
+    discounts AS d 
+    ON p.product_id = d.product_id 
+    AND d.start_date <= GETDATE() 
+    AND d.end_date >= GETDATE()             -- Aplica solo descuentos activos
+WHERE 
+    c.status = 'Active'                      -- Solo clientes activos
+    AND NOT EXISTS (                         -- Evita insertar si ya hay una transacción con el mismo cliente y producto en el día actual
+        SELECT 1 
+        FROM sales_transactions AS st
+        WHERE 
+            st.customer_id = c.customer_id 
+            AND st.product_id = p.product_id
+            AND CAST(st.transaction_date AS DATE) = CAST(GETDATE() AS DATE)
+    );
+
+
+###########################################################################################################################
+
+                                                     BORRAR DATOS
+                                                     
+#Ejemplo 1
+
+DELETE st
+FROM sales_transactions AS st
+INNER JOIN customers AS c
+    ON st.customer_id = c.customer_id
+INNER JOIN products AS p
+    ON st.product_id = p.product_id
+LEFT JOIN discounts AS d
+    ON st.product_id = d.product_id
+WHERE 
+    c.status = 'Inactive'                         
+    AND p.is_discontinued = 1                     
+    AND (
+        d.end_date IS NULL                        
+        OR d.end_date < GETDATE()                 
+        )
+    AND st.transaction_date < DATEADD(year, -1, GETDATE());
+
+
+###########################################################################################################################
+
+                                                   ACTUALIZAR DATOS
+
+#Ejemplo 1
+
+UPDATE st
+SET 
+    st.total_price = (p.price * st.quantity * (1 - COALESCE(d.discount_percent, 0) / 100)) * 0.9,
+    st.discount_applied = COALESCE(d.discount_percent, 0) + 10                                 
+FROM 
+    sales_transactions AS st
+INNER JOIN 
+    customers AS c ON st.customer_id = c.customer_id
+INNER JOIN 
+    products AS p ON st.product_id = p.product_id
+LEFT JOIN 
+    discounts AS d ON st.product_id = d.product_id
+WHERE 
+    c.is_preferred = 1                                  
+    AND st.transaction_date > DATEADD(month, -3, GETDATE()) 
+    AND p.category = 'Electronics'                      
+    AND (d.start_date IS NULL OR d.start_date <= GETDATE()) 
+    AND (d.end_date IS NULL OR d.end_date >= GETDATE());   
+
+###########################################################################################################################
+
+                                                 LECTURA DE DATOS
+                                                 
+#Ejemplo 1
+
+WITH ClientesActivos AS (
+    SELECT customer_id 
+    FROM customers 
+    WHERE status = 'Active'
+),
+VentasPorCliente AS (
+    SELECT 
+        customer_id, 
+        SUM(amount) AS total_sales
+    FROM sales_transactions
+    GROUP BY customer_id
+)
+SELECT 
+    ca.customer_id, 
+    vc.total_sales
+FROM ClientesActivos AS ca
+INNER JOIN VentasPorCliente AS vc 
+    ON ca.customer_id = vc.customer_id
+WHERE vc.total_sales > 5000;
+
+
+###########################################################################################################################
+
+                                                  TODO JUNTO
+
+#Ejemplo 1
+
+-- Inicia una transacción para asegurar la integridad de los datos
+BEGIN TRANSACTION;
+
+-- Paso 1: Identificar clientes activos con alta frecuencia de compras
+WITH ClientesFrecuentes AS (
+    SELECT 
+        c.customer_id,
+        c.name,
+        COUNT(t.transaction_id) AS total_compras,
+        SUM(t.total_price) AS total_gastado
+    FROM 
+        customers AS c
+    INNER JOIN 
+        sales_transactions AS t 
+    ON 
+        c.customer_id = t.customer_id
+    WHERE 
+        c.status = 'Active'
+    GROUP BY 
+        c.customer_id, c.name
+    HAVING 
+        total_compras >= 10           -- Solo clientes con al menos 10 compras
+        AND total_gastado > 5000       -- Y que hayan gastado más de 5000 en total
+),
+
+-- Paso 2: Calcular el promedio de gasto por compra para cada cliente
+GastoPromedio AS (
+    SELECT 
+        customer_id,
+        AVG(total_price) AS gasto_promedio
+    FROM 
+        sales_transactions
+    GROUP BY 
+        customer_id
+)
+
+-- Seleccionar información relevante de los clientes frecuentes
+SELECT 
+    cf.customer_id,
+    cf.name AS cliente_nombre,
+    cf.total_compras,
+    cf.total_gastado,
+    gp.gasto_promedio
+FROM 
+    ClientesFrecuentes AS cf
+INNER JOIN 
+    GastoPromedio AS gp 
+ON 
+    cf.customer_id = gp.customer_id
+ORDER BY 
+    cf.total_gastado DESC;
+
+-- Paso 3: Actualizar la métrica de lealtad para los clientes frecuentes
+UPDATE customers
+SET loyalty_status = 'VIP'
+WHERE customer_id IN (SELECT customer_id FROM ClientesFrecuentes);
+
+-- Paso 4: Eliminar registros de clientes inactivos antiguos (por ejemplo, sin transacciones en el último año)
+DELETE FROM customers
+WHERE 
+    status = 'Inactive' 
+    AND customer_id NOT IN (
+        SELECT customer_id 
+        FROM sales_transactions 
+        WHERE transaction_date >= DATEADD(year, -1, GETDATE())
+    );
+
+-- Confirma la transacción si todo está correcto
+COMMIT;
+
+
+
+
+
+
+
