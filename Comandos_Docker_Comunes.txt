@@ -1,0 +1,172 @@
+docker run --name database --network airflow_default -e MYSQL_ROOT_PASSWORD=1234 -d mysql  "crear base de datos configurada"
+
+docker exec -it <contenedor> /bin/bash                                                     "Entrar en la bash de docker"
+
+mysql -u <usuario> -p --local-infile                                                       "Al estar en la bash es para entrar a la base
+                                                                                            de datos con la opcion de DATA LOAD"
+                                                                                            
+SHOW VARIABLES LIKE 'local_infile';                                                        "Ver si las variables estan activada"
+
+SHOW VARIABLES LIKE 'secure_file_priv';                                                    "Muestra la ruta de la carpeta segura"
+
+
+###copiar archivos recurrentes a docker
+docker cp /home/daniel/Portafolio/"Data engineer"/Docker/"base de datos mysql"/tags.csv a9dabfef6d99:/var/lib/mysql-files/tags.csv
+docker cp /home/daniel/Portafolio/"Data engineer"/Docker/"base de datos mysql"/links.csv a9dabfef6d99:/var/lib/mysql-files/links.csv
+docker cp /home/daniel/Portafolio/"Data engineer"/Docker/"base de datos mysql"/ratings.csv a9dabfef6d99:/var/lib/mysql-files/ratings.csv
+docker cp /home/daniel/Portafolio/"Data engineer"/Docker/"base de datos mysql"/movies.csv a9dabfef6d99:/var/lib/mysql-files/movies.csv
+docker cp /home/daniel/Portafolio/"Data engineer"/Docker/"base de datos mysql"/CarPrice_Assignment.csv a9dabfef6d99:/var/lib/mysql-files/CarPrice_Assignment.csv
+
+###Copiar con otros fines
+docker cp /home/daniel/Documentos/Portafolio/"Data engineer"/Docker/"base de datos mysql"/consultas/mysql-connector-j-9.1.0.jar 925c7c0737f7:/opt/airflow/mysql-connector-j-9.1.0.jar
+
+
+###desactivar posible restricciones en la carpeta var/lib/mysql-files de docker
+chmod 666 archivo.cs
+chown user(mysql):user(mysql) archivo.csv
+
+###limpiar datos problematicos, existen datos que contienen "," o "\" que son problematicos se limpian de la siguiente forma dentro de
+###la bash de docker
+#para borrar ese tipo de dato
+sed -i 's/\\/\\\\/g' /var/lib/mysql-files/tags.csv
+sed -i 's/,//g' /var/lib/mysql-files/tags.csv
+#para visualizar el dato en particular dado que al dar el problema indica cual dato es
+awk 'NR>=588543 && NR<=588545' /var/lib/mysql-files/tags.csv
+
+###el primero sirve para desconectar un servidor de una red y el segundo para conectar a otro servidor
+docker network disconnect <network_name> <container_id>
+docker network connect <nombre_de_la_red_existente> <nombre_o_id_del_contenedor>
+
+###crea las tablas
+CREATE TABLE links ( movieId INT NULL, imdbId INT NULL, tmdbId VARCHAR(16) NULL);
+LOAD DATA INFILE '/var/lib/mysql-files/links.csv' INTO TABLE links FIELDS TERMINATED BY ',' LINES TERMINATED BY '\n' IGNORE 1 ROWS;
+
+
+
+###Hay que hacerlo hacia abajo porque reconoce que las opciones deben estar en la misma linea
+LOAD DATA INFILE '/ruta/permitida/tags.csv'
+INTO TABLE nombre_tabla
+FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS;
+
+
+###problema con los servidores docker de la nada pierde los permisos 
+sudo apt-get install --reinstall containerd.io
+sudo apt-get install --reinstall docker-ce-cli
+sudo systemctl stop docker
+sudo mv /var/lib/docker /var/lib/docker.bak
+sudo systemctl start docker
+
+###problema con puertos ocupados, eliminar lo que los esta ocupando
+sudo lsof -i :<puerto_ocupado>   #muestra lo que la esta ocupando con su PID
+sudo kill -9 <PID>               #mata el proceso
+
+###instalacion de spark importantes 
+
+nano ~/.bashrc
+#La configuracion de la ruta donde esta instalado spark de https://spark.apache.org/downloads.html
+export SPARK_HOME=/ruta/<instalación_spark>
+
+#Es la ubicación donde se instala java, se debe especificar
+export JAVA_HOME=/usr/local/openjdk-11
+
+#Es la inficacion para poder ejecutar un codigo de pyspark
+export PYSPARK_PYTHON=python3
+
+#Es la interaccion entre los PATH
+export PATH=$PATH:$SPARK_HOME/bin:$JAVA_HOME/bin
+source ~/.bashrc
+
+#para ver cuales son, lo importante es que esto se configure, no donde se guardaron
+echo $SPARK_HOME
+echo $JAVA_HOME
+echo $PYSPARK_PYTHON
+
+############################################################################# TERRAFORM ################################################################################
+
+#Elimina recursos problematicos
+terraform state rm nombre_primero_recurso1.nombre_segundo_recurso2 
+
+############################################################## INSTALAR LIBRERIAS REMOTAS SPARK EN AIRFLOW #############################################################
+
+#INSTALAR TODO LO NECESARIO
+sudo apt-get update
+sudo apt-get install -y build-essential libatlas-base-dev gfortran
+sudo pip install --upgrade pip setuptools wheel
+sudo pip install pandas
+sudo pip install pandas --no-build-isolation
+sudo pip install apache-airflow-providers-apache-spark
+
+#VERIFICAR INSTALACION
+python3 -c "import pyspark; import pandas; print(pyspark.__version__, pandas.__version__)"
+
+
+############################################################################## MONITOREAR RED ##########################################################################
+
+Contenedor de Kafka para escuchar
+/opt/kafka_2.13-2.8.1/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic tareas_completadas --from-beginning
+
+
+#############################################################################################
+
+Error de PIP
+sudo rm /usr/lib/python3.12/EXTERNALLY-MANAGED
+
+
+#############################################################################################
+
+CREACION DE BASES DE DATOS EN CONTENEDORES:
+
+MYSQL:
+docker run --name mysql_database -e MYSQL_ROOT_PASSWORD=1234 -d mysql
+
+SQL SERVER:
+docker run --name sqlserver_database \
+-e 'ACCEPT_EULA=Y' \
+-e 'SA_PASSWORD=YourStrong!Passw0rd' \
+-p 1433:1433 \
+-d mcr.microsoft.com/mssql/server:2019-latest
+
+ORACLE:
+git clone https://github.com/oracle/docker-images.git
+
+cd docker-images/OracleDatabase/SingleInstance/dockerfiles
+./buildContainerImage.sh -v 19.3.0 -e
+
+docker run --name oracle_database \
+-p 1521:1521 -p 5500:5500 \
+-e ORACLE_PWD=YourStrongPassword \
+-d oracle/database:19.3.0-ee
+
+POSTRGRES:
+docker run --name postgres_database \
+-e POSTGRES_PASSWORD=1234 \
+-p 5432:5432 \
+-d postgres
+
+AZURE:
+docker run --name sqlserver_simulator \
+-e 'ACCEPT_EULA=Y' \
+-e 'SA_PASSWORD=YourStrong!Passw0rd' \
+-p 1433:1433 \
+-d mcr.microsoft.com/mssql/server:2019-latest
+
+
+docker run --name azure_sql_edge \
+-e 'ACCEPT_EULA=1' \
+-e 'MSSQL_SA_PASSWORD=YourStrong!Passw0rd' \
+-p 1433:1433 \
+-d mcr.microsoft.com/azure-sql-edge
+
+GOOGLE CLOUD (Big Query):
+FROM google/cloud-sdk:latest
+RUN gcloud components install beta bq-emulator
+EXPOSE 9050
+CMD ["gcloud", "beta", "emulators", "bigquery", "start", "--host-port=0.0.0.0:9050"]
+
+docker build -t bigquery-emulator .
+
+docker run --name bigquery_emulator \
+-p 9050:9050 \
+-d bigquery-emulator

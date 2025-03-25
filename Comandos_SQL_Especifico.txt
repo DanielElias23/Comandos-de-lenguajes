@@ -1,0 +1,823 @@
+                                         ___________________________________
+                                         |                                  |
+                                         |             INDICE               |
+                                         |__________________________________|
+
+            1. POSTGRESQL  (PL/pgSQL)                         "Funciones y cualidades de PostreSql"
+            2. MYSQL  (SQL/PSM)                               "Funciones y cualidades de MySql" 
+            3. SQL SERVER  (T-SQL)                            "Funciones y cualidades de Sql Server"
+            4. ORACLE  (PL/SQL)                               "Funciones y cualidades de Oracle" 
+            5. BIGQUERY  (SQL Standard y mas lenguajes)       "Funciones y cualidades, novedades de Datawarehouse"
+            6. REDSHIFT  (SQL estándar y PL/pgSQL)            "Funciones y cualidades, novedades de Datawarehouse"
+            7. DATABRICKS  (SQL estándar y Apache Spark SQL)  "Funciones y cualidades, novedades de Lakehouse"
+            8. AZURE SYNAPSE ANALYTICS (T-SQL)                "Funciones y cualidades, noveidades de Datawarehouse"
+            9. SQLITE (SQL estándar)                          "Funciones y cualidades de Sqlite"
+
+
+################################################################################################################################################################
+
+                                                                        POSTGRESQL
+
+##### COMANDOS BASE #####
+
+\l                          PostgreSQL 7.4                             "Para ver las bases de datos disponibles"
+
+\q                          PostgreSQL 7.4                             "Sale de la interfaz de muestra"
+    -exit                   PostgreSQL 6.4                 
+    -quit                   PostgreSQL 7.0
+
+\c <nombre_base_de_datos>   PostgreSQL 7.4                             "Entra o Cambia a una base de datos"
+    -\c -U <usuario> <nombre_base_de_datos> (ingresa con cierto usuario)
+    
+\d <nombre_de_la_tabla>     PostgreSQL 7.4                             "Muestra la estructura de la tabla"
+    -\d+ <nombre_de_la_tabla> (da información adicional)                       
+
+\dt                         PostgreSQL 7.4                             "Muestra las tablas de la base de datos actual"
+
+\dv                         PostgreSQL 8.0                             "Muestra las vistas de la base de datos actual"
+
+\df                         PostgreSQL 8.0                             "Muestra todas la funciones de la base de datos actual"
+
+\dp                         PostgreSQL 8.0                             "Muestra todos los permisos de la base de datos actual"
+
+\du                         PostgreSQL 8.4                             "Muestra los usuarios en la base de datos"
+
+\h <comando_sql>            PostgreSQL 8.3                             "Muestra información del comando del lenguaje SQL, si no se pone nada los muesta todos"
+          -"q" (para salir)
+
+\!                          PostgreSQL 8.3                             "Ingresa a una interfaz para ejecutar comandos de terminal linux"
+     -psql -V (muestra version de base de datos)
+     -ls (muestra dir y archivos de una carpeta)..
+     -exit (para salir)
+
+\i <nombre_de_un_archivo>   PostgreSQL 9.0                             "Ejecuta los comandos de un archivo"
+
+\o <nombre_de_un_archivo>   PostgreSQL 9.0                             "Redirige el output de un archivo"
+   
+\t <opcion off o on>        PostgreSQL 9.3                             "Cambia los opciones de visualización al ejecutar una consulta, hay mas comandos"
+
+\copy <nombre_de_tabla> FROM "<nombre_del_archivo>" WITH FORMAT <tipo_de_formato_archivo>;    PostgreSQL 10.0  "Copia desde un archivo a tabla"
+COPY                                                            (text, binary)
+COPY mi_tabla FROM 'mi_archivo.csv' WITH CSV HEADER;
+
+\copy <nombre_de_tabla> TO '<nombre_del_archivo>' WITH FORMAT <tipo_de_formato_archivo>;      PostgreSQL 10.0  "Copia desde una tabla a archivo"
+COPY                                                          (text, binary)
+COPY mi_tabla TO 'mi_archivo.csv' WITH CSV HEADER;
+
+\pset <opcion>              PostgreSQL 10.0                            "Cambia el estilo de visualización de los datos"
+
+##### TIPOS DE DATOS #####
+
+NUMERICOS
+INTEGER                                             PostgreSQL 6.3                            "Entero de 32 bits"
+BIGINT                                              PostgreSQL 6.3                            "Entero de 64 bits"
+SMALLINT                                            PostgreSQL 6.3                            "Entero de 16 bits"
+DECIMAL                                             PostgreSQL 6.3                            "Decimal precision variable"
+NUMERIC                                             PostgreSQL 6.3                            "Decimal precsion fija"
+REAL                                                PostgreSQL 6.3                            "Número real de 32 bits"
+DOUBLE PRECISION                                    PostgreSQL 6.3                            "Número real de 64 bits"
+
+TEXTO
+CHAR                                                PostgreSQL 6.3                            "Longuitud fija" 
+VARCHAR                                             PostgreSQL 6.3                            "Longuitud variable"
+TEXT                                                PostgreSQL 6.3                            "Cadena variable sin limite"
+BYTEA                                               PostgreSQL 6.3                            "Cadena de Bytes"
+
+FECHAS Y HORAS
+DATE                                               PostgreSQL 6.3                            "Solo fecha"
+TIME                                               PostgreSQL 6.3                            "Solo hora"
+TIMESTAMP                                          PostgreSQL 6.3                            "Fecha y hora con zona horaria"
+INTERVAL                                           PostgreSQL 6.3                            "Intervalo de tiempo"
+TIMESTAMPTZ                                        PostgreSQL 7.4                            "Fecha y hora con zona horaria"
+
+BOLEANO
+BOOLEAN                                            PostgreSQL 6.3                            "Boleano True o False"
+
+ENUMERACION
+ENUM                                               PostgreSQL 8.3                            "Enumeracion de valores"   
+
+LISTAS
+INTEGER[]                                          PostgreSQL 6.3                            "Array de numeros enteros"
+TEXT[]                                             PostgreSQL 6.3                            "Array de cadenas de texto"
+BOOLEAN[]                                          PostgreSQL 6.3                            "Array de boleanos"
+
+OBJETOS
+JSON                                               PostgreSQL 9.2                            "Objeto JSON"
+JSONB                                              PostgreSQL 9.4                            "Objeto JSON binario"
+XML                                                PostgreSQL 8.3                            "Objeto XML"
+
+PUNTOS ESPACIALES
+POINT                                              PostgreSQL 7.4                            "Punto en espacio 2-D"
+LINE                                               PostgreSQL 7.4                            "Linea en espacio 2-D"
+LSEG                                               PostgreSQL 7.4                            "Segmento de linea en espacio 2-D"
+BOX                                                PostgreSQL 7.4                            "Caja en espacio 2-D"
+PATH                                               PostgreSQL 7.4                            "Camino en espacio 2-D"
+POLYGON                                            PostgreSQL 7.4                            "Poligono en espacio 2-D"
+CIRCLE                                             PostgreSQL 7.4                            "Circulo en espacio 2-D"
+
+###### FUNCONES STANDARD SQL ######
+SELECT
+
+TEXTO
+LENGTH(cadena)                                     PostgreSQL 6.3                            "La cantidad de letras de la cadena"
+UPPER(cadena)                                      PostgreSQL 6.3                            "La cantidad de mayusculas"
+LOWER(cadena)                                      PostgreSQL 6.3                            "La cantidad de minisuculas"
+TRIM(cadena)                                       PostgreSQL 6.3                            "Elimina los espacios en blanco del principio y final"
+SUBSTRING(cadena, inicio, longitud)                PostgreSQL 6.3                            "Devuelve una subcadena de la original en base al inicio"
+REPLACE(cadena, patron, reemplazo)                 PostgreSQL 7.4                            "Remplaza todas las veces que se repita el patron"
+
+FECHA Y HORA
+NOW()                                              PostgreSQL 6.3                            "Devuelve la fecha y hora actual"
+CURRENT_DATE                                       PostgreSQL 6.3                            "Devuelve solo la fecha actual"
+CURRENT_TIME                                       PostgreSQL 6.3                            "Devuelve solo la hora actual"
+EXTRACT(componente, fecha)                         PostgreSQL 7.4                            "Extrae un componente de la fecha actual que se le indique"
+DATE_TRUNC(precision, fecha)                       PostgreSQL 8.4                            "Trunca la fecha en una precision especifica"
+
+NUMERICAS
+ABS(numero)                                        PostgreSQL 6.3                            "Devuelve el valor absoluto"
+CEIL(numero)                                       PostgreSQL 6.3                            "Redondea al entero hacia arriba"
+FLOOR(numero)                                      PostgreSQL 6.3                            "Redondea al entero hacia abajo"
+ROUND(numero, decimales)                           PostgreSQL 6.3                            "Redondea a los decimales especificados"
+TRUNC(numero, decimales)                           PostgreSQL 6.3                            "Trunca el valor a los decimales especificados"
+
+CONVERSION
+CAST(expresion AS tipo)                            PostgreSQL 6.3                            "Convierte una expesion a un tipo de dato en especifico"
+TO_CHAR(expresion, formato)                        PostgreSQL 6.3                            "Convierte una cadena a un tipo de formato de cadena en especifico"
+TO_DATE(cadena, formato)                           PostgreSQL 6.3                            "Convierte una cadena a un tipo fecha en especifico"
+TO_TIMESTAMP(cadena, formato)                      PostgreSQL 6.3                            "Convierte una cadena a un tipo fecha y hora en especifico"
+
+OPERACIONES
+SUM(expresion)                                     PostgreSQL 6.3                            "Devuelve la suma de todos los valores"
+AVG(expresion)                                     PostgreSQL 6.3                            "Devuelve el promedio"
+MAX(expresion)                                     PostgreSQL 6.3                            "Devuelve el maximo"
+MIN(expresion)                                     PostgreSQL 6.3                            "Devuelve el minimo"
+COUNT(expresion)                                   PostgreSQL 6.3                            "Devuelve la cantidad de filas"
+
+OPCIONES VENTANA
+ROW_NUMBER()                                       PostgreSQL 8.4                            "Asigna un numero de fila a cada fila de la consulta"
+RANK()                                             PostgreSQL 8.4                            "Asigna un rango a cada fila de la consultas segun una columna"
+DENSE_RANK()                                       PostgreSQL 8.4                            "Asigna un rango a cada fila de la consultas segun una columna sin saltos"
+NTILE(n)                                           PostgreSQL 8.4                            "Divide la consulta en n numero de grupos de filas"
+LAG(expresion, offset)                             PostgreSQL 8.4                            "Devuelve el valor de la columna en la fila anterior"
+LEAD(expresion, offset)                            PostgreSQL 8.4                            "Devuelve el valor de la columna en la fila siguiente"
+
+CONDICIONALES
+CASE WHEN condicion THEN resultado ELSE resultado_alternativo END      PostgreSQL 6.3        "Devuelve un resultado dependiendo si se cumple la condicion"
+COALESCE(expresion1, expresion2, ...)                                  PostgreSQL 7.4        "Devuelve el primer valor no nulo de una lista de valores"
+NULLIF(expresion1, expresion2)                                         PostgreSQL 7.4        "Devuelve NULL si dos experesiones son iguales"
+
+# FUNCIONES ESPECIFICAS DE POSTGRES #
+AGE(Fecha_inicio, Fecha_termino)                   PostgreSQL 7.4                            "Entrega en formato 1 año 5 meses 3 dias lo que transcurrio"
+BIT_AND(), BIT_OR(), BIT_XOR()                     PostgreSQL 8.1                            "Es para operaciones entre bit"
+BOOL_AND(Bool1, Bool2), BOOL_OR(), BOOL_XOR()      PostgreSQL 8.1                            "Realiza una operacion entre booleandos, da diferentes resultados" 
+CURRENT_SCHEMA                                     PostgreSQL 7.3                            "Se ocupa con SELECT devuelve el esquema actual"
+CURRENT_USER                                       PostgreSQL 6.3                            "Se ocupa con SELECT devuelve el esquema del usuario"
+SESSION_USER                                       PostgreSQL 6.3                            "Se ocupa con SELECT devuelve el nombre del usuario que inicio sesion"
+PG_GETUSERBYID(id_user)                            PostgreSQL 7.3                            "Devuelve el nombre del usuario de ese id"
+PG_GETGROUPBYID(id_user)                           PostgreSQL 7.3                            "Devuelve el grupo de ese usuario de ese id"
+
+
+#####################################################################################################################################################################
+
+
+                                                                        MYSQL                      
+        
+En MySQL no estan los comandos como tal sino que hay que hacerlos en el lenguaje SQL
+
+##### COMANDOS BASE #####
+
+SHOW DATABASES;                    MySQL 3.23                                 "Para ver las bases de datos disponibles"
+
+USE <nombre_base_de_datos>;        MySQL 3.23                                 "Entra o Cambia a una base de datos"
+    -\c -U <usuario> <nombre_base_de_datos> (ingresa con cierto usuario)
+    
+DESCRIBE <nombre_de_la_tabla>;     MySQL 3.23                                 "Muestra la estructura de la tabla"
+    -EXPLAIN <nombre_de_la_tabla>; (da información adicional)                       
+
+SHOW TABLES;                       MySQL 3.23                                 "Muestra las tablas y vistas de la base de datos actual"
+    -SHOW FULL TABLES WHERE Table_type = 'VIEW';                              "Para especificar solo vistas"
+
+SHOW FUNCTION STATUS;              MySQL 5.0                                  "Muestra todas la funciones, pero es un poco extenso"
+
+SHOW GRANTS;                       MySQL 3.23                                 "Muestra todos los comandos y funciones habilitados para el usuario actual"
+
+SHOW GRANTS FOR "<usuario>"@"<host>";  MySQL 3.23                             "Muestra todos los comandos habilitados para un usuario en particular"
+
+SELECT User, Host FROM mysql.user;     MySQL 3.23                             "Muestra la lista de todos los usuarios"
+
+HELP <comando_sql>;                MySQL 3.23                                 "Muestra información del comando del lenguaje SQL, si no se pone nada los muesta todos"
+          -? <comando_sql>;        MySQL 5.0                                  "Desde la nueva version"
+
+EXIT; o QUIT;                                                                 "Para salir"
+
+SYSTEM <comando>;                  MySQL 3.23                                 "Ingresa a una interfaz para ejecutar comandos de terminal linux"
+     -! <comando>;                 MySQL 5.1                                  "Nueva version"
+
+SOURCE <nombre_de_un_archivo>;     MySQL 3.23                                 "Ejecuta los comandos de un archivo"
+
+INTO OUTFILE <nombre_de_un_archivo>;  MySQL 3.23                              "Redirige el output de un archivo"
+     -TEE <nombre_de_un_archivo>;     MySQL 5.1                               "Nueva version"
+   
+LOAD DATA INFILE '<nombre_del_archivo>' INTO TABLE <nombre_de_la_tabla>;  MySQL 3.23    "Copia desde un archivo a tabla a "
+
+SELECT ... INTO OUTFILE 'archivo';    MySQL 3.23                              "Copia desde una tabla a archivo, pero usualmente necesita mas opciones depende el formato"
+
+
+##### TIPOS DE DATOS #####
+
+NUMERICOS
+INT                                                 MySQL 3.23                            "Entero entre -2.147.483.648 a 2.147.483.647"
+BIGINT                                              MySQL 3.23                            "Entero entre -9.223.372.036.854.775.808 a 9.223.372.036.854.775.807"
+TINYINT                                             MySQL 3.23                            "Entero entre -128 a 127"
+SMALLINT                                            MySQL 3.23                            "Entero entre -32.768 a 32.767"
+MEDIUMINT                                           MySQL 3.23                            "Entero entre -8.388.608 a 8.388.607"
+FLOAT                                               MySQL 3.23                            "Número decimal de precisión simple"
+DECIMAL                                             MySQL 3.23                            "Número decimal, precisión variable"
+DOUBLE                                              MySQL 3.23                            "Número de punto flotante, precisión doble"
+
+TEXTO
+CHAR                                                MySQL 3.23                            "Cadena fija, longitud variable" 
+VARCHAR                                             MySQL 3.23                            "Cadena variable, longitud variable"
+TINYTEXT                                            MySQL 3.23                            "Cadena pequeña, longitud máxima 255 caracteres"
+TEXT                                                MySQL 3.23                            "Cadena mediana, longitud máxima 65.535 caracteres"
+MEDIUMTEXT                                          MySQL 3.23                            "Cadena grande, longitud máxima 16.777.215 caracteres"
+LONGTEXT                                            MySQL 3.23                            "Cadena muy grande, longitud máxima 4.294.967.295 caracteres"
+ENUM                                                MySQL 3.23                            "Enumeración, lista de valores posibles"
+SET                                                 MySQL 3.23                            "Conjunto, lista de valores posibles"
+
+FECHAS Y HORAS
+DATE                                                MySQL 3.23                            "Fecha, formato AAAA-MM-DD"
+TIME                                                MySQL 3.23                            "Hora, formato HH:MM:SS"
+TIMESTAMP                                           MySQL 3.23                            "Fecha y hora, formato AAAA-MM-DD HH:MM:SS"
+DATETIME                                            MySQL 3.23                            "Fecha y hora, formato AAAA-MM-DD HH:MM:SS"
+YEAR                                                MySQL 3.23                            "Año AAAA"
+
+BOLEANO
+BINARY                                              MySQL 3.23                            "Cadena binaria, longitud fija"
+VARBINARY                                           MySQL 3.23                            "Cadena binaria, longitud variable"
+TINYBLOB                                            MySQL 3.23                            "Cadena binaria pequeña, longitud máxima 255 bytes"
+BLOB                                                MySQL 3.23                            "Cadena binaria mediana, longitud máxima 65.535 bytes"
+MEDIUMBLOB                                          MySQL 3.23                            "Cadena binaria grande, longitud máxima 16.777.215 bytes"
+LONGBLOB                                            MySQL 3.23                            "Cadena binaria muy grande, longitud máxima 4.294.967.295 bytes"
+
+OBJETOS
+JSON                                                MySQL 5.7                              "Objeto JSON"
+
+PUNTOS ESPACIALES
+GEOMETRY                                            MySQL 4.1                             "Dato en espacio 2-D"
+LINESTRING                                          MySQL 4.1                             "Linea en espacio 2-D"
+POINT                                               MySQL 4.1                             "Punto en espacio 2-D"
+POLYGON                                             MySQL 4.1                             "Poligono en espacio 2-D"
+
+
+##### FUNCIONES ADICIONALES A LAS ANTERIORES EN MYSQL #####
+
+Numericos
+SQRT                                                MySQL 3.23                            "Raiz cuadrada de un valor numerico"
+
+TEXTO
+CONCAT                                              MySQL 3.23                            "Combina dos cadenas"
+
+FECHAS Y HORAS
+CURDATE                                             MySQL 3.23                            "Dice solo la fecha actual"
+CURTIME                                             MySQL 3.23                            "Dice solo la hora actual"
+DATEDIFF                                            MySQL 3.23                            "Calcula la diferencia entre dos fechas"
+TIMEDIFF                                            MySQL 3.23                            "Calcula la diferencia entre dos horas"
+
+LOGICOS
+IF                                                  MySQL 3.23                            "Para poner una condicion"
+CASE                                                MySQL 3.23                            "Pone una condicion y devuelve un valor"
+WHILE                                               MySQL 5.0                             "Un bucle solo si la condicion es verdadera"
+REPEAT                                              MySQL 5.0                             "Un bucle solo si la condicion es verdadera"
+LOOP                                                MySQL 5.0                             "Para hacer un bucle"
+
+FUNCIONES ESPECIFICAS DE MYSQL
+REVERSE                                             MySQL 3.23                            "Invierte una cadena"
+ELT                                                 MySQL 3.23                            "Devuelve un elemento de la lista"
+FIELD                                               MySQL 3.23                            "Devuelve la posicion de un objeto de la lista"
+PERIOD_DIFF                                         MySQL 3.23                            "Calcula la diferencia entre dos periodos de tiempo"
+TRUNCATE                                            MySQL 3.23                            "Corta los valores decimales de una numero"
+SLEEP                                               MySQL 5.0                             "Pausa la consulta un tiempo determinado"
+
+
+#######################################################################################################################################################################
+
+                                                                      SQL SERVER
+                                                                      
+##### COMANDOS #####
+En sql no hay comandos como tal se tienen que ejecutar con SQL, estos son los equivalentes de consultas
+
+SELECT * FROM sys.databases                        SQL Server 10.0                        "Muestra las bases de datos disponibles en el servidor"                        
+EXIT                                               SQL Server 8.0                         "Sale de la interfaz de línea de comandos de SQL Server"
+USE <nombre_base_de_datos>                         SQL Server 8.0                         "Entra o cambia a una base de datos específica"
+EXEC sp_columns <nombre_de_la_tabla>               SQL Server 8.0                         "Muestra la estructura de la tabla"
+EXEC sp_columns <nombre_de_la_tabla>               SQL Server 8.0                         "Muestra información adicional sobre la tabla"
+SELECT * FROM sys.tables                           SQL Server 10.0                        "Muestra las tablas de la base de datos actual"
+SELECT * FROM sys.views                            SQL Server 10.0                        "Muestra las vistas de la base de datos actual"
+SELECT * FROM sys.objects WHERE type = 'FN'        SQL Server 10.0                        "Muestra las funciones de la base de datos actual"
+SELECT * FROM sys.database_permissions             SQL Server 8.0                         "Muestra los permisos de la base de datos actual"
+SELECT * FROM sys.server_principals                SQL Server 10.0                        "Muestra los usuarios en la base de datos"
+HELP <comando_sql>                                 SQL Server 8.0                         "Muestra información sobre un comando de SQL específico"
+:r <nombre_de_un_archivo>                          SQL Server 11.0                        "Ejecuta los comandos de un archivo"
+:out <nombre_de_un_archivo>                        SQL Server 11.0                        "Redirige el output de un archivo"
+BULK INSERT <nombre_de_tabla> FROM '<nombre_del_archivo>' WITH (FORMATFILE = '<nombre_del_archivo_formato>')     SQL Server 9.0   "Copia desde un archivo a tabla"
+bcp <nombre_de_tabla> out '<nombre_del_archivo>' -c -S <servidor> -U <usuario> -P <contraseña>                   SQL Server 9.0   "Copia desde una tabla a archivo"
+
+##### TIPOS DE DATOS #####
+
+NUMERICOS
+INT                                                 SQL Server 7.0                        "Entero entre -2.147.483.648 a 2.147.483.647"
+BIGINT                                              SQL Server 7.0                        "Entero entre -9.223.372.036.854.775.808 a 9.223.372.036.854.775.807"
+TINYINT                                             SQL Server 7.0                        "Entero entre -128 a 127"
+SMALLINT                                            SQL Server 7.0                        "Entero entre -32.768 a 32.767"
+FLOAT                                               SQL Server 7.0                        "Número decimal de precisión simple"
+DECIMAL                                             SQL Server 7.0                        "Número decimal, precisión variable"
+
+TEXTO
+CHAR                                                SQL Server 7.0                        "Cadena fija, longitud variable" 
+VARCHAR                                             SQL Server 7.0                        "Cadena variable, longitud variable"
+TEXT                                                SQL Server 7.0                        "Cadena mediana, longitud máxima 65.535 caracteres"
+
+FECHAS Y HORAS
+DATE                                                SQL Server 10.0                       "Fecha, formato AAAA-MM-DD"
+TIME                                                SQL Server 10.0                       "Hora, formato HH:MM:SS"
+TIMESTAMP                                           SQL Server 7.0                        "Fecha y hora, formato AAAA-MM-DD HH:MM:SS"
+DATETIME                                            SQL Server 7.0                        "Fecha y hora, formato AAAA-MM-DD HH:MM:SS"
+
+BOLEANO
+BINARY                                              SQL Server 7.0                        "Cadena binaria, longitud fija"
+VARBINARY                                           SQL Server 7.0                        "Cadena binaria, longitud variable"
+
+OBJETOS
+JSON                                                SQL Server 14.0                       "Objeto JSON"
+XML                                                 SQL Server 9.0                        "Objeto XML"
+IMAGE                                               SQL Server 7.0                        "Objeto Imagen"
+TABLE                                               SQL Server 9.0                        "Objeto tabla"
+
+PUNTOS ESPACIALES
+GEOGRAPHY                                           SQL Server 10.0                       "Dato en espacio 2-D"
+
+# FUNCIONES SQL #
+En cuanto a las funciones basicas HAY MUCHOS CAMBIOS, los no mostrados se mantienen igual
+
+LENGTH(cadena) ----> LEN(cadena)    "Para obtener la longitud de una cadena"
+TRIM(cadena) (si se puede sql server 14.0) -----> (anteriores) LTRIM(cadena) y RTRIM(cadena)   "Para eliminar espacios en blanco a los lados"
+NOW() -----> GETDATE() "Para obtener la fecha y hora actual"
+CURRENT_DATE ----> CONVERT(date, GETDATE()) "Para obtener solo la fecha actual"
+CURRENT_TIME ----> CONVERT(time, GETDATE()) "Para obtener solo la hora actual"
+EXTRACT(componente, fecha) ----> DATEPART(componente, fecha) "Para extraer un componente de una fecha"
+DATE_TRUNC(precision, fecha) ----> DATEADD(precision, 0, fecha) "Para truncar una fecha a una precisión específica"
+CEIL(numero) ----> CEILING(numero) "Para redondear un número hacia arriba"
+TRUNC(numero, decimales) ----> TRUNCATE(numero, decimales) "Para truncar un número a un número específico de decimales"
+TO_CHAR(expresion, formato) ----> CONVERT(formato, expresion) "Para convertir una expresión a un formato de cadena específico"
+TO_DATE(cadena, formato) ----> CONVERT(date, cadena, formato) "Para convertir una cadena a una fecha"
+TO_TIMESTAMP(cadena, formato) ----> CONVERT(datetime, cadena, formato) "Para convertir una cadena a una fecha y hora"
+
+# FUNCIONES ESPECIFICAS #
+
+NUMERICAS
+NEWID()                                            SQL Server 7.0                         "Genera un identificador único para cada fila de una tabla"
+NEWSEQUENTIALID()                                  SQL Server 9.0                         "Genera un identificador único secuencial para cada fila de una tabla"
+GETUTCDATE()                                       SQL Server 8.0                         "Muestra fecha y hora actual en formato UTC"
+SYSDATETIME()                                      SQL Server 10.0                        "Muestra fecha y hora actual del sistema"
+SYSUTCDATETIME()                                   SQL Server 10.0                        "Muestra fecha y hora actual del sistema en formato UTC"
+SERVERPROPERTY('property_name')                    SQL Server 8.0                         "Muestra propiedad del servidor, como el nombre del servidor o la versión de SQL Server"
+DB_ID()                                            SQL Server 7.0                         "Muestra identificador de la base de datos actual"
+OBJECT_ID()                                        SQL Server 7.0                         "Muestra el identificador de un objeto de la base de datos, como una tabla o una vista"
+SCHEMA_ID()                                        SQL Server 9.0                         "Muestra el identificador del esquema de un objeto de la base de datos"
+PARSENAME()                                        SQL Server 9.0                         "Muestra el nombre de un objeto de la base de datos, como una tabla o una vista, en formato de cuatro partes (servidor, base de datos, esquema, objeto)"
+SUSER_SNAME()                                      SQL Server 7.0                         "Muestra el nombre del usuario actual."
+SUSER_ID()                                         SQL Server 7.0                         "Muestra el identificador del usuario actual"
+HAS_DBACCESS()                                     SQL Server 9.0                         "Muestra un valor que indica si el usuario actual tiene acceso a la base de datos actual"
+IS_MEMBER()                                        SQL Server 8.0                         "Muestra un valor que indica si el usuario actual es miembro de un rol de seguridad específico"
+IS_SRVROLEMEMBER()                                 SQL Server 8.0                         "Muestra un valor que indica si el usuario actual es miembro de un rol de seguridad del servidor"
+
+TEXTO
+REVERSE()                                          SQL Server 7.0                         "Invierte el orden de los caracteres de una cadena"
+STUFF()                                            SQL Server 7.0                         "Reemplaza una parte de una cadena con otra cadena"
+REPLICATE()                                        SQL Server 7.0                         "Repite una cadena un número específico de veces"
+CHARINDEX()                                        SQL Server 7.0                         "Muestra la posición de una subcadena dentro de una cadena"
+PATINDEX()                                         SQL Server 7.0                         "Muestra la posición de un patrón dentro de una cadena"
+
+FECHA Y HORA
+DATEFROMPARTS()                                    SQL Server 11.0                        "Crea una fecha a partir de los componentes de año, mes y día"
+TIMEFROMPARTS()                                    SQL Server 11.0                        "Crea una hora a partir de los componentes de hora, minuto, segundo y milisegundo"
+DATETIMEFROMPARTS()                                SQL Server 11.0                        "Crea una fecha y hora a partir de los componentes de año, mes, día, hora, minuto, segundo y milisegundo"
+DATETIME2FROMPARTS()                               SQL Server 11.0                        "Lo mismo que el anterior, pero con una precisión de hasta 7 dígitos decimales"
+
+OPERACIONES
+POWER()                                            SQL Server 10.0                        "Eleva un número a una potencia específica"
+SQRT()                                             SQL Server 10.0                        "Devuelve la raíz cuadrada de un número"
+LOG()                                              SQL Server 10.0                        "Devuelve el logaritmo natural de un número"
+LOG10()                                            SQL Server 10.0                        "Devuelve el logaritmo en base 10 de un número"
+
+#######################################################################################################################################################################
+
+                                                                        ORACLE
+                                                                        
+##### COMANDOS #####
+oracle no tiene comandos como tal, sino que se ocupa dentro del lenguaje SQL
+
+SELECT * FROM V$DATABASE;                                            Oracle 7.0           "Ver bases de datos disponibles"
+EXIT;                                                                Oracle 6.0           "Salir de la interfaz"
+CONNECT /<contraseña>@<nombre_de_la_base_de_datos>;                  Oracle 6.0           "Cambiar a una base de datos"
+DESCRIBE <nombre_de_la_tabla>;                                       Oracle 6.0           "Mostrar estructura de la tabla"
+SELECT TABLE_NAME FROM ALL_TABLES;                                   Oracle 7.0           "Mostrar las de la base de datos actual"
+SELECT VIEW_NAME FROM ALL_VIEWS;                                     Oracle 7.0           "Mostrar vistas de la base de datos actual"
+SELECT OBJECT_NAME FROM ALL_OBJECTS WHERE OBJECT_TYPE = 'FUNCTION';  Oracle 8.0           "Mostrar funciones de la base de datos actual"
+ALL_TAB_PRIVS;                                                       Oracle 7.0           "Mostrar permisos de la base de datos actual"
+SELECT * FROM ALL_USERS;                                             Oracle 7.0           "Mostrar usuarios en la base de datos"
+HELP <comando_sql>;                                                  Oracle 9.0           "Mostrar ayuda sobre un comando SQL"
+HOST <comando_del_sistema_operativo>;                                Oracle 9.0           "Ejecutar comandos del sistema operativo"
+@<nombre_de_un_archivo>;                                             Oracle 6.0           "Ejecutar comandos de un archivo"
+SPOOL <nombre_de_un_archivo>;                                        Oracle 6.0           "Redirigir la salida a un archivo)"
+COPY;                                                                Oracle 6.0           "Copiar datos entre tablas"
+LOAD DATA (ejemplo de varias lineas)                                 Oracle 6.0           "Copiar datos entre una tabla y un archivo"
+UTL_FILE (es un codigo complejo)                                     Oracle 6.0           "Lee archivo para copiarlo en una tabla"
+
+
+##### TIPOS DE DATOS #####
+
+NUMEROS
+NUMBER(cantidad_de_digitos_entero, cantidad_de_decimales)            Oracle 6.0           "Para definir numeros enteros y/o decimales, precision variable"
+DECIMAL(n, m)                                                        Oracle 6.0           "Para definir numeros decimales con precision fija"
+NUMERIC(n, m)                                                        Oracle 6.0           "Similar a decimal, precision fija, un poco mas flexible"
+
+TEXTO
+CHAR(10)                                                             Oracle 6.0           "Almacena texto de hasta 10 caracteres fijo"
+VARCHAR  (No se ocupa)                                               Oracle 6.0           "Para guardar texto, pero agrega espacios en blanco innecesarios no recomendable"
+VARCHAR2                                                             Oracle 6.0           "Almacena texto de hasta 10 caracteres variable"
+LONG    (obsoltero desde Oracle 12.0)                                Oracle 6.0           "Almacena texto de hasta 2GB"
+CLOB                                                                 Oracle 8.0           "Almacena texto de hasta 4GB"
+NCLOB                                                                Oracle 8.0           "Almacena texto de hasta 4GB, admite mas formatos"
+
+FECHAS Y HORA
+DATE                                                                 Oracle 6.0           "Almacena Fecha y Hora AAA-MM-DD HH:MM:SS, siempre tendra hora aunque no se especifique"
+TIMESTAMP                                                            Oracle 9.0           "Almacena Fecha y Hora, pero con otras zona horarias"
+INTERVAL                                                             Oracle 9.0           "Almacena intervalos de tiempo"
+
+BOOLEANO
+No hay este tipo
+
+OBJETOS
+JSON                                                                 Oracle 12.0          "Objeto JSON"
+VARRAY                                                               Oracle 8.0           "Objeto ARRAY"
+XMLTYPE                                                              Oracle 9.0           "Objeto XML"
+OBJECT                                                               Oracle 8.0           "Objeto generico"
+
+PUNTOS ESPACIALES
+SDO_POINT                                                            Oracle 9.0           "Almacena puntos en un espacio 2D o 3D"
+SDO_LINE                                                             Oracle 9.0           "Almacena una linea en un espacio 2D o 3D"
+SDO_POLYGON                                                          Oracle 9.0           "Almacena un poligono en un espacio 2D o 3D"
+SDO_COLLECTION                                                       Oracle 9.0           "Almacena colecciones de objectos espaciales 2D o 3D"
+SDO_ORDINATE_ARRAY                                                   Oracle 9.0           "Almacena arreglo de coordenadas"
+SDO_GEOMETRY                                                         Oracle 9.0           "Almacena objetos espaciales de manera general"
+
+
+##### FUNCIONES SQL #####
+La mayoria se mantienen igual en las funciones estandares, pero hay algunos cambios
+
+SUBSTRING(cadena, inicio, longitud) ----> SUBSTR           "Devuelve una subcadena"
+NOW() ----> SYSTIMESTAMP                                   "Devuelve una fecha y hora actual"
+CURRENT_DATE ----> SYSDATE                                 "Devuelve la fecha actual"
+CURRENT_TIME ----> SYSTIMESTAMP                            "Devuelve la hora actual"
+DATE_TRUNC(precision, fecha) ----> TRUNC                   "Trunca la fecha a lo solicitado"
+
+# FUNCIONES ESPECIFICAS #
+
+DBMS_RANDOM           "Generar números aleatorios, para simular datos o para crear claves primarias únicas"
+SYS_GUID              "Devuelve un identificador único global (GUID)"
+VSIZE                 "Devuelve el tamaño en bytes de un valor de tipo VARCHAR2, NUMBER, DATE, etc"
+DUMP                  "Devuelve una representación en hexadecimal de un valor de tipo VARCHAR2, NUMBER, DATE, etc"
+SYS_TYPEID            "Devuelve el tipo de dato de un valor de tipo ANYTYPE (Puede almacenar cualquier tipo de dato)"
+
+
+#######################################################################################################################################################################
+
+                                                                       BIGQUERY
+
+Bigquery no tiene comandos para manipular la terminal, hay que hacerlo en la terminal directamente, tiene versiones mas generales de datos no necesita tantos
+formatos de datos
+
+##### TIPOS DE DATOS #####
+
+NUMERICOS
+INT64                                               Bigquery (2010)                           "Numeros enteros"
+FLOAT64                                             Bigquery (2010)                           "Decimal precision variable"
+NUMERIC                                             Bigquery (2013)                           "Hasta 38 dígitos"
+BIGNUMERIC                                          Bigquery (2013)                           "Número decimal con precisión variable, hasta 76 dígitos"
+
+TEXTO
+STRING                                              Bigquery (2010)                           "Cadena variable sin limite"
+BYTES                                               Bigquery (2010)                           "Cadena de Bytes"
+
+FECHAS Y HORAS
+DATE                                                Bigquery (2010)                           "Solo fecha"
+TIME                                                Bigquery (2010)                           "Solo hora"
+TIMESTAMP                                           Bigquery (2010)                           "Fecha y hora con zona horaria"
+
+BOLEANO
+BOOLEAN                                             Bigquery (2013)                           "Boleano True o False"
+
+OBJETOS
+JSON                                                Bigquery (2013)                           "Objeto JSON"
+STRUCT                                              Bigquery (2013)                           "Estructura de datos"
+ARRAY                                               Bigquery (2013)                           "Arreglo de datos" 
+
+PUNTOS ESPACIALES
+GEOGRAPHY                                           Bigquery (2013)                           "Para datos como coordenadas"
+GEOMETRIC                                           Bigquery (2013)                           "Para almacenar figuras geometricas"
+RECORD                                              Bigquery (2013)                           "Almacena datos de campos"
+
+##### FUNCIONES DE SQL ######
+Casi todas las mostradas anteriormente estan disponible, excepto las especificas no en su totalidad
+
+# FUNCIONES ESPECIFICAS DE BIGQUERY #
+ARRAY_AGG(nombre)                              "Agrupa valores de una columna en una array"
+ARRAY_CONCAT([1, 2, 3], [4, 5, 6])             "Combina dos arreglos"
+GENERATE_UUID()                                "Genera un identificador único universal (UUID)" 
+DATE_TRUNC(DATE '2022-01-01', DAY)             "Trunca a la fecha solo lo que necesitas, en este caso solo dia"
+TIMESTAMP_TRUNC(TIMESTAMP '2022-01-01 12:34:56', SECOND)  "Trunca la hora y fechas"
+ST_GEOPOINT(37.7749, -122.4194)                "Crea un punto geografico"
+ST_DISTANCE(ST_GEOPOINT(37.7749, -122.4194), ST_GEOPOINT(37.7859, -122.4364))  "Calcula la distancia entre dos puntos geograficos"
+ST_INTERSECTS(ST_GEOPOINT(37.7749, -122.4194), ST_GEOPOINT(37.7859, -122.4364))  "Determina si es que hay interseccion entre dos geometrias"
+
+# CAPACIDADES DE BIGQUERY #
+Bigquery funciones especificas sofisticadas
+-Se pueden crear modelos de inteligencia artificial "CREATE MODEL"
+-Se pueden extraer patrones de texto                "REGEXP_EXTRACT"
+-Se pueden analizar sentimientos                    "SENTIMENT"
+-Se pueden extraer patrones de imagenes             "IMAGE_EXTRACT"
+-Se puede clasificar imagenes                       "IMAGE_CLASSIFY"
+-Se pueden extraer patrones de audios               "AUDIO_EXTRACT"
+-Se puede clasificar audios                         "AUDIO_CLASSIFY"
+-Creacion de puntos geograficos                     "ST_GEOPOINT"
+-Calculo de distancias                              "ST_DISTANCE"
+-Filtar para analisis tiempo                        "TIMESTAMP_TRUNC"
+-Creacion de graficos                               "GRAPH" y "CHART"
+-Creacion de clustering                             "CLUSTER" y "KMEANS"
+-Analizar recomendaciones                           "RECOMMEND"
+
+# INCORPORACION DE LENGUAJES #
+-Se pueden ocupar funciones de multiples lenaguajes y librerias dentro de BigQuery:
+-JavaScript
+-Ruby
+-Python
+-Java
+-R
+-Go
+-PHP
+-C++
+
+######################################################################################################################################################################
+
+                                                                       REDSHIFT
+
+##### TIPOS DE DATOS #####
+
+NUMERICOS
+INTEGER                                             Redshift (2012)                           "Entero de 32 bits"
+BIGINT                                              Redshift (2012)                           "Entero de 64 bits"
+SMALLINT                                            Redshift (2012)                           "Entero de 16 bits"
+DECIMAL                                             Redshift (2012)                           "Decimal precision variable"
+NUMERIC                                             Redshift (2012)                           "Decimal precsion fija"
+REAL                                                Redshfit (2012)                           "Número real de 32 bits"
+DOUBLE PRECISION                                    Redshift (2012)                           "Número real de 64 bits"
+
+TEXTO
+CHAR                                                Redshift (2012)                           "Longuitud fija" 
+VARCHAR                                             Redshift (2012)                           "Longuitud variable"
+TEXT                                                Redshift (2012)                           "Cadena variable sin limite"
+BYTEA                                               Redshift (2012)                           "Cadena de Bytes"
+
+FECHAS Y HORAS
+DATE                                                Redshift (2012)                           "Solo fecha"
+TIME                                                Redshift (2012)                           "Solo hora"
+TIMESTAMP                                           Redshift (2012)                           "Fecha y hora con zona horaria"
+
+BOLEANO
+BOOLEAN                                             Redshift (2012)                           "Boleano True o False"
+
+LISTAS
+No tiene
+
+OBJETOS
+No tiene
+
+PUNTOS ESPACIALES
+No tiene   
+
+##### FUNCIONES DE SQL #####
+
+Se pueden utilizar todas las funciones anteriores excepto las especificas de cada base de dato
+
+# FUNCIONES ESPECIFICAS DE REDSFHIT #
+GETDATE()            "Devuelve la fecha y hora actual en formato YYYY-MM-DD HH:MM:SS"
+GETTIME()            "Devuelve la hora actual en formato HH:MM:SS"
+GETUSER()            "Devuelve el nombre del usuario que ejecuta la consulta"
+GETSESSION_USER()    "Devuelve el nombre del usuario que inició la sesión"
+GETCURRENTUSER()     "Devuelve el nombre del usuario que ejecuta la consulta"
+GETDATABASE()        "Devuelve el nombre de la base de datos actual"
+GETSCHEMA()          "Devuelve el nombre del esquema actual"
+GETTABLENAME()       "Devuelve el nombre de la tabla actual"
+GETCOLUMNNAME()      "Devuelve el nombre de la columna actual"
+SYS_GETUID()         "Devuelve el ID del usuario que ejecuta la consulta"
+SYS_GETGID()         "Devuelve el ID del grupo que ejecuta la consulta"
+
+ROW_NUMBER() OVER (PARTITION BY ...)    "Asigna un número de fila a cada fila de la consulta, partiéndola por una columna"
+RANK() OVER (PARTITION BY ...)          "Asigna un rango a cada fila de la consulta, partiéndola por una columna"
+DENSE_RANK() OVER (PARTITION BY ...)    "Asigna un rango denso a cada fila de la consulta, partiéndola por una columna"
+NTILE() OVER (PARTITION BY ...)         "Divide la consulta en n grupos de filas, partiéndola por una columna"
+LAG() OVER (PARTITION BY ...)           "Devuelve el valor de una columna en la fila anterior"
+LEAD() OVER (PARTITION BY ...)          "Devuelve el valor de una columna en la fila siguiente"
+
+COPY    "Carga datos desde un archivo o una tabla a una tabla de Redshift"
+UNLOAD  "Descarga datos desde una tabla de Redshift a un archivo"
+
+
+##### FUNCIONES SOFISTICADAS #####
+No posee funciones sofisticadas como de graficos, machine learning, etc 
+
+#### LENGUAJES ADICIONALES #####
+No se pueden incorporar funciones con otros lenguajes directamente de en redshift, se tiene que ocupar otras API
+
+##################################################################################################################################################################
+
+                                                                       DATABRICKS
+                                                                       
+##### TIPOS DE DATOS #####
+
+NUMERICOS
+INT                                                 Databricks (2013)                     "Entero entre -2.147.483.648 a 2.147.483.647"
+BIGINT                                              Databricks (2013)                     "Entero entre -9.223.372.036.854.775.808 a 9.223.372.036.854.775.807"
+TINYINT                                             Databricks (2013)                     "Entero entre -128 a 127"
+SMALLINT                                            Databricks (2013)                     "Entero entre -32.768 a 32.767"
+FLOAT                                               Databricks (2013)                     "Número decimal de precisión simple"
+DECIMAL                                             Databricks (2015)                     "Número decimal, precisión variable"
+DOUBLE                                              Databricks (2013)                     "Número de punto flotante, precisión doble"
+
+TEXTO
+CHAR                                                Databricks (2013)                     "Cadena fija, longitud variable" 
+VARCHAR                                             Databricks (2013)                     "Cadena variable, longitud variable"
+TEXT                                                Databricks (2013)                     "Cadena mediana, longitud máxima 65.535 caracteres"
+STRING                                              Databricks (2013)                     "Cadena de texto con longitud variable"
+
+FECHAS Y HORAS
+DATE                                                Databricks (2013)                     "Fecha, formato AAAA-MM-DD"
+TIME                                                Databricks (2015)                     "Hora, formato HH:MM:SS"
+TIMESTAMP                                           Databricks (2015)                     "Fecha y hora, formato AAAA-MM-DD HH:MM:SS"
+DATETIME                                            Databricks (2017)                     "Fecha y hora, formato AAAA-MM-DD HH:MM:SS"
+
+BOLEANO
+BINARY                                              Databricks (2015)                     "Cadena binaria, longitud fija"
+
+LISTA
+ARRAY                                               Databricks (2015)                     "Lista de valores de un tipo específico"
+MAP                                                 Databricks (2017)                     "Mapa de clave-valor"
+
+
+OBJETOS
+JSON                                                Databricks (2017)                     "Objeto JSON"
+STRUCT                                              Databricks (2016)                     "Estructura de datos con campos"        
+
+# FUNCIONES DE SQL #
+Las funciones estandar estan todas incorporadas, excepto alguna de las especificas de la bases de datos
+
+# FUNCIONES ESPECIFICAS DE DATABRICKS SQL #
+CACHE_TABLE mi_tabla;                           "Almacenar una tabla en memoria"
+UNCACHE_TABLE mi_tabla;                         "Eliminar una tabla de la memoria"
+STREAM_TABLE mi_tabla_stream;                   "Crear una tabla de streaming"
+STREAM_QUERY SELECT * FROM mi_tabla_stream;     "Ejecutar una consulta en un flujo de datos en tiempo real"
+ML_MODEL mi_modelo FROM mi_tabla;               "Crear un modelo de machine learning"
+ML_PREDICT mi_modelo, mi_tabla;                 "Realizar predicciones utilizando un modelo de machine learning"
+DISPLAY mi_tabla;                               "Mostrar un conjunto de datos en una tabla"
+PLOT mi_tabla;                                  "Crear un gráfico a partir de un conjunto de datos"
+
+# FUNCIONES SOFISTICADAS DE DATABRICKS SQL #
+-Creacion de modelos de machine learning        "CREATE MODEL", "TRAIN MODEL", "PREDICT"
+-Analisis table                                 "ANALYZE TABLE"
+-Graficos y visualizacion                       "DISPLAY", "PLOT"
+
+
+###########################################################################################################################################################################
+
+                                                          AZURE SYNAPSE ANALYTICS
+                                                                    
+                                                                    
+##### TIPOS DE DATOS #####                                                                   
+
+NUMERICOS
+INT                                                 Synapse Analytics (2014)              "Entero entre -2.147.483.648 a 2.147.483.647"
+BIGINT                                              Synapse Analytics (2014)              "Entero entre -9.223.372.036.854.775.808 a 9.223.372.036.854.775.807"
+TINYINT                                             Synapse Analytics (2014)              "Entero entre -128 a 127"
+SMALLINT                                            Synapse Analytics (2014)              "Entero entre -32.768 a 32.767"
+MEDIUMINT                                           Synapse Analytics (2014)              "Entero entre -8.388.608 a 8.388.607"
+FLOAT                                               Synapse Analytics (2014)              "Número decimal de precisión simple"
+DECIMAL                                             Synapse Analytics (2014)              "Número decimal, precisión variable"
+
+TEXTO
+CHAR                                                Synapse Analytics (2014)              "Cadena fija, hasta 8000 caracteres" 
+NCHAR                                               Synpase Analytics (2014)              "Cadena fija, hasta 4000 caracteres"
+VARCHAR                                             Synapse Analytics (2014)              "Cadena variable, hasta 8000 caracteres"
+NVARCHAR                                            Synapse Analytics (2014)              "Cadena variable, hasta 4000 caracteres"
+TEXT (obsoleto)
+NTEXT  (obsoleto)
+
+
+FECHAS Y HORAS
+DATE                                                Synapse Analytics (2014)              "Fecha, formato AAAA-MM-DD"
+TIME                                                Synapse Analytics (2014)              "Hora, formato HH:MM:SS"
+DATETIME                                            Synapse Analytics (2014)              "Fecha y hora, formato AAAA-MM-DD HH:MM:SS"
+
+BOLEANO
+BINARY                                              Synapse Analytics (2014)              "Cadena binaria, longitud fija"
+VARBINARY                                           Synapse Analytics (2014)              "Cadena binaria, longitud variable"
+
+OBJETOS
+JSON                                                Synapse Analytics (2020)              "Objeto JSON"
+XML                                                 Synapse Analytics (2016)              "Objeto XML"
+
+PUNTOS ESPACIALES
+GEOMETRY                                            Synapse Analytics (2020)              "Dato en espacio 2-D"
+LINESTRING                                          Synapse Analytics (2020)              "Linea en espacio 2-D"
+POINT                                               Synapse Analytics (2020)              "Punto en espacio 2-D"
+POLYGON                                             Synapse Analytics (2020)              "Poligono en espacio 2-D"
+
+##### FUNCIONES DE SQL #####
+Todas las funciones SQL estandar, excepto las especificas para cada base de datos
+
+# FUNCIONES ESPECIFICAS #
+TRING_AGG(nombre, ', ')           "Concatenar una columna de cadenas en una sola cadena, separada por un carácter especificado"
+TRY_CAST(cadena AS INT)           "Intentar convertir una expresión a un tipo de dato específico, y devuelve NULL si la conversión no es posible"
+TRY_CONVERT(INT, cadena)          "Intentar convertir una expresión a un tipo de dato específico, y devuelve NULL si la conversión no es posible"
+PARSE(cadena AS INT)              "Analizar una cadena y devolver un valor de un tipo de dato específico"
+TRY_PARSE(cadena AS INT)          "Intentar analizar una cadena y devolver un valor de un tipo de dato específico, y devuelve NULL si el análisis no es posible"
+GENERATE_SERIES(1, 10, 1)         "Generar una serie de números enteros o fechas, y se puede utilizar para crear una tabla de números o fechas"
+STRING_SPLIT(cadena, ',')         "Divide una cadena en una tabla de cadenas, separadas por un carácter especificado"
+OPENQUERY('mi_servidor', 'SELECT * FROM mi_tabla');   "Se utiliza para ejecutar una consulta en una fuente de datos (base de datos) externa"
+PENDATASOURCE('SQLNCLI', 'DRIVER={ODBC Driver 17 for SQL Server};SERVER=mi_servidor;DATABASE=mi_base_de_datos;UID=mi_usuario;PWD=mi_contraseña');   "Otra forma de hacerlo"
+OPENROWSET('CSV', 'C:\archivo.csv', '1252');   "Se utiliza para leer datos de una fuente de datos externa, como un archivo de texto o un archivo de Excel"
+
+# FUNCIONES SOFISTICADAS #
+-Creación de modelos de machien learning          "CREATE MODEL", "PREDICT"
+
+
+################################################################################################################################################################
+
+                                                                        SQLITE
+                                                                        
+##### COMANDOS #####
+
+.databases                                         Sqlite 3.0                   "Ver bases de datos disponibles"
+.quit o .exit                                      Sqlite 3.0                   "Salir de la interfaz"
+.open <nombre_base_de_datos>                       Sqlite 3.0                   "Abrir una nueva base de dato"
+.schema <nombre_de_la_tabla>  (PRAGMA table_info(tabla);)    Sqlite 3.0                   "Ver la estructura de una tabla"
+.tables (SELECT * FROM sqlite_master WHERE type = 'table';)  Sqlite 3.0                   "Muestra las tablas de la base de dato actual"
+.views                                             Sqlite 3.0                   "Ver vistas de la base de dato"
+.help <comando_sql>                                Sqlite 3.0                   "Ver la descipcion de un comando"
+.shell                                             Sqlite 3.0                   "Ejecutar comandos en la terminal"
+.read <nombre_de_un_archivo> (LOAD 'archivo' INTO TABLE tabla;) Sqlite 3.0                   "Ejecutar comandos desde un archivo"
+.output <nombre_de_un_archivo>                     Sqlite 3.0                   "Redirijir output de un archivo"
+.headers on/off                                    Sqlite 3.0                   "Para ver el header"
+.mode <modo> <nombre_de_tabla> y luego .import <nombre_del_archivo> <nombre_de_tabla>   Sqlite 3.0          "Copiar desde un archivo a una tabla"
+.mode <modo> <nombre_de_tabla> y luego .output <nombre_del_archivo> y finalmente SELECT * FROM <nombre_de_tabla>;   Sqlite 3.0    "Copiar desde una tabla a un archivo"
+
+
+##### TIPOS DE DATOS #####
+
+NUMERICOS (Alias que son iguales)
+INTEGER (INT, BIGINT, SMALLINT, TINYINT)           Sqlite 1.0                   "Un entero de hasta 64 bits, que puede almacenar valores entre -9.223.372.036.854.775.808 y 9.223.372.036.854.775.807"
+REAL (FLOAT, DOUBLE, DECIMAL, NUMERIC)             Sqlite 1.0                   "Un número de punto flotante de hasta 64 bits, que puede almacenar valores decimales con una precisión de hasta 15 dígitos"
+
+TEXTO (Alias que son iguales)
+TEXT (alias: CHAR, VARCHAR)                        Sqlite 1.0                   "Un tipo de dato de texto que puede almacenar cadenas de caracteres de cualquier longitud"
+
+FECHA Y HORAS
+DATE                                               Sqlite 2.0                   "Un tipo de dato que puede almacenar fechas en el formato "YYYY-MM-DD""
+TIME                                               Sqlite 2.0                   "Un tipo de dato que puede almacenar horas en el formato "HH:MM:SS""
+DATETIME                                           Sqlite 2.0                   "Un tipo de dato que puede almacenar fechas y horas en el formato "YYYY-MM-DD HH:MM:SS""
+TIMESTAMP                                          Sqlite 3.0                   "Un tipo de dato que puede almacenar fechas y horas en el formato "YYYY-MM-DD HH:MM:SS.SSS", donde SSS es la fracción de segundo"
+
+BOOLEANOS
+BOOLEAN (BOOL)                                     Sqlite 3.0                   "Almacena valores booleanos, 0 o 1, verdadero o falso"
+
+ESPACIALES
+GEOMETRY                                           Sqlite 3.0                   "Un tipo de dato que puede almacenar datos geoespaciales, como puntos, líneas y polígonos"
+
+
+##### FUNCIONES SQL #####
+Las funciones standard la mayoria esta, solo algunas tienen cambios
+
+EXTRACT(componente, fecha) ----> STRFTIME('%Y', fecha)     "Extrae el componente que se necesita"
+DATE_TRUNC(precision, fecha) ----> STRFTIME('%Y-%m-%d', fecha)  "Extrae y trunca una fecha"
+TO_CHAR y otras transformaciones no existen
+ROW_NUMBER() ---->  ROWID  "Obtener el identificador"
+
+
+
+
+
+
+
+
+
