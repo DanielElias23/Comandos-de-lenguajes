@@ -1,0 +1,198 @@
+                               ___________________________________
+                               |                                  |
+                               |             INDICE               |
+                               |__________________________________|
+
+            1. MEDIDAS PARA GRAFICOS                   "Pasos para implementar medidas de creacion de graficos"
+            2. FUNCIONES CONDICIONALES                 "Sintaxis de como ocupar condicionales" 
+            3. FUNCIONES DE NUEVAS MEDIDAS             "Funciones para usar medidas"
+            4. FUNCIOENS DE COLUMNAS                   "Funciones para crear columnas"
+            5. CREACION DE TABLAS                      "Creacion de su-tablas"
+            
+#######################################################################################################################################################
+
+                                                                 MEDIDAS PARA GRAFICOS
+
+Las medidas se ocupan para determinados graficos
+##### GRAFICO NOTA #####
+Es un grafico que solo muestra un numero
+grafico:
+medida_valor_unico = tabla[nombre_medida_valor_unico] - tabla[nombre_medida_valor_unico2]
+
+
+##### GRAFICO DE LINEA TEMPORAL #####
+En este grafico en la entrada X es recomendable:
+-crear una columna con fecha (solo dia)   dias = FORMAT(tabla[columna], "dd")
+-crear una columna con fecha (solo mes)   Meses = FORMAT(tabla[columna], "mm")
+-crear una columna con fecha (solo año)   Años = FORMAT(tabla[columna], "yyyy")
+Al crear las 3 columna el grafico separa correctamente y ajusta automaticamente segun el tiempo
+grafico:
+ACUMULATIVO = CALCULATE(SUMX(order_items, order_items[list_price] * order_items[quantity]), DATESYTD((orders[order_date])))
+
+##### GRAFICO DE TABLA #####
+En este grafico en la entrada X es recomendable:
+-crear una columna con fecha (solo dia)   dias = FORMAT(tabla[columna], "dd")
+-crear una columna con fecha (solo mes)   Meses = FORMAT(tabla[columna], "mm")
+-crear una columna con fecha (solo año)   Años = FORMAT(tabla[columna], "yyyy")
+Al crear las 3 columna el grafico separa correctamente y ajusta automaticamente segun el tiempo
+grafico:
+ACUMULATIVO = CALCULATE(SUMX(order_items, order_items[list_price] * order_items[quantity]), DATESYTD((orders[order_date])))
+
+##### GRAFICO DE BARRAS #####
+En este grafico en la entrada X es recomendable o una columna calsificatoria:
+-crear una columna con fecha (solo dia)   dias = FORMAT(tabla[columna], "dd")
+-crear una columna con fecha (solo mes)   Meses = FORMAT(tabla[columna], "mm")
+-crear una columna con fecha (solo año)   Años = FORMAT(tabla[columna], "yyyy")
+grafico:
+ACUMULATIVO = CALCULATE(AVERAGEX(order_items, order_items[list_price] * order_items[quantity]), DATESYTD((orders[order_date])))
+
+#########################################################################################################################################################
+
+                                                                  FUNCIONES CONDICIONALES
+
+IF      IF(condición_lógica, valor_si_verdadero, valor_si_falso)
+        IF(OR(), si cumplen cualquiera de las dos, si no se cumple ninguna)
+        IF(AND(condicion1 ,condicion2), si se cumple las dos, si no se cumplen las dos)
+        IF(tabla[nombre_columna] in {"valor1", "valor2"}, valor_si_verdadero, valor_si_falso)
+
+#########################################################################################################################################################
+
+                                                                  FUNCIONES DE MEDIDAS
+
+##### IMPORTANTES #####
+
+FILTER       FITLER(tabla, tabla[nombre_columna] > 5)            "Es para aplicar un filtro usualmente se ocupa dentro de otras operaciones"
+
+ALL          CALCULATE(operacion(tabla[columna]), ALL(tabla))    "Ignora filtro utilizados anteriormente"
+
+##### NUMERICAS #####
+
+SUM          SUM(tabla[nombre_columna])                          "Suma toda la columna solo de una columna, no puedo hacer operaciones dentro"
+
+SUMX         SUMX(tabla, tabla[nombre_columna] * tabla[nombre_columna2])   "Puede hacer operaciones de columnas dentro y despues suma"
+
+AVERAGE      AVERAGE(tabla[nombre_columna])                      "Saca el promedio de toda la columna"
+
+AVERAGE      AVERAGEX(tabla, tabla[nombre_columna] * tabla[nombre_columna2])  "Saca el promedio despues de que se hace una operacion entre columnas"
+
+MAX          MAX(tabla[nombre_columna])                          "Muestra el valor mas alto de toda la columna"
+
+MAXX         MAXX(tabla, tabla[nombre_columna ] - tabla[nombre_columna2])  "Muestra el valor mas alto, despues de una operacion entre columnas" 
+
+MIN          MIN(tabla[nombre_columna])                         "Muestra el valor mas bajo de toda la columna"
+
+MINX         MINX(tabla, tabla[nombre_columna] + tabla[nombre_columna2])   "Muestra el valor mas bajo, despues de una operacion entre columnas"
+
+COUNT        COUNT(tabla[nombre_columna])                       "Cuanta la cantidad de datos, no cuenta datos nulos"
+
+COUNTX       COUNTX(tabla, filter(tabla[nombre_columna]))       "Cuenta la cantidad de datos, despues de una operacion"
+
+COUNTA       COUNTA(tabla[nombre_columna])                      "Cuenta la cantidad de datos, tanto texto como numeros"
+
+COUNTROWS    COUNT(tabla)                                       "Cuenta la cantidad de filas"
+
+DISTINCTCOUNT     DISTINCTCOUNT(tabla[nombre_columna])          "Cuenta la cantidad de valores unicos en la columna"
+
+CALCULATE    CALCULATE(operacion(tabla[nombre_columna], filtro))  "Hara solo la operacion despues del filtro, filtro puede ser year(tabla[columna_fecha])
+                                                                o tabla[nombre_columna] = valor"
+
+||           CALCULATE(operacion(tabla[nombre_columna], filtro1 || filtro2))  "Para aplicar mas de un filtro"
+
+MEDIAN       MEDIAN(tabla[nombre_columna])                      "Muestra la mediana de la columna"
+
+MEDIANX      MEDIANX(tabla, tabla[nombre_columna] + tabla[nombre_columna])  "Muestra la mediana de la columna despues de una operacion"           
+
+MODE.SNGL    MODE.SNGL(tabla[nombre_columna])                   "Muestra la moda de la columna"
+
+STDEV.S      STDEV.S(tabla[nombre_columna])                     "Muestra la desviación standard"
+
+STDEVX.S     STDEVX.S(tabla, tabla[nombre_columna] * tabla[nombre_columna])  "Muestra la desviacion standard despues de una operacion"
+
+REALTEDTABLE operacion(RELATEDTABLE(otra_tabla), otra_tabla[nombrecolumna])  "Es para hacer referencia a otras tablas y tomar columnas"
+
+
+##### FECHAS #####
+
+TODAY       TODAY()                                             "Dice la fecha de ahora y la hora la rellena con 00:00:00"
+
+NOW         NOW()                                               "Dice la fecha y hora actual"
+
+YEAR        YEAR(tabla[fecha])                                  "Toma solo el año de una fecha"
+
+MONTH       MONT(tabla[fecha])                                  "Toma solo el mes de una fecha"
+
+DAY         DAY(tabla[fecha])                                   "Toma solo el dia de una fecha"
+
+
+
+#########################################################################################################################################################
+
+                                                             FUNCIONES NUEVAS COLUMNAS
+
+cuando se crean nuevas columnas son diferentes, porque vienen de otras columnas no son "legitimas", pero son mas ajustables, aun asi si es que se borra 
+la columna original habra un error en la columna que hace referencia.
+Hay funciones espciales para estas columnas, hay que poner nueva columna, al darle click saldra poner una funcion
+
+##### IMPORTANTES #####
+
+RELATED       nueva_columna = RELATED(otra_tabla[nombre_columna])        "Crea una columna que la relaciona con un ID de otra columna de otra tabla, la 
+                                                                          reconoce automaticamente por las relaciones entregadas en el modelamiento"
+
+##### NUMERICAS #####
+
+RankingProducto = 
+RANKX        nueva_columna = RANKX(FactVentas[Producto], [total], DESC)  "Crea una nueva columna y le asigna una posicion segun el criterio, la fila que mas vale en ese total"
+
+
+##### TEXTO #####
+
+&            nueva_columna = tabla[columna_texto] & tabla[columna_texto] "Une texto"
+
+CONCATENATE  nueva_columna = CONCATENATE(tabla[columna_texto], tabla[columna_texto])  "Es igual a $, une texto"
+
+CONCATENATEX nueva_columna = CONCATENATEX(operacion(tabla[nombre_columna]), tabla[nombre_columna2], "delimitador")  "Igual que contatenate, pero agrega un delimitador"
+
+LEFT         nueva_columna = LEFT(tabla[nombre_columna_texto], numero)   "Crea una nueva columna que toma la cantidad de caracteres especificos de la izquierda del texto"
+
+RIGHT        nueva_columna = RIGHT(tabla[nombre_columna_texto], numero)  "Crea una nueva columna que toma la cantidad de caracteres especificos de la derecha del texto"
+
+MID          nueva_columna = MID(tabla[nombre_columna_texto], posicion inicio, cantidad de caracteres)  "Toma un extracto de la palabra segun la posicion"
+
+LEN          nueva_columna = LEN(tabla[nombre_columna])                  "Cuenta la cantidad de caracteres"
+
+SEARCH       nueva_columna = SEARCH(texto cualquiera, tabla[nombre_columna])  "Dice la posicion de un texto en especifico"
+
+REPLACE      nueva_columna = REPLACE(tabla[nombre_columna], posicion caracter inicio, cantidad de caracteres, "texto")  "Remplaza uno o varios caracteres por otro texto POR POSICION"
+
+SUBSTITUTE   nueva_columna = SUBSTITUTE(tabla[nombre_columna, "texto a remplazar", "nuevo texto"])  "Remplaza todos los caracteres en el texto a remplazar por otro caracteres"
+
+UPPER        nueva_columna = UPPER(tabla[nombre_columna])                "Crea una nueva columna con solo mayusculas en base a esa columna"
+
+LOWER        nueva_columna = LOWER(tabla[nombre_columna])                "Crea una nueva columna con solo minusculas en base a la columna"
+
+TRIM         nueva_columna = TRIM(tabla[nombre_columna])                 "Crea una nueva columna elimina los espacios de los laterales"
+
+VALUE        nueva_columna = VALUE(tabla[nombre_columna])                "Crea una nueva columna, convierte texto a numero"
+
+
+##### FECHAS #####
+
+DATEDIFF    nueva_columna = DATEDIFF(tabla[nombre_columna], tabla[nombre_columna2], DAY)  "Dice la diferencia de dias que hay entre las dos fechas"
+
+EDATE       nueva_columna = EDATE(tabla[nombre_columna, 3])              "Agrega 3 meses a la fecha original"
+
+EOMONTH     nueva_columna = EOMONTH(tabla[nombre_columna], 0)            "Toma la fecha a fin de mes, de la fecha orginal ejempl 15-01-2015, la fecha que se crea es 31-01-2015"
+
+FORMAT       nueva_columna = FORMAT(tabla[nombre_columna_fecha_existente], "formato")         "Crea una nueva columna con otro formato de fecha, formato "dd/mm/yyyy""      
+
+
+###################################################################################################################################################################
+
+                                                             CREAR TABLAS
+
+Tabla = 
+ADDCOLUMNS(
+    SUMMARIZE(orders, orders[Años]),
+    "cantidad vendida", CALCULATE(SUM(order_items[quantity])),
+    "asd", CALCULATE(SUM(order_items[list_price]))
+)

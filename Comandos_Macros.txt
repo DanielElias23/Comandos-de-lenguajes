@@ -1,0 +1,371 @@
+                               ___________________________________
+                               |                                  |
+                               |             INDICE               |
+                               |__________________________________|
+
+            1. OBJETOS                                 "Como referenciar objetos en excel"
+            2. CONCEPTOS BASICOS                       "Variables, seleciones, etc" 
+            3. FUNCIONES COMUNES                       "Funciones mas utilizadas"
+            4. FUNCIONES VBA                           "Paquete de funciones especiales de VBA"
+            5. TABLAS                                  "Opciones de tablas"
+            6. CONCIONALES Y CICLOS                    "Sintaxis para como ejecutar condicionales y ciclos"
+            7. ADICIONALES                             "Algunas sintaxis adicionales de condicionales y demas"
+
+#########################################################################################################################################################
+
+                                                              OBJETOS
+
+Public Sub nombre_macro()                           "Se puede ocupar una macro desde otra macro"
+Call nombre_macro()                                 "Puede citar a una imagen publica, para ser usada dentro de otra macro"
+Private Sub nombre_macro()                          "No se puede ocupar desde otras macro"                        
+Sub nombre_macro(ByVal variable As Integer, ByVal vairable2 As String)  "Esto se ocupa para el momento de llamar a la macro se puedan ejecutar valores dentro"
+                                                                         ByVal se refiere a que si es que esa variable entra a la macro, si se modifica la
+                                                                         variable dentro de la macro sera permanente"
+Sub nombre_macro(ByRef variable As Integer, ByRef variable2 As String)  "En este caso si las variables se modifican no sera permanente sera solo por la macro"
+Call nombre_macro(variable, variable2)
+
+
+#########################################################################################################################################################
+
+                                                           CONCEPTOS BASICOS
+
+### DEFINIENDO VAIRABLES ###
+
+Variable = 2                                       "Durante la macro se puede definir un valor para una variable, se puede cambiar durante la macro"
+Dim Variable As Integer                            "Esto se define antes de definir una variable, define el tipo de dato que sera, hay muchos tipos"
+Const Constante = 2                                "Es una constante no se puede cambiar durante la macro al definirse"
+Set Paso_completo = Range("A1").CurrentRegion      "Puede mantener como paso rapido mas de una funcion junta"
+Public Variable As Integer                         "Define un tipo de dato en todos los modulos del archivo"
+Static Variable As Integer                         "Define un tipo de dato que solo se define para el modulo en particular"
+Global Variable As Integer                         "Define un tipo de dato para todos los archivos"
+[A1] = "Valor1"                                    "Pone un dato en un cuadro indicado en la vairable en este caso A1, con el valor "Valor1""
+Range("A1").Value = "Valor1"                       "Es otra forma de hacer lo mismo de arriba"
+Range("A1:A5").Value = "Valor1" (Linea)            "Toma un rango completo de A1 hasta A5 y lo rellena con "Valor1""
+Range("A1", "A5").Value = "Valor1"                 "Es otra forma de hacer lo mismo de arriba"
+Range("A1:B5").Value = "Valor2" (Cuadro)           "Rellena un cuadro completo con ese valor "Valor1""
+Range("A1:B5, C1:D5") = "Valor1" (Doble Cuadro)    "Rellena dos cuadros definidos por los rangos con los valores "Valor1""
+Range("A1, B2, C3") = "Valor1"                     "Rellena cada celda con el valor "Valor1""
+Cell(7, 2).Value = "Valor1"                        "Otra forma de hacer referencia a una posicion, segun la posicion "Filas" y luego "Columnas""
+Range("A" & 1 & ":" & "B" & 5).Value = "Valor1"    "Otra forma de referenciar un rango"
+Range(Cell(7, 2), Cell(7, 2)) = "Valor1"           "Otra forma de referenciar un rango"
+
+Range("A1:B3").Cell(1,2).Value = "Valor1"          "Esto es algo diferente, toma un cuadro y en base a ese cuadro ubica la celda de la fila 1 y columna 2" 
+
+Range("A1").Offset(1,2).Value = "Valor1"           "Esto es un poco diferente, se toma la posicion A1 y en base a ese referencia se mueve 1 fila hacia abajo y 3 columnas hacia la derecha"
+
+Range("A1").Resize(1,2).Value = "Valor1"           "Redimenciona, pero tambien es otra forma de formatear tablas ideal, para seleccionar la tabla completa"
+
+# COLORES #
+Range("A1").Interior.Color = RGB(120, 30, 45)      "Le aplica un color al "
+
+# DIMENCION DE CELDAS #
+Range("3:15").EntireRow.RowHeight = 30             "Cambia el tamaño de la altura de las filas 3 a la 15, el tamaño es 30, no les coloca ninguna valor"
+Row("3:15").RowHeight = 30                         "Otra forma de hacer lo de arriba"
+Range("A:C").Entirecolumn.ColumnWidth = 50         "Cambia el tamaño del ancho de las columnas de la A a la C, el tamaño es 50, no les coloca ninguna valor"
+Columns("A:C").ColumnWidth = 50                    "Otra forma de hacer lo de arriba"
+
+Cells.EntireColumn.AutoFit                         "Dimenciona para que calcen todos los textos de todas las columnas"
+
+# Limpiar datos #
+Cells.Clear                                        "Borra todos los valores de todas las celdas"
+Range("A1").Clear                                  "Borra solo la celda A1"
+
+Range("A1").CurrentRegion.ClearFormats             "Elimina el formato de tabla, pero no los valores"
+
+# Eliminar datos #
+Range("A2").EntireColumn.Delete                    "Elimina una columna A, es diferente a clear porque aca si es que hay una tabla se ajusta automaticamente"
+Range("A2").EntireRow.Delete                       "Elimina la fila 2 de la misma forma que lo de arriba"
+
+# Definir funcion #
+Set Funcion1 = Range("A1").CurrentRegion           "Es definir para uso repetitivo de una clausula completa"
+
+##### OPERACIONES #####
+
+
+Rango("A1:C2").Columns.Count                       "Muestra la cantidad de columnas del rango"
+Rango("A1:C2").Rows.Count                          "Muestra la cantidad de filas del rango"
+Rango("A1").CurrentRegion.Select                   "Reconoce AUTOMATICAMENTE toda la tabla a la que pertenece la celda A1 y la selecciona"
+Rango("A1").CurrentRegion.Address                  "Reconoce la tabla y entrega las celdas de las dimenciones de la tabla"
+Rango("A1").CurrentRegion.Columns.Count            "Reconoce la tabla de A1 y entrega la cantidad de columnas que tiene"
+Rango("A1").CurrentRegion.Rows.Count               "Reconoce la tabla de A1 y entrega la cantidad de filas que tiene"
+
+Rango("A1:C3").Formula = "=Sum(20,20)"             "Es igual a poner 40 en cada celda"
+Rango("A1:C3").FormulaLocal = "=Suma(20,20)"       "Es igual a lo de arriba, pero se puede hacer en español"
+ActiveCell.HasFormula                              "Inidca si la celda activa proviene de una Formula"
+
+
+##### FORMATO #####
+
+
+---Letra
+Rango("A1:C2").CurrentRegion.Font.Name = "Arial"   "Cambia el tipo de letra a Arial"
+Rango("A1:C2").CurrentRegion.Font.Size = 20        "Cambia el tamaño de la letra a 20"
+
+---Tipo de dato
+Rango("A1").NumberFormat = "yyyy/mm/dd"            "Cambia el formato del tipo de dato"
+                           "CODIGO"                "Puede ser para cualquier formato, se puede ver con click derecho en una celda y formato, luego personalizado"
+
+###########################################################################################################################################################################
+
+                                                            FUNCIONES
+
+
+
+Address         AciveCell.Address                                  "Dice la ubicacion de la celda activa" 
+                Selection.Address                                  "Dice la ubicacion o rango de todo lo que se ha seleccionado"
+
+
+AddComment      Range("A1").AddComment "Comentario"                "Añade un comentario solo funciona con solo una celda, para mucha celdas se debe iterar"
+
+AutoFit         Cells.AutoFit                                      "Ajusta automaticamente el tamaño de las celdas al texto"
+
+AutoFilter      Range("A1").CurrentRegion.AutoFilter               "Le aplica automaticamente filtro a los nombres de la tabla"
+
+
+Copy            Range("A1").CurrentRegion.Copy                     "Copia una tabla completa a la espera de pegarla, Se debe seleccionar una celda despues"
+                Range("D1").Select                                 "Se ubica en esta celda para pegar separado de la original"
+
+                Range("A1").CurrentRegion.Copy Destination:=Range("D1")  "Esta es la version completa no necesita nada mas que este codigo, pega y selecciona automaticamente"
+
+Paste           ActiveSheet.Paste                                  "Para pegar lo que copiado, despues de seleccionar una celda, pero quedan las celdas seleccionadas"
+                Application.CutCopyMode = False                    "Deselecciona las celdas despues de copiar"
+
+                Range("D1").PasteSpecial xlPasteValues             "Pega solo los valores, sin formato tabla aunque sea seleccionada"
+                Range("D1").PasteSpecial xlPasteFormats            "Pega todo con el formato, pero sin filtro ni comentarios"
+
+Sort            Range("A1").CurrentRegion.Sort Key1:=Range("A1"), Order1:=Ascending, Key2:=Range("B1"), Order2:=xlDescending, Header:=xlYes
+                                                                   "Ordena segun abecedario y valor numerico, primer criterio la columna Key1, segundo criterio  columnas Key2
+                                                                    Header signiica que tienen nombre las columnas arriba no los considerara para el orden"
+
+Find            Range("A1").CurrentRegion.Find(What:="Patron").Select    "Busca la primera considencia con el patron"
+
+###########################################################################################################################################################################
+
+                                                                FUNCIONES VBA
+
+##### FUNCIONES DE TEXTO #####
+InStr      Range("A3").Value = VBA.InStr(Range("A1"), Range("A2"))
+LCase      Range("A3").Value = VBA.LCase(Range("A1"))
+UCase      Range("A3").Value = VBA.UCase(Range("A1"))                                                              
+Left       Range("A3").Value = VBA.Left(Range("A1"), 5)
+Right      Range("A3").Value = VBA.Right(Range("A1"), 6)
+Mid        Range("A3").Value = VBA.Mid(Range("A1"), 11, 5)
+Len        Range("A3").Value = VBA.Len(Range("A1"))
+Replace    Range("A3").Value = VBA.Replace(Range("A1"), "Palabra a remplazar", "Remplazo")                     "Importante es que remplaza solo la palabra no el texto entero"
+StrConv    Range("A3").Value = VBA.StrConv(Range("A1"), vbLowCase o vbUpperCase o vbProperCase)
+Trim       Range("A3").Value = VBA.Trim(Range("A1"))
+
+##### FUNCIONES FECHA Y HORA #####
+DateSerial Range("A3").Value = VBA.DateSerial(2019, 1, 2)
+Date       Range("A3").Value = VBA.Date
+Now        Range("A3").Value = VBA.Now
+Time       Range("A3").Value = VBA.Time
+Date       Range("A3").Value = VBA.Date(Fecha)
+Month      Range("A3").Value = VBA.Month(Fecha)
+MonthName  Range("A3").Value = VBA.MonthName(VBA.Month(Fecha), False)
+Year       Range("A3").Value = VBA.Year(Fecha)
+IsDate     Range("A3").Value = VBA.IsDate(Fecha)
+Hour       Range("A3").Value = VBA.Hour(Now)
+Minute     Range("A3").Value = VBA.Minute(Now)
+Second     Range("A3").Value = VBA.Second(Now)
+Weekday    Range("A3").Value = VBA.LCase(Date)
+WeekdayName Range("A3").Value = VBA.LCase(Range("A1"))
+
+##### FUNCIONE DE FORMATO #####
+CDate      Range("A3").Value = VBA.CDate(Range("A1").Value)
+CInt       Range("A3").Value = VBA.CInt(Range("A1"))
+CLng       Range("A3").Value = VBA.CLng(Range("A1"))
+CStr       Range("A3").Value = VBA.CStr(10) + VBA.CStr(10)
+Format     Range("A3").Value = VBA.Format(Range("A1").Value, "$#, ##0.00")
+Val        Range("A3").Value = VBA.Val(Range("A1").Value)
+FormatNumber    Range("A3").Value = VBA.FormatNumber(Range("A1").Value, 2)
+FormatCurrency  Range("A3").Value = VBA.FormatCurrency(Range("A1").Value, 2)
+FormatDateTime  Range("A3").Value = VBA.FormatDateTime(Range("A1").Value, vbLongDate)
+FormatPercent   Range("A3").Value = VBA.FormatPercent(Range("A1").Value, 0)
+IsNumeric  Range("A3").Value = VBA.IsNumeric(Range("A1").Value)
+IsDate     Range("A3").Value = VBA.IsDate(Range("A1").Value)
+IsEmpty    Range("A3").Value = VBA.IsEmpty(Range("A1").Value)
+IsError    Range("A3").Value = VBA.IsError(Range("A1").Value)
+
+###########################################################################################################################################################################
+
+                                                                    Hojas
+
+Worksheets o Sheets    Worksheets(2).Select                        "Activa la hoja en la posicion 2"
+                       Worksheets("Hoja1").Select                  "Activa la hoja por su nombre"
+
+Name                   Worksheets("Nombre o indice").Name = "Nuevo nombre"  "Cambio de nombre de la hoja"
+
+Visible                Worksheets("Nombre o indice").Visible = False        "Oculta la hoja, para revertir hay que poner true"                      
+
+Color                  Worksheets("Nombre o indice").Tab.Color = RGB(1,2,3) "Cambia el color de la viñeta de la ventana de la hoja"
+
+Protect                WorkSheets("Nombre o indice").Protect "Contraseña"   "Le aplica una contraseña a la hoja"
+Unprotect              WorkSheets("Nombre o indice").Unprotect "Misma_contraseña"    "Quita la contraseña"
+
+##########################################################################################################################################################################
+
+                                                            CONCICIONALES y CICLOS
+
+##### Estructura de condicionales #####
+If (condicion)                                                       If Not (condicion)
+    Then (Lo que sucedera si se cumple)
+ElseIf (condicion 2)
+    (Lo que sucede si se cumple la condicion 2)
+Else
+    (Si no se cumple nada, ocurrira esto)
+End If
+
+##### Objetos With #####
+With (codigo largo o variable junta)
+   .(opcion1) = "Algo"
+   .(opcion2) = "Algo"
+End With
+
+##### Ciclos #####
+For Each (variable del ciclo) In Workbooks
+        (Lo que se sudecera en cada hoja, se consideran activas)
+Next (variable del ciclo)        
+
+For Each ... In ....
+       If .... Then ...
+       ElseIf ...
+       Else ...
+       End If
+Next ....
+
+For Each celda In Workbooks("Hoja1").Range("A1").CurrentRegion.Columns(1).Cells
+        #recorre la columna
+        MsgBox celda.Value
+Next celda
+
+For i=1 To 5           ---- solo para cantidades
+    debug.print i
+Next i
+
+For Each TD in ActiveSheet.PivotTable                     -----> Actualiza tablas dinamicas instantaneamente
+         TD.RefreshTable
+Next TD         
+
+##### Select Case ##### (igual a if, pero para seleccionar un objeto)
+Select Case (Celda o variable)
+   Case (Condicion1)
+        (Lo que sucedera)
+   Case (Condicion2)
+        (Lo que sucedera)
+   Case Else
+        (Si ninguna de las condiciones se cumple)
+End Select        
+
+##### DO WHILE #####
+DO WHILE (condicion para que funcione) <> ""     ----> ocupa activecells     ------>  <> "Significa diferente"   = "Significa igual"
+      Active.Offset(1, 0).Select                                             ------> Es para que baje cada vez una celda, lo ideal es ocupar offset en cada operacion
+Loop
+
+##### DO UNTIL #####
+DO UNTIL (condicion para que no funcione) = ""                               ------> Esto es contrario a while, se pone la condicion para que que termine no para que funcione
+      Active.Offset(1, 0).Select                                             ------> Es para que baje cada vez una celda, lo ideal es ocupar offset en cada operacion
+Loop
+
+##########################################################################################################################################################################
+
+                                                                     ADICIONALES
+
+##### Ventana de mensajes #####
+Respuesta = MsgBox("Mensaje que saldra" & Chr(13) & vbNewLine & "Otro mensaje" & vbQuestion + vbYesNo, "Titulo de la ventana")    Chr(13) significa salto de linea
+
+If Respuesta = vbYes                                                       If Not (condicion)
+    Then (Lo que sucedera si se cumple)
+Else
+    (Si no se cumple nada, ocurrira esto)
+End If
+
+
+-----vbExclamation es un icono que se le agrega al mensaje                         icono + cantidad de opciones
+     vbInformation pone un icono que sale informacion
+     vbYesNoCancel pone 3 botones
+     vbDefaultbutton3 poner segun el orden una preseleccionado
+
+##### Input de valores #####
+Dim rango As Range
+Set rango = Application.InputBox("Rango", Titulo, Type:=8)                       buscar type, se refiere al tipo de dato que recibira, Dim asegura que sera ese dato
+
+For Each celda In rango
+        celda.Value = celda.Value + 1                                            Las variables definidas dentro queda por el resto de la macros
+Next celda
+
+
+################################################################################################################################################################
+
+
+
+Para hacer referencia a  una celda
+Range("A1").Select     (OBJETO)
+
+Worksheets("Hoja1").Range("A1").Select   (OBJETO ESPECIFICANDO HOJA)
+
+Workbooks("Archivo1.xlsx").Worksheets("Hoja1").Range("A1").Select    (OBJETO ESPECIFICANDO ARCHIVO Y HOJA)  (opcionalmente se puede poner Application. al inicio)
+
+ ---Workbooks significa varios archivos, de eso elegimos solo uno
+
+siempre que ocupemos una accion en un objeto  este se pone después del objeto asi:   objeto.accion   --->    Range("A1").Select
+
+
+Funciones mas utilizadas
+
+Application ----------> ActiveCell
+                        ActiveSheet
+                        ActiveChart
+                        Addins
+                        ActiveWindows     
+                        Calculate
+                        CheckSpelling
+                        InputBox
+                        OnTime
+                        Run
+
+Workbook    ----------> ActiveSheet
+                        Sheets
+                        Name
+                        FullName
+                        Path
+                        Close
+                        Open
+                        Save
+                        SaveAs
+                        PrintOut
+
+WorkSheet    ---------> Name
+                        Tab
+                        Visible
+                        Index
+                        Hyperlinks
+                        Activate
+                        Copy
+                        Delete
+                        Move
+                        Paste
+
+Range / Cell -------->  Address
+                        Rows
+                        Columns
+                        Count
+                        CurrentRegion
+                        Activate
+                        AutoFit
+                        AutoFilter
+                        Copy
+                        AddComment
+                        
+                        
+
+
+
+
+
+
+
+
+
+
+
